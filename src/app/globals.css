@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+
+/*
+ * Paleta "juridica" de ActaFlow. Contraste verificado (WCAG AA o mejor) sobre papel y superficie.
+ *  - papel / superficie: fondos calidos, como un expediente impreso
+ *  - tinta: texto principal
+ *  - institucional: acciones y navegacion
+ *  - ia: RESERVADO solo para lo que produce la inteligencia artificial
+ */
+:root {
+  --papel: #f6f3ec;
+  --superficie: #fffdf8;
+  --tinta: #1d1b18;
+  --tinta-suave: #5a554c;
+  --linea: #dad3c4;
+  --institucional: #1e3a5f;
+  --institucional-suave: #e4eaf2;
+  --ia: #6e3591;
+  --ia-suave: #f2e9f7;
+  --exito: #2d6a3e;
+  --alerta: #875400;
+  --error: #a2271d;
+  color-scheme: light;
+}
+
+/* Modo oscuro opcional (el boton llega con el sistema de diseno). */
+[data-theme='dark'] {
+  --papel: #16181d;
+  --superficie: #1e2128;
+  --tinta: #ece8df;
+  --tinta-suave: #a9a398;
+  --linea: #343842;
+  --institucional: #8fb3e0;
+  --institucional-suave: #1f2c3d;
+  --ia: #c9a2e3;
+  --ia-suave: #2e2238;
+  --exito: #7fc896;
+  --alerta: #e3b35c;
+  --error: #f08b80;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-papel: var(--papel);
+  --color-superficie: var(--superficie);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-linea: var(--linea);
+  --color-institucional: var(--institucional);
+  --color-institucional-suave: var(--institucional-suave);
+  --color-ia: var(--ia);
+  --color-ia-suave: var(--ia-suave);
+  --color-exito: var(--exito);
+  --color-alerta: var(--alerta);
+  --color-error: var(--error);
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, serif;
+}
+
+html {
+  background-color: var(--papel);
+  color: var(--tinta);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Foco siempre visible para navegacion con teclado. */
+:focus-visible {
+  outline: 3px solid var(--institucional);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
