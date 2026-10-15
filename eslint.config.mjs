@@ -12,7 +12,22 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'coverage/**', 'next-env.d.ts']),
+  {
+    // Herramientas de linea de comandos: escribir en consola es su trabajo.
+    files: ['scripts/**/*.mjs'],
+    rules: { 'no-console': 'off' },
+  },
+  {
+    // La falsa seguridad de TypeScript: un `as` le dice al compilador "confia en mi" sin comprobar
+    // nada en tiempo de ejecucion. En el codigo de produccion los datos externos se PARSEAN
+    // (Zod, mensajes protobuf generados); nunca se afirman con `as`.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/gen/**'],
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+    },
+  },
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'coverage/**', 'next-env.d.ts', 'src/gen/**']),
 ])
 
 export default eslintConfig
