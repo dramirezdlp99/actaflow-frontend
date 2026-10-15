@@ -1,0 +1,6 @@
+# Contratos fijados: su sha256 en contracts.lock.json se calcula con LF.
+contracts/** text eol=lf
+contracts.lock.json text eol=lf
+# Codigo generado: identico en Windows y en CI, para que la comprobacion de deriva no falle.
+src/gen/** text eol=lf
+*.mjs text eol=lf
