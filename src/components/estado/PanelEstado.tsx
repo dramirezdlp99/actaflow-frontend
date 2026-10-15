@@ -12,13 +12,13 @@ export async function PanelEstado() {
 export function EsqueletoEstado() {
   return (
     <section className="mt-8" aria-busy="true" aria-live="polite">
-      <p className="rounded-lg border border-linea bg-superficie p-5 text-sm text-tinta-suave">
+      <p className="rounded-2xl border border-linea bg-superficie p-5 text-sm text-tinta-suave">
         Consultando cada capa… Si los servidores gratuitos estaban dormidos, despertarlos puede tardar cerca de un
         minuto.
       </p>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2" aria-hidden="true">
-        {[0, 1, 2, 3].map((i) => (
-          <li key={i} className="h-28 animate-pulse rounded-lg border border-linea bg-superficie" />
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <li key={i} className="h-32 animate-pulse rounded-2xl border border-linea bg-superficie" />
         ))}
       </ul>
     </section>
