@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { despertarServicios } from '@/app/acciones/despertar'
 import Inicio, { dynamic } from '@/app/page'
+
+vi.mock('@/app/acciones/despertar', () => ({ despertarServicios: vi.fn(async () => {}) }))
 
 describe('portada (SSG)', () => {
   it('se genera de forma estatica', () => {
@@ -8,7 +11,6 @@ describe('portada (SSG)', () => {
   })
 
   it('presenta el proyecto en construccion y enlaza al estado del sistema', () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
     render(<Inicio />)
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('ActaFlow')
@@ -18,7 +20,6 @@ describe('portada (SSG)', () => {
   })
 
   it('muestra los cuatro pilares del navegador y la tarjeta de IA', () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
     render(<Inicio />)
 
     for (const titulo of [
@@ -32,16 +33,14 @@ describe('portada (SSG)', () => {
     }
   })
 
-  it('despierta los servicios en segundo plano una sola vez y por el BFF', () => {
-    const espia = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
+  it('despierta los servicios una sola vez con una Server Action (RPC, sin ruta REST)', () => {
+    vi.mocked(despertarServicios).mockClear()
     render(<Inicio />)
 
-    expect(espia).toHaveBeenCalledTimes(1)
-    expect(espia.mock.calls[0]?.[0]).toBe('/api/estado')
+    expect(despertarServicios).toHaveBeenCalledTimes(1)
   })
 
   it('no inventa estadisticas ni cifras', () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
     const { container } = render(<Inicio />)
     expect(container.textContent).not.toMatch(/\d+\s*%|\d+x|\+\d+/)
   })
