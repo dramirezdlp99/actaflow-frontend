@@ -19,7 +19,7 @@ export function VistaEstadoSistema({ vista }: { vista: VistaEstado }) {
   return (
     <section aria-labelledby="titulo-resultado" className="mt-8">
       <div
-        className={`flex items-start gap-3 rounded-lg border p-5 ${
+        className={`flex items-start gap-3 rounded-2xl border p-5 shadow-suave ${
           operativo ? 'border-exito/40 bg-superficie' : 'border-alerta/40 bg-superficie'
         }`}
       >
@@ -39,7 +39,7 @@ export function VistaEstadoSistema({ vista }: { vista: VistaEstado }) {
         </div>
       </div>
 
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {vista.capas.map((capa) => (
           <TarjetaCapa key={capa.id} capa={capa} />
         ))}
