@@ -35,6 +35,12 @@ export function TarjetaCapa({ capa }: { capa: Capa }) {
             <dd>{capa.latenciaMs.toLocaleString('es-CO')} ms</dd>
           </div>
         ) : null}
+        {capa.transporte ? (
+          <div className="flex gap-1">
+            <dt>Transporte:</dt>
+            <dd>{capa.transporte}</dd>
+          </div>
+        ) : null}
         {capa.version ? (
           <div className="flex gap-1">
             <dt>Versión:</dt>
