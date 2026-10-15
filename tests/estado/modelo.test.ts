@@ -1,67 +1,56 @@
 import { describe, expect, it } from 'vitest'
-import { esRespuestaEstado, vistaDesdeBackend, vistaSinBackend } from '@/lib/estado/modelo'
-import { respuestaEstadoOk } from '../soporte/datos'
+import { HealthState, Transport } from '@/gen/actaflow/system/v1/service_status_pb'
+import { construirVista, estadoCapa, nombreTransporte, type ResultadoServicio } from '@/lib/estado/modelo'
+import { estadoExpedientes, estadoIdentidad } from '../soporte/datos'
 
-describe('modelo de la pagina de estado', () => {
-  it('valida la respuesta real del backend', () => {
-    expect(esRespuestaEstado(respuestaEstadoOk())).toBe(true)
-  })
+const AHORA = new Date('2026-10-06T15:00:00Z')
+const ok = (estado = estadoIdentidad()): ResultadoServicio => ({ tipo: 'respondio', estado, latenciaMs: 90 })
+const caido: ResultadoServicio = { tipo: 'fallo', motivo: 'No respondió' }
 
-  it.each([
-    ['null', null],
-    ['otro servicio', { ...respuestaEstadoOk(), servicio: 'otro' }],
-    ['estado desconocido', { ...respuestaEstadoOk(), estado: 'ROTO' }],
-    ['sin componentes', { ...respuestaEstadoOk(), componentes: undefined }],
-    [
-      'componente sin latencia',
-      {
-        ...respuestaEstadoOk(),
-        componentes: { ...respuestaEstadoOk().componentes, motorIa: { estado: 'OK', detalle: null, version: null } },
-      },
-    ],
-    ['un arreglo', []],
-  ])('rechaza respuestas mal formadas: %s', (_nombre, valor) => {
-    expect(esRespuestaEstado(valor)).toBe(false)
-  })
-
-  it('con el backend OK muestra las cuatro capas operativas', () => {
-    const vista = vistaDesdeBackend(respuestaEstadoOk(), 230, 'abc1234')
-
+describe('construirVista', () => {
+  it('con todo respondiendo bien, las cinco capas estan operativas', () => {
+    const vista = construirVista(ok(), ok(estadoExpedientes()), 'abc1234', AHORA)
     expect(vista.general).toBe('OK')
-    expect(vista.capas.map((c) => [c.id, c.estado])).toEqual([
-      ['frontend', 'OK'],
-      ['backend', 'OK'],
-      ['baseDatos', 'OK'],
-      ['motorIa', 'OK'],
-    ])
-    expect(vista.capas[0]?.version).toBe('abc1234')
-    expect(vista.capas[1]?.latenciaMs).toBe(230)
-    expect(vista.verificadoEn).toBe('2026-10-06T15:00:00Z')
-  })
-
-  it('un motor caido degrada el sistema y conserva su detalle', () => {
-    const respuesta = respuestaEstadoOk()
-    respuesta.estado = 'DEGRADADO'
-    respuesta.componentes.motorIa = {
-      estado: 'CAIDO',
-      latenciaMs: 7000,
-      detalle: 'Sin respuesta en 7 s (puede estar despertando)',
-      version: null,
-    }
-
-    const vista = vistaDesdeBackend(respuesta, 100, null)
-
-    expect(vista.general).toBe('DEGRADADO')
-    const motor = vista.capas.find((c) => c.id === 'motorIa')
-    expect(motor?.estado).toBe('CAIDO')
-    expect(motor?.detalle).toContain('despertando')
-  })
-
-  it('sin backend, las capas que dependen de el quedan desconocidas', () => {
-    const vista = vistaSinBackend('No respondio', null, new Date('2026-10-06T15:00:00Z'))
-
-    expect(vista.general).toBe('DEGRADADO')
-    expect(vista.capas.map((c) => c.estado)).toEqual(['OK', 'CAIDO', 'DESCONOCIDO', 'DESCONOCIDO'])
+    expect(vista.capas.map((c) => c.id)).toEqual(['frontend', 'identidad', 'expedientes', 'baseDatos', 'motorIa'])
     expect(vista.verificadoEn).toBe('2026-10-06T15:00:00.000Z')
+    const identidad = vista.capas[1]
+    expect(identidad).toMatchObject({ estado: 'OK', latenciaMs: 90, version: '0.2.0', transporte: 'gRPC-Web (HTTP/1.1)' })
+  })
+
+  it('la base de datos resume los esquemas de los dos servicios', () => {
+    const base = construirVista(ok(), ok(estadoExpedientes()), null, AHORA).capas[3]
+    expect(base?.detalle).toBe('PostgreSQL responde; esquema identity v1 · PostgreSQL responde; esquema legal_case v2')
+    expect(base?.latenciaMs).toBe(30)
+  })
+
+  it('el motor muestra lo que dice de si mismo y por donde le llegaron', () => {
+    const motor = construirVista(ok(), ok(estadoExpedientes(HealthState.DEGRADED)), null, AHORA).capas[4]
+    expect(motor).toMatchObject({
+      estado: 'DEGRADADO',
+      detalle: 'Modelo de voz tiny no instalado',
+      transporte: 'gRPC (HTTP/2)',
+    })
+  })
+
+  it('si expedientes no responde, el motor queda desconocido y la base solo a medias', () => {
+    const vista = construirVista(ok(), caido, null, AHORA)
+    expect(vista.general).toBe('DEGRADADO')
+    expect(vista.capas[2]).toMatchObject({ estado: 'CAIDO', detalle: 'No respondió' })
+    expect(vista.capas[3]?.estado).toBe('DESCONOCIDO')
+    expect(vista.capas[4]?.estado).toBe('DESCONOCIDO')
+  })
+
+  it('sin ningun servicio la base de datos es desconocida', () => {
+    expect(construirVista(caido, caido, null, AHORA).capas[3]?.estado).toBe('DESCONOCIDO')
+  })
+
+  it('traduce todos los valores de los enums del contrato', () => {
+    expect([HealthState.UNSPECIFIED, HealthState.OK, HealthState.DEGRADED, HealthState.DOWN].map(estadoCapa)).toEqual([
+      'DESCONOCIDO',
+      'OK',
+      'DEGRADADO',
+      'CAIDO',
+    ])
+    expect(nombreTransporte(Transport.UNSPECIFIED)).toBeNull()
   })
 })
