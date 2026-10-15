@@ -22,6 +22,13 @@ jobs:
           cache: npm
       - name: Instalar dependencias
         run: npm ci
+      - name: Contratos identicos a la version publicada
+        run: node scripts/contracts.mjs check --remote
+      - name: Codigo generado al dia con los contratos
+        run: |
+          npm run contracts:gen
+          git add -N src/gen
+          git diff --exit-code -- src/gen
       - name: Auditoria de dependencias de produccion
         run: npm audit --omit=dev --audit-level=high
       - name: Lint
