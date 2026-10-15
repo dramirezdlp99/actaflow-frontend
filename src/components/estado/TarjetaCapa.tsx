@@ -16,10 +16,15 @@ export function etiquetaEstado(estado: EstadoCapa): string {
 export function TarjetaCapa({ capa }: { capa: Capa }) {
   const { etiqueta, icono: Icono, clases } = PRESENTACION[capa.estado]
   return (
-    <li className="rounded-lg border border-linea bg-superficie p-5" data-capa={capa.id} data-estado={capa.estado}>
+    <li
+      className="entrada @container relative overflow-hidden rounded-2xl border border-linea bg-superficie p-5 shadow-suave"
+      data-capa={capa.id}
+      data-estado={capa.estado}
+    >
+      <span aria-hidden="true" className={`absolute inset-y-0 left-0 w-1 bg-current ${clases}`} />
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="font-semibold">{capa.nombre}</h3>
+          <h3 className="font-serif text-lg font-semibold">{capa.nombre}</h3>
           <p className="text-sm text-tinta-suave">{capa.plataforma}</p>
         </div>
         <p className={`inline-flex shrink-0 items-center gap-1.5 text-sm font-medium ${clases}`}>
