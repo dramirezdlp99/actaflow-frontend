@@ -18,7 +18,8 @@ export default function PaginaEstado() {
         <h1 className="font-serif text-3xl font-semibold tracking-tight">Estado del sistema</h1>
         <p className="mt-3 max-w-3xl leading-relaxed text-tinta-suave">
           Esta página consulta cada capa de ActaFlow a través del BFF: el navegador solo habla con el servidor de Next,
-          que firma la petición y la reenvía al backend; el backend verifica la base de datos y el motor de IA.
+          que llama por gRPC a cada microservicio con una firma HMAC distinta por servicio. El servicio de expedientes,
+          a su vez, llama por gRPC al motor de IA.
         </p>
         <Suspense fallback={<EsqueletoEstado />}>
           <PanelEstado />
