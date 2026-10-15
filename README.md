@@ -63,7 +63,7 @@ algo no esté operativo.
 
 | Patrón | Ruta | Por qué | Cómo verificarlo en `next build` |
 |---|---|---|---|
-| **SSG** | `/` (portada) | Contenido idéntico para todos; se genera en el build y se sirve desde la CDN | `○ /` (Static) |
+| **SSG** | `/`, `/como-funciona`, `/terminos`, `/privacidad` | Contenido idéntico para todos; se genera en el build y se sirve desde la CDN | `○` (Static) |
 | **SSR dinámico + streaming** | `/estado` | El estado de las capas es del momento; el encabezado sale de inmediato y el resultado llega por streaming con `Suspense` | `ƒ /estado` (Dynamic) |
 
 El mapa completo de los cinco patrones del proyecto:
@@ -76,12 +76,19 @@ El mapa completo de los cinco patrones del proyecto:
 | Streaming SSR | `/expedientes/[id]` | 4 |
 | CSR | `/expedientes/[id]/audiencia`, `/sin-conexion` | 6 y 7 |
 
-## Diseño
+## Diseño: "expediente vivo"
 
-Modo claro principal con paleta "jurídica" definida en `src/app/globals.css`: papel, tinta, un
-azul institucional y un **violeta reservado solo para lo que produce la IA**. Todos los pares de
-color se verificaron con WCAG AA (la mayoría cumple AAA). Los tokens del modo oscuro ya están
-definidos; el botón llega con el sistema de diseño.
+- **Papel y tinta:** fondo cálido con grano (SVG en línea), hojas con reglas y margen rojo de
+  notaría, titulares en Source Serif 4 con tamaño óptico y rótulos en versalitas.
+- **Colores con significado:** azul institucional para acciones, **lacre** para lo oficial y
+  **violeta reservado solo para lo que produce la IA**. Contraste WCAG AA verificado por un test
+  sobre los tokens reales, en claro y en oscuro (`tests/diseno/contraste.test.ts`).
+- **Modo claro principal y oscuro "tinta nocturna":** un script en `<head>` fija el tema antes
+  de pintar (sin destello) y el botón lo cambia con una revelación circular (View Transitions).
+- **Animaciones con sentido:** la minuta de la portada se escribe sola, la IA marca en violeta y
+  el abogado la sella; la línea del recorrido se traza con el scroll (`animation-timeline`, CSS
+  puro). Todo se desactiva con `prefers-reduced-motion`.
+- Container queries en las tarjetas, navegación con `aria-current` y foco siempre visible.
 
 ## Desarrollo local (PowerShell)
 
