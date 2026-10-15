@@ -1,0 +1,12 @@
+# Codigo TypeScript generado desde los contratos fijados (contracts/). Nadie lo edita a mano:
+# npm run contracts:gen lo regenera y CI comprueba que esta al dia.
+version: v2
+inputs:
+  - directory: contracts
+plugins:
+  - local: protoc-gen-es
+    out: src/gen
+    opt:
+      - target=ts
+      - import_extension=none
+clean: true
