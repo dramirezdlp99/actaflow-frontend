@@ -8,26 +8,56 @@ maquetación de minutas para audiencias de conciliación y mediaciones legales.
 | Framework | Next.js 16.3 (App Router, Turbopack) + React 19.2 |
 | Lenguaje | TypeScript estricto |
 | Estilos | Tailwind CSS 4, `lucide-react`, fuentes Inter y Source Serif 4 servidas localmente |
+| RPC | gRPC / gRPC-Web con ConnectRPC 2 y Protobuf-ES 2, código generado desde los contratos |
+| Validación | Zod 4 en las fronteras (entorno, Server Actions) |
 | Pruebas | Vitest + Testing Library |
 | Puerto local | **3001** |
 | Despliegue | Vercel (plan Hobby) |
 
-## El servidor de Next como BFF
+## El servidor de Next como BFF (gRPC hacia los microservicios)
 
-El navegador **nunca** habla con el backend directamente:
+El navegador **nunca** habla con los microservicios, y **no hay API REST**:
 
-1. El navegador llama a rutas del propio Next (`/api/...` o páginas de servidor).
-2. El BFF (`src/lib/bff/`) firma cada petición con HMAC-SHA256 y la reenvía a la URL real
-   del backend, que solo conoce el servidor (`ACTAFLOW_BACKEND_URL`, sin `NEXT_PUBLIC_`).
-3. El backend rechaza todo lo que no venga firmado.
+1. El navegador solo invoca páginas de servidor y **Server Actions** (funciones del BFF, RPC;
+   no recursos con verbos HTTP).
+2. El BFF llama por **gRPC** a `identity-service` y `legal-case-service` con clientes **generados**
+   desde `actaflow-contracts` (`src/gen/`, Protobuf-ES + ConnectRPC). Sus URLs y secretos solo los
+   conoce el servidor (sin `NEXT_PUBLIC_`).
+3. Cada llamada va firmada con HMAC-SHA256 en los metadatos, con **un secreto por par**
+   (`ACTAFLOW_IDENTITY_HMAC_SECRET`, `ACTAFLOW_LEGAL_CASE_HMAC_SECRET`). Mensaje canónico idéntico
+   en Java, Python y TypeScript, con vectores de prueba compartidos:
+   `{timestamp}\nRPC\n/{paquete.Servicio}/{Metodo}\n{sha256 hex de los bytes protobuf}`.
 
-Mensaje canónico (idéntico en los tres repos, con vectores de prueba compartidos):
-`timestamp \n MÉTODO \n ruta[?consulta] \n sha256_hex(cuerpo)`.
+| Transporte | Cuándo | Variable |
+|---|---|---|
+| gRPC nativo (HTTP/2) | local | `ACTAFLOW_RPC_TRANSPORT=grpc` |
+| gRPC-Web (HTTP/1.1) | Vercel → Render Free (sin HTTP/2 público) | `ACTAFLOW_RPC_TRANSPORT=grpc-web` (por defecto) |
+| Mocks tipados | desarrollo sin servicios | `ACTAFLOW_RPC_MODE=mock` |
 
-**Plan gratuito:** el BFF espera hasta 2 minutos a un backend dormido de Render, reintentando
-errores de red y respuestas 502/503/504 solo en operaciones seguras de repetir. La portada
-despierta los servicios en segundo plano y `/estado` reintenta sola cada 20 s mientras algo no
-esté operativo.
+### Contract-First y tipado de punta a punta
+
+- `contracts/` es una copia **fijada** de `actaflow-contracts` (`contracts.lock.json` guarda la
+  versión y el sha256 de cada archivo). CI comprueba que es idéntica a la versión publicada.
+- `npm run contracts:gen` regenera `src/gen/` con `buf generate`; CI falla si alguien lo editó a
+  mano o lo dejó desactualizado.
+- La cadena de tipos no se rompe: PostgreSQL → Java (código generado) → Protobuf en el cable →
+  TypeScript generado → componentes. Si el contrato cambia, `/estado` deja de compilar en vez de
+  fallar en producción.
+- **La falsa seguridad de TypeScript:** los tipos desaparecen al ejecutar. Por eso lo que entra
+  desde fuera se **parsea** (Zod para el entorno, Protobuf para los mensajes) y ESLint prohíbe
+  los `as` en el código de producción (`consistent-type-assertions: never`).
+
+Actualizar a otra versión del contrato:
+
+```powershell
+node scripts/contracts.mjs sync v0.2.0
+npm run contracts:gen
+```
+
+**Plan gratuito:** el BFF espera hasta 2 minutos a un servicio dormido de Render, reintentando
+solo `UNAVAILABLE` y `DEADLINE_EXCEEDED` (nunca una firma rechazada). La portada despierta los
+servicios en segundo plano con una Server Action y `/estado` reintenta sola cada 20 s mientras
+algo no esté operativo.
 
 ## Patrones de renderizado
 
@@ -35,7 +65,6 @@ esté operativo.
 |---|---|---|---|
 | **SSG** | `/` (portada) | Contenido idéntico para todos; se genera en el build y se sirve desde la CDN | `○ /` (Static) |
 | **SSR dinámico + streaming** | `/estado` | El estado de las capas es del momento; el encabezado sale de inmediato y el resultado llega por streaming con `Suspense` | `ƒ /estado` (Dynamic) |
-| **SSR (Route Handler)** | `/api/estado` | Punto del BFF que la portada usa como "despertador" | `ƒ /api/estado` |
 
 El mapa completo de los cinco patrones del proyecto:
 
@@ -56,10 +85,21 @@ definidos; el botón llega con el sistema de diseño.
 
 ## Desarrollo local (PowerShell)
 
+Sin ningún servicio levantado (mocks tipados):
+
 ```powershell
 npm ci
-[Environment]::SetEnvironmentVariable("ACTAFLOW_BACKEND_URL", "http://localhost:9097", "User")
-[Environment]::SetEnvironmentVariable("ACTAFLOW_BFF_HMAC_SECRET", "<el mismo secreto BFF del backend>", "User")
+$env:ACTAFLOW_RPC_MODE="mock"; npm run dev
+```
+
+Con los microservicios locales (gRPC nativo), una sola vez:
+
+```powershell
+[Environment]::SetEnvironmentVariable("ACTAFLOW_RPC_TRANSPORT", "grpc", "User")
+[Environment]::SetEnvironmentVariable("ACTAFLOW_IDENTITY_URL", "http://localhost:9198", "User")
+[Environment]::SetEnvironmentVariable("ACTAFLOW_LEGAL_CASE_URL", "http://localhost:9197", "User")
+[Environment]::SetEnvironmentVariable("ACTAFLOW_IDENTITY_HMAC_SECRET", "<el mismo de identity-service>", "User")
+[Environment]::SetEnvironmentVariable("ACTAFLOW_LEGAL_CASE_HMAC_SECRET", "<el mismo de legal-case-service>", "User")
 # cierra y vuelve a abrir VS Code para que tome las variables
 npm run dev
 ```
@@ -70,14 +110,22 @@ Verificación:
 npm test; npm run lint; npm run typecheck; npm run build
 ```
 
+Prueba opcional contra un servicio real (interoperabilidad entre lenguajes):
+
+```powershell
+$env:ACTAFLOW_IT_URL="http://localhost:9098"; $env:ACTAFLOW_IT_TRANSPORT="grpc-web"
+$env:ACTAFLOW_IT_SECRET="<secreto del par>"; npx vitest run tests/integracion
+```
+
 ## Runbook de despliegue (Vercel)
 
-1. Vercel → **Add New → Project** → importar `dramirezdlp99/actaflow-frontend`.
-2. Framework: Next.js (detección automática). Sin cambios en comandos de build.
-3. Variables de entorno (Production): `ACTAFLOW_BACKEND_URL` (URL de Render del backend),
-   `ACTAFLOW_BFF_HMAC_SECRET` (el secreto BFF de producción) y, opcional,
-   `ACTAFLOW_BACKEND_WAIT_MS=120000`.
-4. Cada push a `main` despliega solo; los PR generan vistas previas.
+1. Proyecto `actaflow-frontend` en Vercel, framework Next.js, sin cambios en comandos de build.
+2. Variables de entorno (Production): `ACTAFLOW_IDENTITY_URL` y `ACTAFLOW_LEGAL_CASE_URL` (URLs de
+   Render), `ACTAFLOW_IDENTITY_HMAC_SECRET` y `ACTAFLOW_LEGAL_CASE_HMAC_SECRET` (los de
+   producción) y, opcional, `ACTAFLOW_BACKEND_WAIT_MS=120000`. `ACTAFLOW_RPC_TRANSPORT` no hace
+   falta: el valor por defecto es `grpc-web`. Borra las antiguas `ACTAFLOW_BACKEND_URL` y
+   `ACTAFLOW_BFF_HMAC_SECRET`.
+3. Cada push a `main` despliega solo; los PR generan vistas previas.
 
 ## Seguridad
 
