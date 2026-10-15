@@ -13,13 +13,14 @@ describe('portada (SSG)', () => {
   it('presenta el proyecto en construccion y enlaza al estado del sistema', () => {
     render(<Inicio />)
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('ActaFlow')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('La minuta se escribe mientras la audiencia ocurre')
     expect(screen.getByText('En construcción')).toBeInTheDocument()
     const enlaces = screen.getAllByRole('link', { name: /estado del sistema/i })
+    expect(enlaces.length).toBeGreaterThan(0)
     expect(enlaces.every((e) => e.getAttribute('href') === '/estado')).toBe(true)
   })
 
-  it('muestra los cuatro pilares del navegador y la tarjeta de IA', () => {
+  it('muestra el recorrido, los cuatro pilares y la tarjeta de IA', () => {
     render(<Inicio />)
 
     for (const titulo of [
@@ -28,6 +29,8 @@ describe('portada (SSG)', () => {
       'Funciona sin conexión',
       'Revisión colaborativa',
       'La IA propone; el abogado confirma',
+      'La IA extrae lo que importa',
+      'El abogado revisa y sella',
     ]) {
       expect(screen.getByRole('heading', { name: titulo })).toBeInTheDocument()
     }
