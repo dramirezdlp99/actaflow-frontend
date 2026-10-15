@@ -6,6 +6,8 @@ import { PiePagina } from '@/components/marca/PiePagina'
 
 // Portada: SSG. Contenido identico para todos, generado en el build y servido desde la CDN.
 export const dynamic = 'force-static'
+// La Server Action que despierta los servicios puede esperar a Render (~1 min) y a Neon.
+export const maxDuration = 300
 
 type Pilar = { icono: LucideIcon; titulo: string; texto: string }
 
