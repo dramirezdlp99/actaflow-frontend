@@ -1,8 +1,44 @@
 import { Code, ConnectError } from '@connectrpc/connect'
 import { describe, expect, it, vi } from 'vitest'
 import { HealthState } from '@/gen/actaflow/system/v1/service_status_pb'
-import { conDespertar, crearClientes, esperaEntreIntentos, ServicioNoDisponibleError } from '@/lib/rpc/clientes'
+import {
+  conDespertar,
+  crearClientes,
+  esperaEntreIntentos,
+  mientrasDespierta,
+  ServicioNoDisponibleError,
+} from '@/lib/rpc/clientes'
 import { relojFalso } from '../soporte/datos'
+
+describe('mientrasDespierta (renovacion de sesion)', () => {
+  it('reintenta solo UNAVAILABLE', async () => {
+    const llamada = vi
+      .fn<() => Promise<string>>()
+      .mockRejectedValueOnce(new ConnectError('despertando', Code.Unavailable))
+      .mockResolvedValue('renovada')
+    await expect(mientrasDespierta(llamada, 120_000, relojFalso())).resolves.toBe('renovada')
+    expect(llamada).toHaveBeenCalledTimes(2)
+  })
+
+  it('no repite un DEADLINE_EXCEEDED: la rotacion pudo ocurrir y repetirla parece robo', async () => {
+    const llamada = vi.fn(async () => {
+      throw new ConnectError('lento', Code.DeadlineExceeded)
+    })
+    await expect(mientrasDespierta(llamada, 120_000, relojFalso())).rejects.toMatchObject({
+      code: Code.DeadlineExceeded,
+    })
+    expect(llamada).toHaveBeenCalledTimes(1)
+  })
+
+  it('se rinde al agotar la espera', async () => {
+    const reloj = relojFalso()
+    const llamada = vi.fn(async () => {
+      reloj.avanzar(30_000)
+      throw new ConnectError('dormido', Code.Unavailable)
+    })
+    await expect(mientrasDespierta(llamada, 60_000, reloj)).rejects.toBeInstanceOf(ServicioNoDisponibleError)
+  })
+})
 
 describe('conDespertar', () => {
   it('reintenta mientras el servicio despierta y devuelve la respuesta', async () => {
