@@ -97,6 +97,8 @@ html {
 }
 
 body {
+  /* Las animaciones de sello crecen un instante: clip (no hidden) evita el scroll lateral sin romper sticky. */
+  overflow-x: clip;
   font-family: var(--font-sans);
   font-feature-settings: 'cv11', 'ss01';
   -webkit-font-smoothing: antialiased;
