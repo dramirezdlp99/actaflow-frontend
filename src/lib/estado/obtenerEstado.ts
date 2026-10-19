@@ -1,12 +1,18 @@
 import 'server-only'
 import { Code, ConnectError } from '@connectrpc/connect'
 import { ConfiguracionInvalidaError, leerConfiguracion, type ConfiguracionBff } from '@/lib/rpc/configuracion'
-import { conDespertar, crearClientes, ServicioNoDisponibleError, type ClientesRpc, type Reloj } from '@/lib/rpc/clientes'
+import {
+  conDespertar,
+  crearClientes,
+  ServicioNoDisponibleError,
+  type ClientesEstado,
+  type Reloj,
+} from '@/lib/rpc/clientes'
 import { construirVista, type ResultadoServicio, type VistaEstado } from './modelo'
 
 export type Dependencias = Reloj & {
   configuracion?: ConfiguracionBff
-  clientes?: ClientesRpc
+  clientes?: ClientesEstado
 }
 
 const VARIABLE_SECRETO = {
@@ -53,9 +59,9 @@ export async function obtenerEstado(dependencias: Dependencias = {}): Promise<Vi
     const motivo: ResultadoServicio = { tipo: 'fallo', motivo: 'El BFF no está configurado en este entorno' }
     return construirVista(motivo, motivo, version, new Date(ahora()))
   }
-  const clientes = dependencias.clientes ?? crearClientes(configuracion)
+  const clientes: ClientesEstado = dependencias.clientes ?? crearClientes(configuracion)
 
-  const consultar = async (servicio: keyof ClientesRpc): Promise<ResultadoServicio> => {
+  const consultar = async (servicio: keyof ClientesEstado): Promise<ResultadoServicio> => {
     const inicio = ahora()
     try {
       const respuesta = await conDespertar(
