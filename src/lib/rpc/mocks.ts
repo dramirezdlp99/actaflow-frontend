@@ -10,6 +10,7 @@ import {
   ServiceStatusService,
   Transport as TransporteContrato,
 } from '@/gen/actaflow/system/v1/service_status_pb'
+import { registrarIdentidadSimulada } from './identidadSimulada'
 
 /**
  * Mocks TIPADOS desde el contrato: el compilador obliga a que respondan exactamente los mensajes
@@ -31,8 +32,9 @@ function baseDatos(esquema: string) {
 }
 
 export function transporteMockIdentidad(): Transport {
-  return createRouterTransport(({ service }) => {
-    service(ServiceStatusService, {
+  return createRouterTransport((router) => {
+    registrarIdentidadSimulada(router)
+    router.service(ServiceStatusService, {
       getServiceStatus: () => ({
         status: create(ServiceStatusSchema, {
           serviceName: 'identity-service',
