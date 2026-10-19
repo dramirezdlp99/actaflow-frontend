@@ -2,7 +2,7 @@ import { Code, ConnectError, createClient, createRouterTransport } from '@connec
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ServiceStatusService, type ServiceStatus } from '@/gen/actaflow/system/v1/service_status_pb'
 import { obtenerEstado } from '@/lib/estado/obtenerEstado'
-import type { ClientesRpc } from '@/lib/rpc/clientes'
+import type { ClientesEstado } from '@/lib/rpc/clientes'
 import { estadoExpedientes, estadoIdentidad, relojFalso } from '../soporte/datos'
 
 type Respuesta = ServiceStatus | ConnectError
@@ -21,7 +21,7 @@ function cliente(respuesta: Respuesta) {
   )
 }
 
-function clientes(identidad: Respuesta, expedientes: Respuesta): ClientesRpc {
+function clientes(identidad: Respuesta, expedientes: Respuesta): ClientesEstado {
   return { identidad: { estado: cliente(identidad) }, expedientes: { estado: cliente(expedientes) } }
 }
 
