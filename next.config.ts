@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
-// Cabeceras de seguridad para todas las rutas. La CSP estricta con nonces llega en el
-// bloque de autenticacion (proxy.ts); aqui van las que no dependen de la peticion.
+// Cabeceras de seguridad para todas las rutas. La CSP estricta con nonce por peticion la pone
+// src/proxy.ts en las rutas de cuenta (ingreso, registro, panel); aqui van las que no dependen de la peticion.
 const cabecerasSeguridad = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'DENY' },
