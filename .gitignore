@@ -28,3 +28,7 @@ npm-debug.log*
 *.iml
 .DS_Store
 Thumbs.db
+
+# Instrucciones para asistentes que `next dev` crea solo en cada arranque
+/AGENTS.md
+/CLAUDE.md
