@@ -1,6 +1,9 @@
 import 'server-only'
 import { Code, ConnectError, createClient, type Client, type Transport } from '@connectrpc/connect'
 import { createGrpcTransport, createGrpcWebTransport } from '@connectrpc/connect-node'
+import { AccountService } from '@/gen/actaflow/identity/v1/account_pb'
+import { AuthService } from '@/gen/actaflow/identity/v1/auth_pb'
+import { OrganizationService } from '@/gen/actaflow/identity/v1/organization_pb'
 import { ServiceStatusService } from '@/gen/actaflow/system/v1/service_status_pb'
 import type { ConfiguracionBff, TransporteRpc } from './configuracion'
 import { interceptorFirma } from './firma'
@@ -11,8 +14,19 @@ import { transporteMockExpedientes, transporteMockIdentidad } from './mocks'
  * no sabe si debajo hay gRPC nativo (HTTP/2), gRPC-Web (HTTP/1.1) o un mock.
  */
 export type ClientesRpc = {
-  identidad: { estado: Client<typeof ServiceStatusService> }
+  identidad: {
+    estado: Client<typeof ServiceStatusService>
+    auth: Client<typeof AuthService>
+    cuenta: Client<typeof AccountService>
+    organizacion: Client<typeof OrganizationService>
+  }
   expedientes: { estado: Client<typeof ServiceStatusService> }
+}
+
+/** Lo minimo para consultar el estado de las capas (asi las pruebas no arman clientes de mas). */
+export type ClientesEstado = {
+  identidad: Pick<ClientesRpc['identidad'], 'estado'>
+  expedientes: ClientesRpc['expedientes']
 }
 
 export function crearTransporte(transporte: TransporteRpc, baseUrl: string, secreto: string): Transport {
@@ -32,7 +46,12 @@ export function crearClientes(config: ConfiguracionBff): ClientesRpc {
       ? transporteMockExpedientes()
       : crearTransporte(config.transporte, config.expedientes.url, config.expedientes.secreto)
   return {
-    identidad: { estado: createClient(ServiceStatusService, identidad) },
+    identidad: {
+      estado: createClient(ServiceStatusService, identidad),
+      auth: createClient(AuthService, identidad),
+      cuenta: createClient(AccountService, identidad),
+      organizacion: createClient(OrganizationService, identidad),
+    },
     expedientes: { estado: createClient(ServiceStatusService, expedientes) },
   }
 }
@@ -82,6 +101,36 @@ export async function conDespertar<T>(
       return await llamada(Math.max(1_000, Math.min(TIMEOUT_POR_INTENTO_MS, restante)))
     } catch (error) {
       if (!(error instanceof ConnectError) || !CODIGOS_TRANSITORIOS.has(error.code)) {
+        throw error
+      }
+    }
+    const pausa = esperaEntreIntentos(intentos)
+    if (ahora() - inicio + pausa >= esperaMaxMs) {
+      throw new ServicioNoDisponibleError(intentos, ahora() - inicio)
+    }
+    await dormir(pausa)
+  }
+}
+
+/**
+ * Para llamadas que NO se pueden repetir a ciegas (rotar el token de renovacion): reintenta solo
+ * UNAVAILABLE, que Render devuelve antes de que la peticion llegue al servicio mientras despierta.
+ * Nunca reintenta DEADLINE_EXCEEDED: la rotacion pudo haber ocurrido y repetirla con el token viejo
+ * se tomaria como robo y cerraria la sesion.
+ */
+export async function mientrasDespierta<T>(
+  llamada: () => Promise<T>,
+  esperaMaxMs: number,
+  { ahora = Date.now, dormir = dormirReal }: Reloj = {},
+): Promise<T> {
+  const inicio = ahora()
+  let intentos = 0
+  while (true) {
+    intentos += 1
+    try {
+      return await llamada()
+    } catch (error) {
+      if (!(error instanceof ConnectError) || error.code !== Code.Unavailable) {
         throw error
       }
     }
