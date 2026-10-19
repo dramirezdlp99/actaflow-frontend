@@ -65,6 +65,7 @@ algo no esté operativo.
 |---|---|---|---|
 | **SSG** | `/`, `/como-funciona`, `/terminos`, `/privacidad` | Contenido idéntico para todos; se genera en el build y se sirve desde la CDN | `○` (Static) |
 | **SSR dinámico + streaming** | `/estado` | El estado de las capas es del momento; el encabezado sale de inmediato y el resultado llega por streaming con `Suspense` | `ƒ /estado` (Dynamic) |
+| **SSR por persona** | `/ingresar`, `/registro`, `/panel` | Llevan el nonce de la CSP de cada petición y datos de la sesión; nunca se cachean (`private, no-store`) | `ƒ` (Dynamic) |
 
 El mapa completo de los cinco patrones del proyecto:
 
@@ -75,6 +76,39 @@ El mapa completo de los cinco patrones del proyecto:
 | SSR | `/expedientes` | 4 |
 | Streaming SSR | `/expedientes/[id]` | 4 |
 | CSR | `/expedientes/[id]/audiencia`, `/sin-conexion` | 6 y 7 |
+
+## Cuentas (bloque FE-3)
+
+| Ruta | Qué hace |
+|---|---|
+| `/registro#invitacion=<token>` | Alta por invitación: datos → app autenticadora (QR) → kit de recuperación |
+| `/ingresar` | Correo y contraseña → código TOTP (o un código de recuperación) |
+| `/panel` | Cuenta, miembros de la organización y, para administradores, invitaciones |
+
+- **Conocimiento cero:** el navegador deriva con PBKDF2-SHA-256 (600 000 iteraciones) una
+  semilla y de ella, con HKDF, el **verificador** (lo único que viaja) y la clave que cifra la
+  clave privada. La contraseña nunca sale del navegador.
+- **Par de claves por cuenta (ECDH P-256):** la clave privada se guarda en el servidor cifrada con
+  AES-256-GCM dos veces: con la clave de la contraseña y con una **clave de recuperación** que solo
+  ve la persona (kit descargable con los 10 códigos de un solo uso). Al ingresar se abre en el
+  navegador y queda en IndexedDB como `CryptoKey` **no exportable**; cerrar sesión la borra.
+- **Tokens solo en el BFF:** las Server Actions guardan los tokens en cookies `httpOnly`,
+  `SameSite=Lax` y, en producción, `Secure` con prefijo `__Host-`. El JavaScript del navegador no
+  las ve. El desafío del segundo factor también va en una cookie `httpOnly` de 5 minutos.
+- **Renovación en `src/proxy.ts`:** si el token de acceso (15 min) venció, el proxy lo rota con
+  `RefreshSession` antes de renderizar `/panel`. Reusar un token ya rotado cierra toda la sesión.
+- **CSP estricta con nonce** en las rutas de cuenta: solo corren los scripts de Next con el nonce
+  de esa petición y el script del tema por su hash (`'strict-dynamic'`, sin `'unsafe-inline'`).
+- **El token de invitación va en el fragmento (`#`)**: nunca llega al servidor web, a los logs ni
+  al `Referer`, y se quita de la barra de direcciones al leerlo.
+- Todo lo que llega a una Server Action se **parsea con Zod** (bytes en base64url con su largo
+  exacto) antes de armar el mensaje protobuf.
+
+Con `ACTAFLOW_RPC_MODE=mock` la identidad es una **simulación en memoria** con las mismas reglas
+(TOTP real, bloqueo, rotación con detección de robo). Para probar el alta abre
+`http://localhost:3001/registro#invitacion=invitacion-simulada-publica-solo-para-desarrollo-0001`
+y usa el correo `admin@actaflow.test`. Esa invitación es pública a propósito y solo existe en el
+modo simulado; reiniciar `npm run dev` borra las cuentas simuladas.
 
 ## Diseño: "expediente vivo"
 
@@ -138,6 +172,7 @@ $env:ACTAFLOW_IT_SECRET="<secreto del par>"; npx vitest run tests/integracion
 
 - Ningún secreto con prefijo `NEXT_PUBLIC_`; el código del BFF importa `server-only`, así que
   un error que lo arrastre al navegador rompe el build en lugar de filtrar secretos.
-- Cabeceras de seguridad globales y sin `X-Powered-By`.
+- Cabeceras de seguridad globales y sin `X-Powered-By`; CSP con nonce por petición en las rutas
+  de cuenta (`src/proxy.ts`).
 - `npm audit --omit=dev` limpio. La única alerta restante (`braces`) llega por
   `eslint-config-next`, solo en desarrollo, y no se publica.
