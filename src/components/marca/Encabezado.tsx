@@ -10,9 +10,12 @@ export function Encabezado({ enSesion = false }: { enSesion?: boolean }) {
         <Logo />
         <div className="flex items-center gap-1 sm:gap-2">
           <nav aria-label="Principal" className="flex items-center">
-            {/* En telefonos no cabe: sigue en el pie de pagina. */}
-            <span className="hidden sm:contents">
+            {/* En pantallas angostas no cabe: sigue en el pie de pagina. */}
+            <span className="hidden lg:contents">
               <NavEnlace href="/como-funciona">Cómo funciona</NavEnlace>
+            </span>
+            <span className="hidden sm:contents">
+              <NavEnlace href="/plantillas">Plantillas</NavEnlace>
             </span>
             {/* Con sesion, en telefonos manda lo de la cuenta; el estado sigue en el pie de pagina. */}
             <span className={enSesion ? 'hidden sm:contents' : 'contents'}>
