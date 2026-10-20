@@ -10,12 +10,14 @@ import { SCRIPT_TEMA_INICIAL } from '@/lib/tema/tema'
  * Proxy de Next (antes "middleware"), solo en las rutas de cuenta:
  *
  * 1. Pone una CSP estricta con un nonce nuevo en cada peticion.
- * 2. En /panel, si el token de acceso ya vencio pero hay token de renovacion, lo rota con
+ * 2. En /panel y /expedientes, si el token de acceso ya vencio pero hay token de renovacion, lo rota con
  *    identity-service ANTES de renderizar, y deja las cookies nuevas en la respuesta. Asi las paginas
  *    y las Server Actions siempre ven un token de acceso vigente.
  */
 
 const HASH_TEMA = createHash('sha256').update(SCRIPT_TEMA_INICIAL).digest('base64')
+/** Rutas que exigen sesion: aqui se renueva el token de acceso antes de renderizar. */
+const RUTAS_CON_SESION = ['/panel', '/expedientes']
 
 function aIngresar(peticion: NextRequest): NextResponse {
   const destino = new URL('/ingresar', peticion.url)
@@ -36,7 +38,8 @@ export async function proxy(peticion: NextRequest): Promise<NextResponse> {
   })
   let renovada: ReturnType<typeof galletasDeSesion> = []
 
-  if (peticion.nextUrl.pathname.startsWith('/panel') && !peticion.cookies.has(nombres.acceso())) {
+  const protegida = RUTAS_CON_SESION.some((ruta) => peticion.nextUrl.pathname.startsWith(ruta))
+  if (protegida && !peticion.cookies.has(nombres.acceso())) {
     const renovacion = peticion.cookies.get(nombres.renovacion())?.value
     if (!renovacion) {
       return aIngresar(peticion)
@@ -77,5 +80,5 @@ export async function proxy(peticion: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ['/ingresar', '/registro', '/panel/:path*'],
+  matcher: ['/ingresar', '/registro', '/panel/:path*', '/expedientes/:path*'],
 }
