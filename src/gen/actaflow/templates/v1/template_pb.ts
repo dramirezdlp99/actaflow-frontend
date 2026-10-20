@@ -17,7 +17,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file actaflow/templates/v1/template.proto.
  */
 export const file_actaflow_templates_v1_template: GenFile = /*@__PURE__*/
-  fileDesc("CiRhY3RhZmxvdy90ZW1wbGF0ZXMvdjEvdGVtcGxhdGUucHJvdG8SFWFjdGFmbG93LnRlbXBsYXRlcy52MSL4AQoQVGVtcGxhdGVWYXJpYWJsZRI8CgRwYXRoGAEgASgJQi66SCtyKTInXlthLXpfXVthLXowLTlfXSooXC5bYS16X11bYS16MC05X10qKSokEj0KBHR5cGUYAiABKA4yIy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVmFyaWFibGVUeXBlQgq6SAeCAQQQASAAEhYKBWxhYmVsGAMgASgJQge6SARyAhh4EhAKCHJlcXVpcmVkGAQgASgIEj0KBnNvdXJjZRgFIAEoDjIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5FbnRpdHlTb3VyY2VCCLpIBYIBAhABIvYCCghUZW1wbGF0ZRIKCgJpZBgBIAEoCRIMCgRzbHVnGAIgASgJEg0KBXRpdGxlGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJEjkKCGNhdGVnb3J5GAUgASgOMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlQ2F0ZWdvcnkSDwoHdmVyc2lvbhgGIAEoBRIyCgVzdGF0ZRgHIAEoDjIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5WZXJzaW9uU3RhdGUSDgoGc291cmNlGAggASgJEjoKCXZhcmlhYmxlcxgJIAMoCzInLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZVZhcmlhYmxlEjAKDHB1Ymxpc2hlZF9hdBgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgLIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAigAEKElRlbXBsYXRlRGlhZ25vc3RpYxI7CghzZXZlcml0eRgBIAEoDjIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5EaWFnbm9zdGljU2V2ZXJpdHkSDAoEbGluZRgCIAEoBRIOCgZjb2x1bW4YAyABKAUSDwoHbWVzc2FnZRgEIAEoCSKgAgoNVGVtcGxhdGVWYWx1ZRIOCgR0ZXh0GAEgASgJSAASKgoFbW9uZXkYAiABKAsyGS5hY3RhZmxvdy5jb21tb24udjEuTW9uZXlIABIwCgRkYXRlGAMgASgLMiAuYWN0YWZsb3cuY29tbW9uLnYxLkNhbGVuZGFyRGF0ZUgAEhEKB2ludGVnZXIYBCABKANIABIRCgdib29sZWFuGAUgASgISAASNwoGb2JqZWN0GAYgASgLMiUuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlT2JqZWN0SAASMwoEbGlzdBgHIAEoCzIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZUxpc3RIAEINCgRraW5kEgW6SAIIASKoAQoOVGVtcGxhdGVPYmplY3QSQQoGZmllbGRzGAEgAygLMjEuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlT2JqZWN0LkZpZWxkc0VudHJ5GlMKC0ZpZWxkc0VudHJ5EgsKA2tleRgBIAEoCRIzCgV2YWx1ZRgCIAEoCzIkLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZVZhbHVlOgI4ASJDCgxUZW1wbGF0ZUxpc3QSMwoFaXRlbXMYASADKAsyJC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVWYWx1ZSKbAQodTGlzdFB1Ymxpc2hlZFRlbXBsYXRlc1JlcXVlc3QSNQoEcGFnZRgBIAEoCzIfLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlUmVxdWVzdEIGukgDyAEBEkMKCGNhdGVnb3J5GAIgASgOMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlQ2F0ZWdvcnlCCLpIBYIBAhABIoUBCh5MaXN0UHVibGlzaGVkVGVtcGxhdGVzUmVzcG9uc2USMgoJdGVtcGxhdGVzGAEgAygLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlEi8KCXBhZ2VfaW5mbxgCIAEoCzIcLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlSW5mbyJMChtHZXRQdWJsaXNoZWRUZW1wbGF0ZVJlcXVlc3QSLQoEc2x1ZxgBIAEoCUIfukgcchoyGF5bYS16MC05XSsoLVthLXowLTldKykqJCJRChxHZXRQdWJsaXNoZWRUZW1wbGF0ZVJlc3BvbnNlEjEKCHRlbXBsYXRlGAEgASgLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlIjYKF1ZhbGlkYXRlVGVtcGxhdGVSZXF1ZXN0EhsKBnNvdXJjZRgBIAEoCUILukgIcgYQARjAmgwilgEKGFZhbGlkYXRlVGVtcGxhdGVSZXNwb25zZRI+CgtkaWFnbm9zdGljcxgBIAMoCzIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZURpYWdub3N0aWMSOgoJdmFyaWFibGVzGAIgAygLMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlVmFyaWFibGUi1QEKFlByZXZpZXdUZW1wbGF0ZVJlcXVlc3QSGwoGc291cmNlGAEgASgJQgu6SAhyBhABGMCaDBJJCgZ2YWx1ZXMYAiADKAsyOS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuUHJldmlld1RlbXBsYXRlUmVxdWVzdC5WYWx1ZXNFbnRyeRpTCgtWYWx1ZXNFbnRyeRILCgNrZXkYASABKAkSMwoFdmFsdWUYAiABKAsyJC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVWYWx1ZToCOAEiZwoXUHJldmlld1RlbXBsYXRlUmVzcG9uc2USDAoEaHRtbBgBIAEoCRI+CgtkaWFnbm9zdGljcxgCIAMoCzIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZURpYWdub3N0aWMiiQIKGFNhdmVUZW1wbGF0ZURyYWZ0UmVxdWVzdBIgCgt0ZW1wbGF0ZV9pZBgBIAEoCUILukgI2AEBcgOwAQESLQoEc2x1ZxgCIAEoCUIfukgcchoyGF5bYS16MC05XSsoLVthLXowLTldKykqJBIZCgV0aXRsZRgDIAEoCUIKukgHcgUQAxigARIdCgtkZXNjcmlwdGlvbhgEIAEoCUIIukgFcgMY9AMSRQoIY2F0ZWdvcnkYBSABKA4yJy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVDYXRlZ29yeUIKukgHggEEEAEgABIbCgZzb3VyY2UYBiABKAlCC7pICHIGEAEYwJoMIk4KGVNhdmVUZW1wbGF0ZURyYWZ0UmVzcG9uc2USMQoIdGVtcGxhdGUYASABKAsyHy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGUiUQoWUHVibGlzaFRlbXBsYXRlUmVxdWVzdBIdCgt0ZW1wbGF0ZV9pZBgBIAEoCUIIukgFcgOwAQESGAoHdmVyc2lvbhgCIAEoBUIHukgEGgIoASJMChdQdWJsaXNoVGVtcGxhdGVSZXNwb25zZRIxCgh0ZW1wbGF0ZRgBIAEoCzIfLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZSI8ChtMaXN0VGVtcGxhdGVWZXJzaW9uc1JlcXVlc3QSHQoLdGVtcGxhdGVfaWQYASABKAlCCLpIBXIDsAEBIlEKHExpc3RUZW1wbGF0ZVZlcnNpb25zUmVzcG9uc2USMQoIdmVyc2lvbnMYASADKAsyHy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGUq1gEKEFRlbXBsYXRlQ2F0ZWdvcnkSIQodVEVNUExBVEVfQ0FURUdPUllfVU5TUEVDSUZJRUQQABIsCihURU1QTEFURV9DQVRFR09SWV9DT05DSUxJQVRJT05fQUdSRUVNRU5UEAESKQolVEVNUExBVEVfQ0FURUdPUllfTk9fQUdSRUVNRU5UX1JFQ09SRBACEiYKIlRFTVBMQVRFX0NBVEVHT1JZX01FRElBVElPTl9NSU5VVEUQAxIeChpURU1QTEFURV9DQVRFR09SWV9DT05UUkFDVBAEKt0BCgxWYXJpYWJsZVR5cGUSHQoZVkFSSUFCTEVfVFlQRV9VTlNQRUNJRklFRBAAEhYKElZBUklBQkxFX1RZUEVfVEVYVBABEhcKE1ZBUklBQkxFX1RZUEVfTU9ORVkQAhIWChJWQVJJQUJMRV9UWVBFX0RBVEUQAxIZChVWQVJJQUJMRV9UWVBFX0lOVEVHRVIQBBIXChNWQVJJQUJMRV9UWVBFX1BBUlRZEAUSFgoSVkFSSUFCTEVfVFlQRV9MSVNUEAYSGQoVVkFSSUFCTEVfVFlQRV9CT09MRUFOEAcqzQEKDEVudGl0eVNvdXJjZRIdChlFTlRJVFlfU09VUkNFX1VOU1BFQ0lGSUVEEAASFwoTRU5USVRZX1NPVVJDRV9QQVJUWRABEhgKFEVOVElUWV9TT1VSQ0VfQU1PVU5UEAISGgoWRU5USVRZX1NPVVJDRV9ERUFETElORRADEhwKGEVOVElUWV9TT1VSQ0VfQ09NTUlUTUVOVBAEEhkKFUVOVElUWV9TT1VSQ0VfUEVOQUxUWRAFEhYKEkVOVElUWV9TT1VSQ0VfQ0FTRRAGKoEBCgxWZXJzaW9uU3RhdGUSHQoZVkVSU0lPTl9TVEFURV9VTlNQRUNJRklFRBAAEhcKE1ZFUlNJT05fU1RBVEVfRFJBRlQQARIbChdWRVJTSU9OX1NUQVRFX1BVQkxJU0hFRBACEhwKGFZFUlNJT05fU1RBVEVfU1VQRVJTRURFRBADKnkKEkRpYWdub3N0aWNTZXZlcml0eRIjCh9ESUFHTk9TVElDX1NFVkVSSVRZX1VOU1BFQ0lGSUVEEAASHQoZRElBR05PU1RJQ19TRVZFUklUWV9FUlJPUhABEh8KG0RJQUdOT1NUSUNfU0VWRVJJVFlfV0FSTklORxACMuwGCg9UZW1wbGF0ZVNlcnZpY2UShQEKFkxpc3RQdWJsaXNoZWRUZW1wbGF0ZXMSNC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuTGlzdFB1Ymxpc2hlZFRlbXBsYXRlc1JlcXVlc3QaNS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuTGlzdFB1Ymxpc2hlZFRlbXBsYXRlc1Jlc3BvbnNlEn8KFEdldFB1Ymxpc2hlZFRlbXBsYXRlEjIuYWN0YWZsb3cudGVtcGxhdGVzLnYxLkdldFB1Ymxpc2hlZFRlbXBsYXRlUmVxdWVzdBozLmFjdGFmbG93LnRlbXBsYXRlcy52MS5HZXRQdWJsaXNoZWRUZW1wbGF0ZVJlc3BvbnNlEnMKEFZhbGlkYXRlVGVtcGxhdGUSLi5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVmFsaWRhdGVUZW1wbGF0ZVJlcXVlc3QaLy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVmFsaWRhdGVUZW1wbGF0ZVJlc3BvbnNlEnAKD1ByZXZpZXdUZW1wbGF0ZRItLmFjdGFmbG93LnRlbXBsYXRlcy52MS5QcmV2aWV3VGVtcGxhdGVSZXF1ZXN0Gi4uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlByZXZpZXdUZW1wbGF0ZVJlc3BvbnNlEnYKEVNhdmVUZW1wbGF0ZURyYWZ0Ei8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlNhdmVUZW1wbGF0ZURyYWZ0UmVxdWVzdBowLmFjdGFmbG93LnRlbXBsYXRlcy52MS5TYXZlVGVtcGxhdGVEcmFmdFJlc3BvbnNlEnAKD1B1Ymxpc2hUZW1wbGF0ZRItLmFjdGFmbG93LnRlbXBsYXRlcy52MS5QdWJsaXNoVGVtcGxhdGVSZXF1ZXN0Gi4uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlB1Ymxpc2hUZW1wbGF0ZVJlc3BvbnNlEn8KFExpc3RUZW1wbGF0ZVZlcnNpb25zEjIuYWN0YWZsb3cudGVtcGxhdGVzLnYxLkxpc3RUZW1wbGF0ZVZlcnNpb25zUmVxdWVzdBozLmFjdGFmbG93LnRlbXBsYXRlcy52MS5MaXN0VGVtcGxhdGVWZXJzaW9uc1Jlc3BvbnNlQjYKI2NvbS5hY3RhZmxvdy5jb250cmFjdHMudGVtcGxhdGVzLnYxQg1UZW1wbGF0ZVByb3RvUAFiBnByb3RvMw", [file_actaflow_common_v1_pagination, file_actaflow_common_v1_values, file_buf_validate_validate, file_google_protobuf_timestamp]);
+  fileDesc("CiRhY3RhZmxvdy90ZW1wbGF0ZXMvdjEvdGVtcGxhdGUucHJvdG8SFWFjdGFmbG93LnRlbXBsYXRlcy52MSL4AQoQVGVtcGxhdGVWYXJpYWJsZRI8CgRwYXRoGAEgASgJQi66SCtyKTInXlthLXpfXVthLXowLTlfXSooXC5bYS16X11bYS16MC05X10qKSokEj0KBHR5cGUYAiABKA4yIy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVmFyaWFibGVUeXBlQgq6SAeCAQQQASAAEhYKBWxhYmVsGAMgASgJQge6SARyAhh4EhAKCHJlcXVpcmVkGAQgASgIEj0KBnNvdXJjZRgFIAEoDjIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5FbnRpdHlTb3VyY2VCCLpIBYIBAhABIvYCCghUZW1wbGF0ZRIKCgJpZBgBIAEoCRIMCgRzbHVnGAIgASgJEg0KBXRpdGxlGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJEjkKCGNhdGVnb3J5GAUgASgOMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlQ2F0ZWdvcnkSDwoHdmVyc2lvbhgGIAEoBRIyCgVzdGF0ZRgHIAEoDjIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5WZXJzaW9uU3RhdGUSDgoGc291cmNlGAggASgJEjoKCXZhcmlhYmxlcxgJIAMoCzInLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZVZhcmlhYmxlEjAKDHB1Ymxpc2hlZF9hdBgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgLIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAigAEKElRlbXBsYXRlRGlhZ25vc3RpYxI7CghzZXZlcml0eRgBIAEoDjIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5EaWFnbm9zdGljU2V2ZXJpdHkSDAoEbGluZRgCIAEoBRIOCgZjb2x1bW4YAyABKAUSDwoHbWVzc2FnZRgEIAEoCSJVChNUZW1wbGF0ZURpYWdub3N0aWNzEj4KC2RpYWdub3N0aWNzGAEgAygLMikuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlRGlhZ25vc3RpYyKgAgoNVGVtcGxhdGVWYWx1ZRIOCgR0ZXh0GAEgASgJSAASKgoFbW9uZXkYAiABKAsyGS5hY3RhZmxvdy5jb21tb24udjEuTW9uZXlIABIwCgRkYXRlGAMgASgLMiAuYWN0YWZsb3cuY29tbW9uLnYxLkNhbGVuZGFyRGF0ZUgAEhEKB2ludGVnZXIYBCABKANIABIRCgdib29sZWFuGAUgASgISAASNwoGb2JqZWN0GAYgASgLMiUuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlT2JqZWN0SAASMwoEbGlzdBgHIAEoCzIjLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZUxpc3RIAEINCgRraW5kEgW6SAIIASKoAQoOVGVtcGxhdGVPYmplY3QSQQoGZmllbGRzGAEgAygLMjEuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlT2JqZWN0LkZpZWxkc0VudHJ5GlMKC0ZpZWxkc0VudHJ5EgsKA2tleRgBIAEoCRIzCgV2YWx1ZRgCIAEoCzIkLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZVZhbHVlOgI4ASJDCgxUZW1wbGF0ZUxpc3QSMwoFaXRlbXMYASADKAsyJC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVWYWx1ZSKbAQodTGlzdFB1Ymxpc2hlZFRlbXBsYXRlc1JlcXVlc3QSNQoEcGFnZRgBIAEoCzIfLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlUmVxdWVzdEIGukgDyAEBEkMKCGNhdGVnb3J5GAIgASgOMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlQ2F0ZWdvcnlCCLpIBYIBAhABIoUBCh5MaXN0UHVibGlzaGVkVGVtcGxhdGVzUmVzcG9uc2USMgoJdGVtcGxhdGVzGAEgAygLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlEi8KCXBhZ2VfaW5mbxgCIAEoCzIcLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlSW5mbyJMChtHZXRQdWJsaXNoZWRUZW1wbGF0ZVJlcXVlc3QSLQoEc2x1ZxgBIAEoCUIfukgcchoyGF5bYS16MC05XSsoLVthLXowLTldKykqJCJRChxHZXRQdWJsaXNoZWRUZW1wbGF0ZVJlc3BvbnNlEjEKCHRlbXBsYXRlGAEgASgLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlIjYKF1ZhbGlkYXRlVGVtcGxhdGVSZXF1ZXN0EhsKBnNvdXJjZRgBIAEoCUILukgIcgYQARjAmgwilgEKGFZhbGlkYXRlVGVtcGxhdGVSZXNwb25zZRI+CgtkaWFnbm9zdGljcxgBIAMoCzIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZURpYWdub3N0aWMSOgoJdmFyaWFibGVzGAIgAygLMicuYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlVmFyaWFibGUi1QEKFlByZXZpZXdUZW1wbGF0ZVJlcXVlc3QSGwoGc291cmNlGAEgASgJQgu6SAhyBhABGMCaDBJJCgZ2YWx1ZXMYAiADKAsyOS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuUHJldmlld1RlbXBsYXRlUmVxdWVzdC5WYWx1ZXNFbnRyeRpTCgtWYWx1ZXNFbnRyeRILCgNrZXkYASABKAkSMwoFdmFsdWUYAiABKAsyJC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVWYWx1ZToCOAEiZwoXUHJldmlld1RlbXBsYXRlUmVzcG9uc2USDAoEaHRtbBgBIAEoCRI+CgtkaWFnbm9zdGljcxgCIAMoCzIpLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZURpYWdub3N0aWMiiQIKGFNhdmVUZW1wbGF0ZURyYWZ0UmVxdWVzdBIgCgt0ZW1wbGF0ZV9pZBgBIAEoCUILukgI2AEBcgOwAQESLQoEc2x1ZxgCIAEoCUIfukgcchoyGF5bYS16MC05XSsoLVthLXowLTldKykqJBIZCgV0aXRsZRgDIAEoCUIKukgHcgUQAxigARIdCgtkZXNjcmlwdGlvbhgEIAEoCUIIukgFcgMY9AMSRQoIY2F0ZWdvcnkYBSABKA4yJy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGVDYXRlZ29yeUIKukgHggEEEAEgABIbCgZzb3VyY2UYBiABKAlCC7pICHIGEAEYwJoMIk4KGVNhdmVUZW1wbGF0ZURyYWZ0UmVzcG9uc2USMQoIdGVtcGxhdGUYASABKAsyHy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGUiUQoWUHVibGlzaFRlbXBsYXRlUmVxdWVzdBIdCgt0ZW1wbGF0ZV9pZBgBIAEoCUIIukgFcgOwAQESGAoHdmVyc2lvbhgCIAEoBUIHukgEGgIoASJMChdQdWJsaXNoVGVtcGxhdGVSZXNwb25zZRIxCgh0ZW1wbGF0ZRgBIAEoCzIfLmFjdGFmbG93LnRlbXBsYXRlcy52MS5UZW1wbGF0ZSI8ChtMaXN0VGVtcGxhdGVWZXJzaW9uc1JlcXVlc3QSHQoLdGVtcGxhdGVfaWQYASABKAlCCLpIBXIDsAEBIlEKHExpc3RUZW1wbGF0ZVZlcnNpb25zUmVzcG9uc2USMQoIdmVyc2lvbnMYASADKAsyHy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuVGVtcGxhdGUiWQogTGlzdE9yZ2FuaXphdGlvblRlbXBsYXRlc1JlcXVlc3QSNQoEcGFnZRgBIAEoCzIfLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlUmVxdWVzdEIGukgDyAEBIogBCiFMaXN0T3JnYW5pemF0aW9uVGVtcGxhdGVzUmVzcG9uc2USMgoJdGVtcGxhdGVzGAEgAygLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlEi8KCXBhZ2VfaW5mbxgCIAEoCzIcLmFjdGFmbG93LmNvbW1vbi52MS5QYWdlSW5mbyJUChlHZXRUZW1wbGF0ZVZlcnNpb25SZXF1ZXN0Eh0KC3RlbXBsYXRlX2lkGAEgASgJQgi6SAVyA7ABARIYCgd2ZXJzaW9uGAIgASgFQge6SAQaAigBIk8KGkdldFRlbXBsYXRlVmVyc2lvblJlc3BvbnNlEjEKCHRlbXBsYXRlGAEgASgLMh8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlRlbXBsYXRlKtYBChBUZW1wbGF0ZUNhdGVnb3J5EiEKHVRFTVBMQVRFX0NBVEVHT1JZX1VOU1BFQ0lGSUVEEAASLAooVEVNUExBVEVfQ0FURUdPUllfQ09OQ0lMSUFUSU9OX0FHUkVFTUVOVBABEikKJVRFTVBMQVRFX0NBVEVHT1JZX05PX0FHUkVFTUVOVF9SRUNPUkQQAhImCiJURU1QTEFURV9DQVRFR09SWV9NRURJQVRJT05fTUlOVVRFEAMSHgoaVEVNUExBVEVfQ0FURUdPUllfQ09OVFJBQ1QQBCrdAQoMVmFyaWFibGVUeXBlEh0KGVZBUklBQkxFX1RZUEVfVU5TUEVDSUZJRUQQABIWChJWQVJJQUJMRV9UWVBFX1RFWFQQARIXChNWQVJJQUJMRV9UWVBFX01PTkVZEAISFgoSVkFSSUFCTEVfVFlQRV9EQVRFEAMSGQoVVkFSSUFCTEVfVFlQRV9JTlRFR0VSEAQSFwoTVkFSSUFCTEVfVFlQRV9QQVJUWRAFEhYKElZBUklBQkxFX1RZUEVfTElTVBAGEhkKFVZBUklBQkxFX1RZUEVfQk9PTEVBThAHKs0BCgxFbnRpdHlTb3VyY2USHQoZRU5USVRZX1NPVVJDRV9VTlNQRUNJRklFRBAAEhcKE0VOVElUWV9TT1VSQ0VfUEFSVFkQARIYChRFTlRJVFlfU09VUkNFX0FNT1VOVBACEhoKFkVOVElUWV9TT1VSQ0VfREVBRExJTkUQAxIcChhFTlRJVFlfU09VUkNFX0NPTU1JVE1FTlQQBBIZChVFTlRJVFlfU09VUkNFX1BFTkFMVFkQBRIWChJFTlRJVFlfU09VUkNFX0NBU0UQBiqBAQoMVmVyc2lvblN0YXRlEh0KGVZFUlNJT05fU1RBVEVfVU5TUEVDSUZJRUQQABIXChNWRVJTSU9OX1NUQVRFX0RSQUZUEAESGwoXVkVSU0lPTl9TVEFURV9QVUJMSVNIRUQQAhIcChhWRVJTSU9OX1NUQVRFX1NVUEVSU0VERUQQAyp5ChJEaWFnbm9zdGljU2V2ZXJpdHkSIwofRElBR05PU1RJQ19TRVZFUklUWV9VTlNQRUNJRklFRBAAEh0KGURJQUdOT1NUSUNfU0VWRVJJVFlfRVJST1IQARIfChtESUFHTk9TVElDX1NFVkVSSVRZX1dBUk5JTkcQAjL4CAoPVGVtcGxhdGVTZXJ2aWNlEoUBChZMaXN0UHVibGlzaGVkVGVtcGxhdGVzEjQuYWN0YWZsb3cudGVtcGxhdGVzLnYxLkxpc3RQdWJsaXNoZWRUZW1wbGF0ZXNSZXF1ZXN0GjUuYWN0YWZsb3cudGVtcGxhdGVzLnYxLkxpc3RQdWJsaXNoZWRUZW1wbGF0ZXNSZXNwb25zZRJ/ChRHZXRQdWJsaXNoZWRUZW1wbGF0ZRIyLmFjdGFmbG93LnRlbXBsYXRlcy52MS5HZXRQdWJsaXNoZWRUZW1wbGF0ZVJlcXVlc3QaMy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuR2V0UHVibGlzaGVkVGVtcGxhdGVSZXNwb25zZRJzChBWYWxpZGF0ZVRlbXBsYXRlEi4uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlZhbGlkYXRlVGVtcGxhdGVSZXF1ZXN0Gi8uYWN0YWZsb3cudGVtcGxhdGVzLnYxLlZhbGlkYXRlVGVtcGxhdGVSZXNwb25zZRJwCg9QcmV2aWV3VGVtcGxhdGUSLS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuUHJldmlld1RlbXBsYXRlUmVxdWVzdBouLmFjdGFmbG93LnRlbXBsYXRlcy52MS5QcmV2aWV3VGVtcGxhdGVSZXNwb25zZRJ2ChFTYXZlVGVtcGxhdGVEcmFmdBIvLmFjdGFmbG93LnRlbXBsYXRlcy52MS5TYXZlVGVtcGxhdGVEcmFmdFJlcXVlc3QaMC5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuU2F2ZVRlbXBsYXRlRHJhZnRSZXNwb25zZRJwCg9QdWJsaXNoVGVtcGxhdGUSLS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuUHVibGlzaFRlbXBsYXRlUmVxdWVzdBouLmFjdGFmbG93LnRlbXBsYXRlcy52MS5QdWJsaXNoVGVtcGxhdGVSZXNwb25zZRJ/ChRMaXN0VGVtcGxhdGVWZXJzaW9ucxIyLmFjdGFmbG93LnRlbXBsYXRlcy52MS5MaXN0VGVtcGxhdGVWZXJzaW9uc1JlcXVlc3QaMy5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuTGlzdFRlbXBsYXRlVmVyc2lvbnNSZXNwb25zZRKOAQoZTGlzdE9yZ2FuaXphdGlvblRlbXBsYXRlcxI3LmFjdGFmbG93LnRlbXBsYXRlcy52MS5MaXN0T3JnYW5pemF0aW9uVGVtcGxhdGVzUmVxdWVzdBo4LmFjdGFmbG93LnRlbXBsYXRlcy52MS5MaXN0T3JnYW5pemF0aW9uVGVtcGxhdGVzUmVzcG9uc2USeQoSR2V0VGVtcGxhdGVWZXJzaW9uEjAuYWN0YWZsb3cudGVtcGxhdGVzLnYxLkdldFRlbXBsYXRlVmVyc2lvblJlcXVlc3QaMS5hY3RhZmxvdy50ZW1wbGF0ZXMudjEuR2V0VGVtcGxhdGVWZXJzaW9uUmVzcG9uc2VCNgojY29tLmFjdGFmbG93LmNvbnRyYWN0cy50ZW1wbGF0ZXMudjFCDVRlbXBsYXRlUHJvdG9QAWIGcHJvdG8z", [file_actaflow_common_v1_pagination, file_actaflow_common_v1_values, file_buf_validate_validate, file_google_protobuf_timestamp]);
 
 /**
  * A variable a template expects.
@@ -202,6 +202,27 @@ export const TemplateDiagnosticSchema: GenMessage<TemplateDiagnostic> = /*@__PUR
   messageDesc(file_actaflow_templates_v1_template, 2);
 
 /**
+ * Error detail of SaveTemplateDraft when the source has errors (in grpc-status-details-bin).
+ *
+ * @generated from message actaflow.templates.v1.TemplateDiagnostics
+ */
+export type TemplateDiagnostics = Message<"actaflow.templates.v1.TemplateDiagnostics"> & {
+  /**
+   * Every problem found, errors and warnings.
+   *
+   * @generated from field: repeated actaflow.templates.v1.TemplateDiagnostic diagnostics = 1;
+   */
+  diagnostics: TemplateDiagnostic[];
+};
+
+/**
+ * Describes the message actaflow.templates.v1.TemplateDiagnostics.
+ * Use `create(TemplateDiagnosticsSchema)` to create a new message.
+ */
+export const TemplateDiagnosticsSchema: GenMessage<TemplateDiagnostics> = /*@__PURE__*/
+  messageDesc(file_actaflow_templates_v1_template, 3);
+
+/**
  * A value for preview or filling: one of the variable types.
  *
  * @generated from message actaflow.templates.v1.TemplateValue
@@ -276,7 +297,7 @@ export type TemplateValue = Message<"actaflow.templates.v1.TemplateValue"> & {
  * Use `create(TemplateValueSchema)` to create a new message.
  */
 export const TemplateValueSchema: GenMessage<TemplateValue> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 3);
+  messageDesc(file_actaflow_templates_v1_template, 4);
 
 /**
  * A nested object of named values.
@@ -297,7 +318,7 @@ export type TemplateObject = Message<"actaflow.templates.v1.TemplateObject"> & {
  * Use `create(TemplateObjectSchema)` to create a new message.
  */
 export const TemplateObjectSchema: GenMessage<TemplateObject> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 4);
+  messageDesc(file_actaflow_templates_v1_template, 5);
 
 /**
  * A list of values.
@@ -318,7 +339,7 @@ export type TemplateList = Message<"actaflow.templates.v1.TemplateList"> & {
  * Use `create(TemplateListSchema)` to create a new message.
  */
 export const TemplateListSchema: GenMessage<TemplateList> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 5);
+  messageDesc(file_actaflow_templates_v1_template, 6);
 
 /**
  * Request for ListPublishedTemplates.
@@ -346,7 +367,7 @@ export type ListPublishedTemplatesRequest = Message<"actaflow.templates.v1.ListP
  * Use `create(ListPublishedTemplatesRequestSchema)` to create a new message.
  */
 export const ListPublishedTemplatesRequestSchema: GenMessage<ListPublishedTemplatesRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 6);
+  messageDesc(file_actaflow_templates_v1_template, 7);
 
 /**
  * Response of ListPublishedTemplates.
@@ -374,7 +395,7 @@ export type ListPublishedTemplatesResponse = Message<"actaflow.templates.v1.List
  * Use `create(ListPublishedTemplatesResponseSchema)` to create a new message.
  */
 export const ListPublishedTemplatesResponseSchema: GenMessage<ListPublishedTemplatesResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 7);
+  messageDesc(file_actaflow_templates_v1_template, 8);
 
 /**
  * Request for GetPublishedTemplate.
@@ -395,7 +416,7 @@ export type GetPublishedTemplateRequest = Message<"actaflow.templates.v1.GetPubl
  * Use `create(GetPublishedTemplateRequestSchema)` to create a new message.
  */
 export const GetPublishedTemplateRequestSchema: GenMessage<GetPublishedTemplateRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 8);
+  messageDesc(file_actaflow_templates_v1_template, 9);
 
 /**
  * Response of GetPublishedTemplate.
@@ -416,7 +437,7 @@ export type GetPublishedTemplateResponse = Message<"actaflow.templates.v1.GetPub
  * Use `create(GetPublishedTemplateResponseSchema)` to create a new message.
  */
 export const GetPublishedTemplateResponseSchema: GenMessage<GetPublishedTemplateResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 9);
+  messageDesc(file_actaflow_templates_v1_template, 10);
 
 /**
  * Request for ValidateTemplate.
@@ -437,7 +458,7 @@ export type ValidateTemplateRequest = Message<"actaflow.templates.v1.ValidateTem
  * Use `create(ValidateTemplateRequestSchema)` to create a new message.
  */
 export const ValidateTemplateRequestSchema: GenMessage<ValidateTemplateRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 10);
+  messageDesc(file_actaflow_templates_v1_template, 11);
 
 /**
  * Response of ValidateTemplate.
@@ -465,7 +486,7 @@ export type ValidateTemplateResponse = Message<"actaflow.templates.v1.ValidateTe
  * Use `create(ValidateTemplateResponseSchema)` to create a new message.
  */
 export const ValidateTemplateResponseSchema: GenMessage<ValidateTemplateResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 11);
+  messageDesc(file_actaflow_templates_v1_template, 12);
 
 /**
  * Request for PreviewTemplate.
@@ -493,7 +514,7 @@ export type PreviewTemplateRequest = Message<"actaflow.templates.v1.PreviewTempl
  * Use `create(PreviewTemplateRequestSchema)` to create a new message.
  */
 export const PreviewTemplateRequestSchema: GenMessage<PreviewTemplateRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 12);
+  messageDesc(file_actaflow_templates_v1_template, 13);
 
 /**
  * Response of PreviewTemplate.
@@ -521,7 +542,7 @@ export type PreviewTemplateResponse = Message<"actaflow.templates.v1.PreviewTemp
  * Use `create(PreviewTemplateResponseSchema)` to create a new message.
  */
 export const PreviewTemplateResponseSchema: GenMessage<PreviewTemplateResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 13);
+  messageDesc(file_actaflow_templates_v1_template, 14);
 
 /**
  * Request for SaveTemplateDraft.
@@ -577,7 +598,7 @@ export type SaveTemplateDraftRequest = Message<"actaflow.templates.v1.SaveTempla
  * Use `create(SaveTemplateDraftRequestSchema)` to create a new message.
  */
 export const SaveTemplateDraftRequestSchema: GenMessage<SaveTemplateDraftRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 14);
+  messageDesc(file_actaflow_templates_v1_template, 15);
 
 /**
  * Response of SaveTemplateDraft.
@@ -598,7 +619,7 @@ export type SaveTemplateDraftResponse = Message<"actaflow.templates.v1.SaveTempl
  * Use `create(SaveTemplateDraftResponseSchema)` to create a new message.
  */
 export const SaveTemplateDraftResponseSchema: GenMessage<SaveTemplateDraftResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 15);
+  messageDesc(file_actaflow_templates_v1_template, 16);
 
 /**
  * Request for PublishTemplate.
@@ -626,7 +647,7 @@ export type PublishTemplateRequest = Message<"actaflow.templates.v1.PublishTempl
  * Use `create(PublishTemplateRequestSchema)` to create a new message.
  */
 export const PublishTemplateRequestSchema: GenMessage<PublishTemplateRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 16);
+  messageDesc(file_actaflow_templates_v1_template, 17);
 
 /**
  * Response of PublishTemplate.
@@ -647,7 +668,7 @@ export type PublishTemplateResponse = Message<"actaflow.templates.v1.PublishTemp
  * Use `create(PublishTemplateResponseSchema)` to create a new message.
  */
 export const PublishTemplateResponseSchema: GenMessage<PublishTemplateResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 17);
+  messageDesc(file_actaflow_templates_v1_template, 18);
 
 /**
  * Request for ListTemplateVersions.
@@ -668,7 +689,7 @@ export type ListTemplateVersionsRequest = Message<"actaflow.templates.v1.ListTem
  * Use `create(ListTemplateVersionsRequestSchema)` to create a new message.
  */
 export const ListTemplateVersionsRequestSchema: GenMessage<ListTemplateVersionsRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 18);
+  messageDesc(file_actaflow_templates_v1_template, 19);
 
 /**
  * Response of ListTemplateVersions.
@@ -689,7 +710,105 @@ export type ListTemplateVersionsResponse = Message<"actaflow.templates.v1.ListTe
  * Use `create(ListTemplateVersionsResponseSchema)` to create a new message.
  */
 export const ListTemplateVersionsResponseSchema: GenMessage<ListTemplateVersionsResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_templates_v1_template, 19);
+  messageDesc(file_actaflow_templates_v1_template, 20);
+
+/**
+ * Request for ListOrganizationTemplates.
+ *
+ * @generated from message actaflow.templates.v1.ListOrganizationTemplatesRequest
+ */
+export type ListOrganizationTemplatesRequest = Message<"actaflow.templates.v1.ListOrganizationTemplatesRequest"> & {
+  /**
+   * Paging.
+   *
+   * @generated from field: actaflow.common.v1.PageRequest page = 1;
+   */
+  page?: PageRequest | undefined;
+};
+
+/**
+ * Describes the message actaflow.templates.v1.ListOrganizationTemplatesRequest.
+ * Use `create(ListOrganizationTemplatesRequestSchema)` to create a new message.
+ */
+export const ListOrganizationTemplatesRequestSchema: GenMessage<ListOrganizationTemplatesRequest> = /*@__PURE__*/
+  messageDesc(file_actaflow_templates_v1_template, 21);
+
+/**
+ * Response of ListOrganizationTemplates.
+ *
+ * @generated from message actaflow.templates.v1.ListOrganizationTemplatesResponse
+ */
+export type ListOrganizationTemplatesResponse = Message<"actaflow.templates.v1.ListOrganizationTemplatesResponse"> & {
+  /**
+   * Newest version of each template of the organization, most recently saved first, without source.
+   *
+   * @generated from field: repeated actaflow.templates.v1.Template templates = 1;
+   */
+  templates: Template[];
+
+  /**
+   * Paging.
+   *
+   * @generated from field: actaflow.common.v1.PageInfo page_info = 2;
+   */
+  pageInfo?: PageInfo | undefined;
+};
+
+/**
+ * Describes the message actaflow.templates.v1.ListOrganizationTemplatesResponse.
+ * Use `create(ListOrganizationTemplatesResponseSchema)` to create a new message.
+ */
+export const ListOrganizationTemplatesResponseSchema: GenMessage<ListOrganizationTemplatesResponse> = /*@__PURE__*/
+  messageDesc(file_actaflow_templates_v1_template, 22);
+
+/**
+ * Request for GetTemplateVersion.
+ *
+ * @generated from message actaflow.templates.v1.GetTemplateVersionRequest
+ */
+export type GetTemplateVersionRequest = Message<"actaflow.templates.v1.GetTemplateVersionRequest"> & {
+  /**
+   * Template identifier.
+   *
+   * @generated from field: string template_id = 1;
+   */
+  templateId: string;
+
+  /**
+   * Version number.
+   *
+   * @generated from field: int32 version = 2;
+   */
+  version: number;
+};
+
+/**
+ * Describes the message actaflow.templates.v1.GetTemplateVersionRequest.
+ * Use `create(GetTemplateVersionRequestSchema)` to create a new message.
+ */
+export const GetTemplateVersionRequestSchema: GenMessage<GetTemplateVersionRequest> = /*@__PURE__*/
+  messageDesc(file_actaflow_templates_v1_template, 23);
+
+/**
+ * Response of GetTemplateVersion.
+ *
+ * @generated from message actaflow.templates.v1.GetTemplateVersionResponse
+ */
+export type GetTemplateVersionResponse = Message<"actaflow.templates.v1.GetTemplateVersionResponse"> & {
+  /**
+   * The version, with source.
+   *
+   * @generated from field: actaflow.templates.v1.Template template = 1;
+   */
+  template?: Template | undefined;
+};
+
+/**
+ * Describes the message actaflow.templates.v1.GetTemplateVersionResponse.
+ * Use `create(GetTemplateVersionResponseSchema)` to create a new message.
+ */
+export const GetTemplateVersionResponseSchema: GenMessage<GetTemplateVersionResponse> = /*@__PURE__*/
+  messageDesc(file_actaflow_templates_v1_template, 24);
 
 /**
  * Kind of document a template produces.
@@ -1002,8 +1121,10 @@ export const TemplateService: GenService<{
     output: typeof PreviewTemplateResponseSchema;
   },
   /**
-   * Saves a new draft version of a template (creating the template if needed). Admins only.
-   * Errors: INVALID_ARGUMENT with reason TEMPLATE_SYNTAX_ERROR and the diagnostics.
+   * Saves a draft of a template (creating the template if needed). Admins only. If the newest
+   * version is already a draft it is replaced; otherwise a new draft version is added.
+   * Errors: INVALID_ARGUMENT with an ErrorReason TEMPLATE_SYNTAX_ERROR and a TemplateDiagnostics
+   * detail; ALREADY_EXISTS (slug taken); PERMISSION_DENIED (template of another organization).
    *
    * @generated from rpc actaflow.templates.v1.TemplateService.SaveTemplateDraft
    */
@@ -1013,7 +1134,8 @@ export const TemplateService: GenService<{
     output: typeof SaveTemplateDraftResponseSchema;
   },
   /**
-   * Publishes a draft version. Admins only. Triggers ISR revalidation in the frontend.
+   * Publishes a draft version; the previously published one becomes SUPERSEDED. Admins only.
+   * The frontend revalidates the ISR pages after it. Errors: FAILED_PRECONDITION (not a draft).
    *
    * @generated from rpc actaflow.templates.v1.TemplateService.PublishTemplate
    */
@@ -1023,7 +1145,7 @@ export const TemplateService: GenService<{
     output: typeof PublishTemplateResponseSchema;
   },
   /**
-   * Lists every version of a template, drafts included. Admins only.
+   * Lists every version of a template, drafts included. Admins of the owning organization only.
    *
    * @generated from rpc actaflow.templates.v1.TemplateService.ListTemplateVersions
    */
@@ -1031,6 +1153,28 @@ export const TemplateService: GenService<{
     methodKind: "unary";
     input: typeof ListTemplateVersionsRequestSchema;
     output: typeof ListTemplateVersionsResponseSchema;
+  },
+  /**
+   * Lists the templates of the caller's organization (newest version of each, drafts included,
+   * source omitted), so unpublished drafts can be found again. Admins only. Added in v0.3.0.
+   *
+   * @generated from rpc actaflow.templates.v1.TemplateService.ListOrganizationTemplates
+   */
+  listOrganizationTemplates: {
+    methodKind: "unary";
+    input: typeof ListOrganizationTemplatesRequestSchema;
+    output: typeof ListOrganizationTemplatesResponseSchema;
+  },
+  /**
+   * Returns one version of a template with its source, drafts included, so the editor can reopen a
+   * draft. Admins of the owning organization only. Added in v0.3.0.
+   *
+   * @generated from rpc actaflow.templates.v1.TemplateService.GetTemplateVersion
+   */
+  getTemplateVersion: {
+    methodKind: "unary";
+    input: typeof GetTemplateVersionRequestSchema;
+    output: typeof GetTemplateVersionResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_actaflow_templates_v1_template, 0);
