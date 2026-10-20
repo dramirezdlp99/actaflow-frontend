@@ -1,7 +1,9 @@
 import 'server-only'
 import { Code, ConnectError, createClient, type Client, type Transport } from '@connectrpc/connect'
 import { createGrpcTransport, createGrpcWebTransport } from '@connectrpc/connect-node'
-import { AccountService } from '@/gen/actaflow/identity/v1/account_pb'
+import { CaseService } from '@/gen/actaflow/cases/v1/case_pb'
+import { ParticipantService } from '@/gen/actaflow/cases/v1/participant_pb'
+import { AccountService, KeyDirectoryService } from '@/gen/actaflow/identity/v1/account_pb'
 import { AuthService } from '@/gen/actaflow/identity/v1/auth_pb'
 import { OrganizationService } from '@/gen/actaflow/identity/v1/organization_pb'
 import { ServiceStatusService } from '@/gen/actaflow/system/v1/service_status_pb'
@@ -19,14 +21,19 @@ export type ClientesRpc = {
     auth: Client<typeof AuthService>
     cuenta: Client<typeof AccountService>
     organizacion: Client<typeof OrganizationService>
+    directorio: Client<typeof KeyDirectoryService>
   }
-  expedientes: { estado: Client<typeof ServiceStatusService> }
+  expedientes: {
+    estado: Client<typeof ServiceStatusService>
+    casos: Client<typeof CaseService>
+    participantes: Client<typeof ParticipantService>
+  }
 }
 
 /** Lo minimo para consultar el estado de las capas (asi las pruebas no arman clientes de mas). */
 export type ClientesEstado = {
   identidad: Pick<ClientesRpc['identidad'], 'estado'>
-  expedientes: ClientesRpc['expedientes']
+  expedientes: Pick<ClientesRpc['expedientes'], 'estado'>
 }
 
 export function crearTransporte(transporte: TransporteRpc, baseUrl: string, secreto: string): Transport {
@@ -51,8 +58,13 @@ export function crearClientes(config: ConfiguracionBff): ClientesRpc {
       auth: createClient(AuthService, identidad),
       cuenta: createClient(AccountService, identidad),
       organizacion: createClient(OrganizationService, identidad),
+      directorio: createClient(KeyDirectoryService, identidad),
     },
-    expedientes: { estado: createClient(ServiceStatusService, expedientes) },
+    expedientes: {
+      estado: createClient(ServiceStatusService, expedientes),
+      casos: createClient(CaseService, expedientes),
+      participantes: createClient(ParticipantService, expedientes),
+    },
   }
 }
 
