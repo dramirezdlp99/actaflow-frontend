@@ -2,7 +2,7 @@ import { BotonTema } from '@/components/tema/BotonTema'
 import { Logo } from './Logo'
 import { NavEnlace } from './NavEnlace'
 
-/** `enSesion`: en las paginas de cuenta el enlace lleva al panel en lugar de a ingresar. */
+/** `enSesion`: en las paginas con sesion aparecen Expedientes y Mi panel en lugar de Ingresar. */
 export function Encabezado({ enSesion = false }: { enSesion?: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-linea/70 bg-papel/80 backdrop-blur-md supports-[backdrop-filter]:bg-papel/65">
@@ -14,12 +14,18 @@ export function Encabezado({ enSesion = false }: { enSesion?: boolean }) {
             <span className="hidden sm:contents">
               <NavEnlace href="/como-funciona">Cómo funciona</NavEnlace>
             </span>
-            <NavEnlace href="/estado">
-              <span className="sm:hidden">Estado</span>
-              <span className="hidden sm:inline">Estado del sistema</span>
-            </NavEnlace>
+            {/* Con sesion, en telefonos manda lo de la cuenta; el estado sigue en el pie de pagina. */}
+            <span className={enSesion ? 'hidden sm:contents' : 'contents'}>
+              <NavEnlace href="/estado">
+                <span className="sm:hidden">Estado</span>
+                <span className="hidden sm:inline">Estado del sistema</span>
+              </NavEnlace>
+            </span>
             {enSesion ? (
-              <NavEnlace href="/panel">Mi panel</NavEnlace>
+              <>
+                <NavEnlace href="/expedientes">Expedientes</NavEnlace>
+                <NavEnlace href="/panel">Mi panel</NavEnlace>
+              </>
             ) : (
               <NavEnlace href="/ingresar">Ingresar</NavEnlace>
             )}
