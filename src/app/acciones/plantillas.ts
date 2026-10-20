@@ -172,3 +172,21 @@ export async function publicarPlantilla(datos: z.input<typeof esquemaPublicar>):
     return { ok: true, slug }
   })
 }
+
+let ultimaRegeneracion = 0
+const ESPERA_REGENERACION_MS = 30_000
+
+/**
+ * Pide regenerar la biblioteca cuando quedo con el aviso de "no disponible" (por ejemplo, si el
+ * build de Vercel encontro dormido a legal-case). Publica pero acotada: como mucho una vez cada
+ * 30 s por instancia, para que nadie la use para martillar el backend.
+ */
+export async function regenerarBiblioteca(): Promise<{ pedida: boolean }> {
+  const ahora = Date.now()
+  if (ahora - ultimaRegeneracion < ESPERA_REGENERACION_MS) {
+    return { pedida: false }
+  }
+  ultimaRegeneracion = ahora
+  revalidatePath('/plantillas')
+  return { pedida: true }
+}
