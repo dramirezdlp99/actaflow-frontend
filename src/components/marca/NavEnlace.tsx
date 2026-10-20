@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation'
 
 /** Enlace de navegacion que marca la pagina actual (aria-current) para lectores de pantalla y a la vista. */
 export function NavEnlace({ href, children }: { href: string; children: React.ReactNode }) {
-  const actual = usePathname() === href
+  const ruta = usePathname() ?? ''
+  // /expedientes/123 tambien marca "Expedientes".
+  const actual = ruta === href || (href !== '/' && ruta.startsWith(`${href}/`))
   return (
     <Link
       href={href}
