@@ -66,6 +66,8 @@ algo no esté operativo.
 | **SSG** | `/`, `/como-funciona`, `/terminos`, `/privacidad` | Contenido idéntico para todos; se genera en el build y se sirve desde la CDN | `○` (Static) |
 | **SSR dinámico + streaming** | `/estado` | El estado de las capas es del momento; el encabezado sale de inmediato y el resultado llega por streaming con `Suspense` | `ƒ /estado` (Dynamic) |
 | **SSR por persona** | `/ingresar`, `/registro`, `/panel` | Llevan el nonce de la CSP de cada petición y datos de la sesión; nunca se cachean (`private, no-store`) | `ƒ` (Dynamic) |
+| **SSR** | `/expedientes` | La lista depende de quién pide y de los filtros (`?estado=`, `?pagina=`); se arma en el servidor con el token de la persona | `ƒ /expedientes` (Dynamic) |
+| **Streaming SSR** | `/expedientes/[id]` | La cabecera del caso sale de inmediato; participantes y línea de tiempo llegan después, cada uno en su `Suspense` | `ƒ /expedientes/[id]` (Dynamic) |
 
 El mapa completo de los cinco patrones del proyecto:
 
@@ -109,6 +111,29 @@ Con `ACTAFLOW_RPC_MODE=mock` la identidad es una **simulación en memoria** con 
 `http://localhost:3001/registro#invitacion=invitacion-simulada-publica-solo-para-desarrollo-0001`
 y usa el correo `admin@actaflow.test`. Esa invitación es pública a propósito y solo existe en el
 modo simulado; reiniciar `npm run dev` borra las cuentas simuladas.
+
+## Expedientes (bloque FE-4)
+
+| Ruta | Qué hace |
+|---|---|
+| `/expedientes` | Casos donde participas, con filtros por estado y paginación |
+| `/expedientes/nuevo` | Abre un expediente: radicado, tipo, título, resumen y primera audiencia |
+| `/expedientes/[id]` | Detalle: título y resumen descifrados, estado, participantes y línea de tiempo |
+
+- **Cifrado de extremo a extremo:** cada expediente tiene su propia clave AES-256-GCM, creada en
+  el navegador. El título y el resumen viajan como `EncryptedBlob` (`CaseDetails` cifrado, con el
+  id de la clave como AAD). El HTML que arma el servidor nunca contiene el texto en claro.
+- **Entrega de la clave:** se envuelve para cada persona con ECDH P-256 efímero → HKDF-SHA-256 →
+  AES-256-GCM (`WrappedKey` del contrato). Antes de entregarla se muestra la **huella** de la clave
+  pública de esa persona, para compararla con la que ella ve en su panel.
+- Quien entra a un caso sin haber recibido la clave ve el expediente con el aviso "Aún no tienes la
+  clave"; en cuanto un conciliador se la entrega, lo descifra con su propia clave privada.
+- Las reglas las aplica legal-case-service: solo los participantes ven el caso (los demás reciben
+  404), las ediciones llevan la revisión esperada (conflicto si alguien guardó antes) y los
+  cambios de estado siguen el flujo Abierto → En audiencia → Acuerdo / Sin acuerdo → Archivado.
+
+En modo simulado (`ACTAFLOW_RPC_MODE=mock`) los expedientes también viven en memoria con las mismas
+reglas.
 
 ## Diseño: "expediente vivo"
 
