@@ -50,7 +50,7 @@ El navegador **nunca** habla con los microservicios, y **no hay API REST**:
 Actualizar a otra versión del contrato:
 
 ```powershell
-node scripts/contracts.mjs sync v0.2.0
+node scripts/contracts.mjs sync v0.3.0
 npm run contracts:gen
 ```
 
@@ -68,15 +68,16 @@ algo no esté operativo.
 | **SSR por persona** | `/ingresar`, `/registro`, `/panel` | Llevan el nonce de la CSP de cada petición y datos de la sesión; nunca se cachean (`private, no-store`) | `ƒ` (Dynamic) |
 | **SSR** | `/expedientes` | La lista depende de quién pide y de los filtros (`?estado=`, `?pagina=`); se arma en el servidor con el token de la persona | `ƒ /expedientes` (Dynamic) |
 | **Streaming SSR** | `/expedientes/[id]` | La cabecera del caso sale de inmediato; participantes y línea de tiempo llegan después, cada uno en su `Suspense` | `ƒ /expedientes/[id]` (Dynamic) |
+| **ISR** | `/plantillas`, `/plantillas/[slug]` | La biblioteca es pública e igual para todos: se genera en el build, se regenera cada 10 minutos y **al instante** cuando un administrador publica (`revalidatePath` en la Server Action) | `○ /plantillas` y `● /plantillas/[slug]` con `Revalidate 10m` |
 
 El mapa completo de los cinco patrones del proyecto:
 
 | Patrón | Ruta prevista | Bloque |
 |---|---|---|
 | SSG | `/`, `/como-funciona`, `/terminos`, `/privacidad` | 0 y 1 |
-| ISR | `/plantillas`, `/plantillas/[slug]` (por tiempo y al publicar) | 5 |
-| SSR | `/expedientes` | 4 |
-| Streaming SSR | `/expedientes/[id]` | 4 |
+| ISR | `/plantillas`, `/plantillas/[slug]` (por tiempo y al publicar) | 5 (hecho) |
+| SSR | `/expedientes` | 4 (hecho) |
+| Streaming SSR | `/expedientes/[id]` | 4 (hecho) |
 | CSR | `/expedientes/[id]/audiencia`, `/sin-conexion` | 6 y 7 |
 
 ## Cuentas (bloque FE-3)
@@ -134,6 +135,28 @@ modo simulado; reiniciar `npm run dev` borra las cuentas simuladas.
 
 En modo simulado (`ACTAFLOW_RPC_MODE=mock`) los expedientes también viven en memoria con las mismas
 reglas.
+
+## Plantillas (bloque FE-5)
+
+| Ruta | Qué hace |
+|---|---|
+| `/plantillas` | Biblioteca pública por categoría (ISR) |
+| `/plantillas/[slug]` | Texto resaltado y tabla de variables de una plantilla (ISR) |
+| `/panel/plantillas` | Plantillas de la organización (borradores incluidos) y "Usar como base" |
+| `/panel/plantillas/nueva`, `/panel/plantillas/[id]` | Editor con revisión en vivo, vista previa, versiones y publicación |
+
+- **Lectura sin sesión:** la biblioteca se lee con la firma HMAC del BFF pero sin token, así la
+  página no depende de cookies y puede ser estática.
+- **Build tolerante:** si legal-case no responde durante `next build` (Render dormido), la
+  biblioteca sale con un aviso y se regenera en el siguiente ciclo. En tiempo de ejecución un error
+  no reemplaza la última versión buena.
+- **Editor:** mientras se escribe, legal-case devuelve los diagnósticos (línea y columna), las
+  variables deducidas y una vista previa con datos de ejemplo. El HTML de la vista previa ya viene
+  escapado y el BFF lo vuelve a sanear (`sanearHtml`, lista blanca de etiquetas) antes de mostrarlo.
+- **Solo administradores** editan, y solo los de la organización autora. Las plantillas del
+  sistema se copian con "Usar como base".
+- En modo simulado, `lenguajeSimulado.ts` reproduce el mismo lenguaje que el servicio Java
+  (mismos diagnósticos y mismo HTML).
 
 ## Diseño: "expediente vivo"
 
