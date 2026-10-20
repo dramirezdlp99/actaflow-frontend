@@ -3,6 +3,7 @@ import { Isotipo } from './Logo'
 
 const ENLACES = [
   { href: '/como-funciona', texto: 'Cómo funciona' },
+  { href: '/plantillas', texto: 'Plantillas' },
   { href: '/estado', texto: 'Estado del sistema' },
   { href: '/terminos', texto: 'Términos de uso' },
   { href: '/privacidad', texto: 'Privacidad' },
