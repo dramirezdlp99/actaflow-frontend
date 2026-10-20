@@ -286,7 +286,7 @@ export type VerificationKey = Message<"actaflow.identity.v1.VerificationKey"> & 
   keyId: string;
 
   /**
-   * JWT algorithm. Always "ES256".
+   * Signature algorithm. Always "Ed25519" (JWT "alg": "EdDSA").
    *
    * @generated from field: string algorithm = 2;
    */
