@@ -12,6 +12,7 @@ import {
 } from '@/gen/actaflow/system/v1/service_status_pb'
 import { registrarExpedientesSimulados } from './expedientesSimulados'
 import { registrarIdentidadSimulada } from './identidadSimulada'
+import { registrarPlantillasSimuladas } from './plantillasSimuladas'
 
 /**
  * Mocks TIPADOS desde el contrato: el compilador obliga a que respondan exactamente los mensajes
@@ -53,6 +54,7 @@ export function transporteMockIdentidad(): Transport {
 export function transporteMockExpedientes(): Transport {
   return createRouterTransport((router) => {
     registrarExpedientesSimulados(router)
+    registrarPlantillasSimuladas(router)
     router.service(ServiceStatusService, {
       getServiceStatus: () => ({
         status: create(ServiceStatusSchema, {
