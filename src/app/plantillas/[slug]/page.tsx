@@ -13,7 +13,7 @@ import { bibliotecaPublicada, plantillaPublicada } from '@/lib/plantillas/servid
 // (dynamicParams) y queda en cache. Publicar una version la revalida al instante.
 export const revalidate = 600
 export const dynamicParams = true
-export const maxDuration = 120
+export const maxDuration = 300
 
 type Parametros = { params: Promise<{ slug: string }> }
 
