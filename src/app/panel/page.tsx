@@ -1,12 +1,14 @@
 import { timestampDate } from '@bufbuild/protobuf/wkt'
-import { Building2, ShieldAlert } from 'lucide-react'
+import { Building2, FolderOpen, ShieldAlert } from 'lucide-react'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Suspense } from 'react'
 import { BotonSalir } from '@/components/cuenta/BotonSalir'
 import { InvitarMiembro } from '@/components/cuenta/InvitarMiembro'
 import { Encabezado } from '@/components/marca/Encabezado'
 import { PiePagina } from '@/components/marca/PiePagina'
 import { PlatformRole } from '@/gen/actaflow/identity/v1/account_pb'
+import { clavePublicaDe } from '@/lib/expedientes/servidor'
 import { clientes, comoPersona, exigirSesion, type SesionActual } from '@/lib/sesion/sesion'
 
 export const metadata: Metadata = { title: 'Mi panel' }
@@ -27,7 +29,11 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
   const sesion = await exigirSesion('/panel')
   const { aviso } = await searchParams
   const { cuenta } = sesion
-  const { organization } = await clientes().identidad.organizacion.getOrganization({}, comoPersona(sesion.tokenAcceso))
+  const [{ organization }, miClave] = await Promise.all([
+    clientes().identidad.organizacion.getOrganization({}, comoPersona(sesion.tokenAcceso)),
+    clavePublicaDe(sesion, sesion.cuenta.id).catch(() => null),
+  ])
+  const huella = miClave?.huella
   const esAdmin = cuenta.role === PlatformRole.ADMIN
 
   return (
@@ -73,14 +79,26 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
               <Dato nombre="Rol" valor={NOMBRE_ROL[cuenta.role]} />
               <Dato nombre="Miembro desde" valor={fecha(cuenta.createdAt)} />
               <Dato
-                nombre="Clave pública"
-                valor={<span className="break-all font-mono text-xs">{cuenta.publicKeyId}</span>}
+                nombre="Huella de tu clave pública"
+                valor={
+                  <span className="font-mono text-sm tracking-wider" data-prueba="mi-huella">
+                    {huella ? (huella.slice(0, 32).match(/.{1,4}/g) ?? []).join(' ') : '—'}
+                  </span>
+                }
               />
             </dl>
             <p className="mt-6 text-xs leading-relaxed text-tinta-suave">
-              Tu clave privada está abierta solo en este navegador y se borra al cerrar sesión. Los expedientes se
-              cifrarán con ella en los próximos bloques.
+              Cuando alguien te entregue la clave de un expediente, te pedirá leer esta huella: si coincide con la que
+              ve en su pantalla, nadie se hizo pasar por ti. Tu clave privada está abierta solo en este navegador y se
+              borra al cerrar sesión.
             </p>
+            <Link
+              href="/expedientes"
+              prefetch={false}
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-institucional px-4 py-2 text-sm font-semibold text-sobre-institucional shadow-suave transition hover:brightness-110"
+            >
+              <FolderOpen aria-hidden className="size-4" /> Ir a mis expedientes
+            </Link>
           </section>
 
           {cuenta.role === PlatformRole.EXTERNAL ? null : (
