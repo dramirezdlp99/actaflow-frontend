@@ -151,6 +151,41 @@ body::before {
   box-shadow: var(--shadow-hoja);
 }
 
+/* Documento generado desde una plantilla (vista previa del editor). */
+.documento {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--tinta);
+}
+.documento h2 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.documento h3 {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.documento p + p {
+  margin-top: 0.85rem;
+}
+.documento .valor {
+  border-bottom: 1px dotted var(--institucional);
+  color: var(--institucional);
+}
+.documento .falta {
+  border-radius: 0.25rem;
+  background-color: var(--lacre-suave);
+  color: var(--lacre);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8em;
+  padding: 0 0.2rem;
+}
+
 /* Lo que produce la IA: subrayado de marcador violeta que se "pinta" de izquierda a derecha. */
 .marca-ia {
   color: var(--ia);
