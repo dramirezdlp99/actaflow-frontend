@@ -1,5 +1,5 @@
 import { timestampDate } from '@bufbuild/protobuf/wkt'
-import { Building2, FolderOpen, ShieldAlert } from 'lucide-react'
+import { Building2, FileText, FolderOpen, ShieldAlert } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -133,6 +133,30 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
             <div className="mt-6 max-w-3xl">
               <InvitarMiembro />
             </div>
+          </section>
+        ) : null}
+
+        {esAdmin ? (
+          <section
+            aria-labelledby="titulo-plantillas"
+            className="entrada mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-linea bg-superficie p-6 shadow-suave"
+            style={{ '--i': 6 }}
+          >
+            <div>
+              <h2 id="titulo-plantillas" className="titular text-2xl">
+                Plantillas de actas
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-tinta-suave">
+                Escribe y publica los modelos de actas y constancias de tu organización.
+              </p>
+            </div>
+            <Link
+              href="/panel/plantillas"
+              prefetch={false}
+              className="inline-flex items-center gap-2 rounded-lg border border-institucional px-4 py-2 text-sm font-semibold text-institucional transition hover:bg-institucional hover:text-sobre-institucional"
+            >
+              <FileText aria-hidden className="size-4" /> Gestionar plantillas
+            </Link>
           </section>
         ) : null}
       </main>
