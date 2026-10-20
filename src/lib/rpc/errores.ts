@@ -55,6 +55,31 @@ export function fallo(error: unknown, porCodigo: Partial<Record<Code, string>> =
         break
     }
   }
-  console.error('Error inesperado en una accion de identidad', error)
+  console.error('Error inesperado en una Server Action', error)
   return { ok: false, mensaje: 'Algo salió mal. Intenta de nuevo.' }
+}
+
+/**
+ * Reglas de negocio de expedientes: los mensajes de legal-case-service ya estan pensados para mostrarse
+ * (no llevan datos internos), asi que se muestran tal cual. Un caso ajeno se ve igual que uno inexistente.
+ */
+export function falloExpediente(error: unknown): Fallo {
+  if (error instanceof ConnectError) {
+    switch (error.code) {
+      case Code.NotFound:
+        return { ok: false, mensaje: 'El expediente no existe o no participas en él.' }
+      case Code.Aborted:
+        return {
+          ok: false,
+          mensaje: 'Alguien más cambió el expediente mientras editabas. Recarga y vuelve a intentarlo.',
+        }
+      case Code.FailedPrecondition:
+      case Code.AlreadyExists:
+      case Code.PermissionDenied:
+        return { ok: false, mensaje: `${error.rawMessage}.` }
+      default:
+        break
+    }
+  }
+  return fallo(error)
 }
