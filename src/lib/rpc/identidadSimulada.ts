@@ -3,7 +3,13 @@ import { createHash, createHmac, randomBytes, randomUUID } from 'node:crypto'
 import { create } from '@bufbuild/protobuf'
 import { timestampFromMs } from '@bufbuild/protobuf/wkt'
 import { Code, ConnectError, type ConnectRouter, type HandlerContext } from '@connectrpc/connect'
-import { AccountSchema, AccountService, PlatformRole, type Account } from '@/gen/actaflow/identity/v1/account_pb'
+import {
+  AccountSchema,
+  AccountService,
+  KeyDirectoryService,
+  PlatformRole,
+  type Account,
+} from '@/gen/actaflow/identity/v1/account_pb'
 import {
   AuthService,
   SessionSchema,
@@ -350,6 +356,18 @@ export function registrarIdentidadSimulada(router: ConnectRouter): void {
     },
   })
 
+  router.service(KeyDirectoryService, {
+    getPublicKeys(peticion, contexto) {
+      principal(contexto)
+      const keys = peticion.accountIds.flatMap((id) => {
+        const cuenta = estado().cuentas.get(id)
+        // Solo cuentas confirmadas de la misma organizacion, como identity-service.
+        return cuenta?.confirmada && cuenta.kit.publicKey ? [{ accountId: cuenta.id, key: cuenta.kit.publicKey }] : []
+      })
+      return { keys }
+    },
+  })
+
   router.service(OrganizationService, {
     getOrganization(_peticion, contexto) {
       principal(contexto)
@@ -414,4 +432,22 @@ function inscripcion(cuenta: Cuenta) {
 /** Para las pruebas: secreto TOTP en claro de una cuenta simulada. */
 export function secretoTotpSimulado(correo: string): Uint8Array | undefined {
   return porCorreo(correoNormal(correo))?.secretoTotp
+}
+
+/** Para la simulacion de expedientes: quien es el dueno de un token de acceso simulado. */
+export function cuentaDeTokenSimulado(
+  token: string,
+): { id: string; organizacion: string; rol: PlatformRole; correo: string; nombre: string } | null {
+  const acceso = estado().accesos.get(token)
+  const cuenta = acceso ? estado().cuentas.get(acceso.cuentaId) : undefined
+  if (!acceso || acceso.vence < Date.now() || !cuenta?.activa) {
+    return null
+  }
+  return {
+    id: cuenta.id,
+    organizacion: estado().organizacion.id,
+    rol: cuenta.rol,
+    correo: cuenta.correo,
+    nombre: cuenta.nombre,
+  }
 }
