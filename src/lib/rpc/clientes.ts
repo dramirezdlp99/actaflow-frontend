@@ -7,6 +7,7 @@ import { AccountService, KeyDirectoryService } from '@/gen/actaflow/identity/v1/
 import { AuthService } from '@/gen/actaflow/identity/v1/auth_pb'
 import { OrganizationService } from '@/gen/actaflow/identity/v1/organization_pb'
 import { ServiceStatusService } from '@/gen/actaflow/system/v1/service_status_pb'
+import { TemplateService } from '@/gen/actaflow/templates/v1/template_pb'
 import type { ConfiguracionBff, TransporteRpc } from './configuracion'
 import { interceptorFirma } from './firma'
 import { transporteMockExpedientes, transporteMockIdentidad } from './mocks'
@@ -27,6 +28,7 @@ export type ClientesRpc = {
     estado: Client<typeof ServiceStatusService>
     casos: Client<typeof CaseService>
     participantes: Client<typeof ParticipantService>
+    plantillas: Client<typeof TemplateService>
   }
 }
 
@@ -64,6 +66,7 @@ export function crearClientes(config: ConfiguracionBff): ClientesRpc {
       estado: createClient(ServiceStatusService, expedientes),
       casos: createClient(CaseService, expedientes),
       participantes: createClient(ParticipantService, expedientes),
+      plantillas: createClient(TemplateService, expedientes),
     },
   }
 }
