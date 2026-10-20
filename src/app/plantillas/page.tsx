@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Encabezado } from '@/components/marca/Encabezado'
 import { PiePagina } from '@/components/marca/PiePagina'
+import { RecuperarBiblioteca } from '@/components/plantillas/RecuperarBiblioteca'
 import { CATEGORIA, CATEGORIAS } from '@/lib/plantillas/etiquetas'
 import { bibliotecaPublicada, type VistaPlantilla } from '@/lib/plantillas/servidor'
 
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 // ISR: la biblioteca es publica y la misma para todos. Se regenera cada 10 minutos y, ademas, al
 // instante cuando un administrador publica una version (revalidatePath en la Server Action).
 export const revalidate = 600
-export const maxDuration = 120
+// Despertar legal-case en Render puede tomar cerca de un minuto: margen como en /estado.
+export const maxDuration = 300
 
 const fechaCorta = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }) : null
@@ -37,6 +39,7 @@ export default async function Plantillas() {
           <div className="hoja mt-10 rounded-2xl py-12 pl-16 pr-8">
             <p className="titular text-2xl">La biblioteca no está disponible en este momento</p>
             <p className="mt-2 text-tinta-suave">El servicio de expedientes está despertando. Vuelve en unos minutos.</p>
+            <RecuperarBiblioteca />
           </div>
         ) : plantillas.length === 0 ? (
           <div className="hoja mt-10 rounded-2xl py-12 pl-16 pr-8">
