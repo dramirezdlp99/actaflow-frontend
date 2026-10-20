@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { regenerarBiblioteca } from '@/app/acciones/plantillas'
 
 const INTENTOS = 12
 const CADA_MS = 10_000
@@ -16,7 +15,8 @@ export function RecuperarBiblioteca() {
   const [intento, setIntento] = useState(0)
 
   useEffect(() => {
-    void regenerarBiblioteca()
+    // fetch y no una Server Action: React no las permite mientras hidrata la pagina (error #441).
+    fetch('/api/plantillas/regenerar', { method: 'POST' }).catch(() => undefined)
   }, [])
 
   useEffect(() => {
