@@ -89,7 +89,7 @@ export const PrivateKeyKitSchema: GenMessage<PrivateKeyKit> = /*@__PURE__*/
  */
 export type Session = Message<"actaflow.identity.v1.Session"> & {
   /**
-   * Short-lived access token (ES256 JWT, 10 minutes) for the other services.
+   * Short-lived access token (EdDSA Ed25519 JWT, 15 minutes) for the other services.
    *
    * @generated from field: string access_token = 1;
    */
@@ -110,7 +110,7 @@ export type Session = Message<"actaflow.identity.v1.Session"> & {
   refreshToken: string;
 
   /**
-   * When the refresh token expires (sliding, 12 hours).
+   * When the refresh token expires (sliding, 30 days).
    *
    * @generated from field: google.protobuf.Timestamp refresh_token_expires_at = 4;
    */
@@ -621,7 +621,7 @@ export const RegenerateRecoveryCodesResponseSchema: GenMessage<RegenerateRecover
  * Zero-knowledge authentication with mandatory TOTP second factor.
  *
  * The password never leaves the browser. From it the browser derives, with PBKDF2-SHA-256:
- *   * an auth verifier, sent to the server and stored again hashed with Argon2id;
+ *   * an auth verifier, sent to the server and stored only as an HMAC-SHA-256 with a server secret;
  *   * a separate key-encryption key that unlocks the user's private key kit locally.
  * Because the server only sees the verifier, it cannot decrypt anything.
  *
@@ -644,7 +644,7 @@ export const AuthService: GenService<{
   },
   /**
    * Creates an account from an invitation and starts the mandatory TOTP enrollment.
-   * Errors: NOT_FOUND (invalid or expired invitation), ALREADY_EXISTS (email taken).
+   * Errors: FAILED_PRECONDITION (invalid, used or expired invitation), ALREADY_EXISTS (email taken).
    *
    * @generated from rpc actaflow.identity.v1.AuthService.Register
    */
@@ -655,7 +655,7 @@ export const AuthService: GenService<{
   },
   /**
    * Confirms TOTP enrollment with a first code. Returns the one-time recovery codes and
-   * the first session. Errors: INVALID_ARGUMENT with reason TOTP_CODE_INVALID.
+   * the first session. Errors: UNAUTHENTICATED (wrong code), NOT_FOUND (unknown enrollment).
    *
    * @generated from rpc actaflow.identity.v1.AuthService.ConfirmTotpEnrollment
    */
