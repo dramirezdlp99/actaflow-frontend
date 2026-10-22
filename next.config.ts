@@ -8,15 +8,23 @@ const cabecerasSeguridad = [
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-  // El microfono se habilitara solo para la sala de audiencia, en su bloque.
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
+]
+
+// El microfono solo se permite en la sala de audiencia (y solo para este mismo sitio). Cuando dos
+// reglas ponen la misma cabecera, Next usa la ultima: por eso esta va despues de la general.
+const cabecerasSala = [
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=(), payment=()' },
 ]
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {
-    return [{ source: '/:path*', headers: cabecerasSeguridad }]
+    return [
+      { source: '/:path*', headers: cabecerasSeguridad },
+      { source: '/expedientes/:id/audiencia', headers: cabecerasSala },
+    ]
   },
 }
 
