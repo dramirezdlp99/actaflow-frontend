@@ -152,6 +152,17 @@ function miembro(quien: Usuario, casoId: string): { caso: Caso; yo: Persona } {
   return { caso, yo }
 }
 
+/** Para el legal-case simulado de audiencias: quien llama, su rol y los participantes del caso. */
+export function miembroSimulado(contexto: HandlerContext, casoId: string) {
+  const { caso, yo } = miembro(usuario(contexto), casoId)
+  return {
+    yo: { id: yo.id, rol: yo.rol },
+    estado: caso.estado,
+    participantes: caso.personas.map((p) => ({ id: p.id, nombre: p.nombre })),
+    registrar: (tipo: CaseEventKind) => evento(caso, tipo, yo),
+  }
+}
+
 function exigirConciliador(yo: Persona): void {
   if (yo.rol !== CaseRole.CONCILIATOR) {
     throw fallo('Solo un conciliador del caso puede hacer esto', Code.PermissionDenied)
