@@ -3,6 +3,8 @@ import { Code, ConnectError, createClient, type Client, type Transport } from '@
 import { createGrpcTransport, createGrpcWebTransport } from '@connectrpc/connect-node'
 import { CaseService } from '@/gen/actaflow/cases/v1/case_pb'
 import { ParticipantService } from '@/gen/actaflow/cases/v1/participant_pb'
+import { ProcessorKeyService } from '@/gen/actaflow/crypto/v1/crypto_pb'
+import { HearingService } from '@/gen/actaflow/hearings/v1/hearing_pb'
 import { AccountService, KeyDirectoryService } from '@/gen/actaflow/identity/v1/account_pb'
 import { AuthService } from '@/gen/actaflow/identity/v1/auth_pb'
 import { OrganizationService } from '@/gen/actaflow/identity/v1/organization_pb'
@@ -29,6 +31,9 @@ export type ClientesRpc = {
     casos: Client<typeof CaseService>
     participantes: Client<typeof ParticipantService>
     plantillas: Client<typeof TemplateService>
+    audiencias: Client<typeof HearingService>
+    /** Clave publica del motor de IA (legal-case la pide al motor; el BFF no habla con el motor). */
+    clavesMotor: Client<typeof ProcessorKeyService>
   }
 }
 
@@ -67,6 +72,8 @@ export function crearClientes(config: ConfiguracionBff): ClientesRpc {
       casos: createClient(CaseService, expedientes),
       participantes: createClient(ParticipantService, expedientes),
       plantillas: createClient(TemplateService, expedientes),
+      audiencias: createClient(HearingService, expedientes),
+      clavesMotor: createClient(ProcessorKeyService, expedientes),
     },
   }
 }
