@@ -69,6 +69,7 @@ algo no esté operativo.
 | **SSR** | `/expedientes` | La lista depende de quién pide y de los filtros (`?estado=`, `?pagina=`); se arma en el servidor con el token de la persona | `ƒ /expedientes` (Dynamic) |
 | **Streaming SSR** | `/expedientes/[id]` | La cabecera del caso sale de inmediato; participantes y línea de tiempo llegan después, cada uno en su `Suspense` | `ƒ /expedientes/[id]` (Dynamic) |
 | **ISR** | `/plantillas`, `/plantillas/[slug]` | La biblioteca es pública e igual para todos: se genera en el build, se regenera cada 10 minutos y **al instante** cuando un administrador publica (`revalidatePath` en la Server Action) | `○ /plantillas` y `● /plantillas/[slug]` con `Revalidate 10m` |
+| **CSR** | `/expedientes/[id]/audiencia` | El servidor solo entrega metadatos y bytes cifrados; todo lo demás pasa en el navegador: micrófono, sellado del audio, eventos en vivo y descifrado de la transcripción | `ƒ` (la carcasa); el contenido lo arma el cliente |
 
 El mapa completo de los cinco patrones del proyecto:
 
@@ -78,7 +79,7 @@ El mapa completo de los cinco patrones del proyecto:
 | ISR | `/plantillas`, `/plantillas/[slug]` (por tiempo y al publicar) | 5 (hecho) |
 | SSR | `/expedientes` | 4 (hecho) |
 | Streaming SSR | `/expedientes/[id]` | 4 (hecho) |
-| CSR | `/expedientes/[id]/audiencia`, `/sin-conexion` | 6 y 7 |
+| CSR | `/expedientes/[id]/audiencia` (hecho), `/sin-conexion` | 6 (hecho) y 7 |
 
 ## Cuentas (bloque FE-3)
 
@@ -157,6 +158,34 @@ reglas.
   sistema se copian con "Usar como base".
 - En modo simulado, `lenguajeSimulado.ts` reproduce el mismo lenguaje que el servicio Java
   (mismos diagnósticos y mismo HTML).
+
+## Sala de audiencia (bloque FE-6)
+
+| Ruta | Qué hace |
+|---|---|
+| `/expedientes/[id]/audiencia` | Sala: iniciar y terminar, micrófono, transcripción en vivo y revisión de entidades |
+| `/expedientes/[id]/audiencia/segmentos` | `POST` de una intervención ya sellada (`SubmitAudioSegmentRequest` binario) |
+| `/expedientes/[id]/audiencia/eventos` | Eventos en vivo (NDJSON) reenviados desde `WatchHearingEvents` |
+
+- **Nadie más oye el audio.** El micrófono se procesa en la pestaña: remuestreo a 16 kHz, detector
+  de voz que corta cada intervención en las pausas (máximo 28 s) y WAV PCM16. Cada intervención se
+  **sella para el motor de IA** (`lib/audiencias/sellado.ts`): clave de contenido K nueva, K
+  envuelta para la clave pública del motor y K cifrada con la clave del caso. El BFF y legal-case
+  solo reenvían bytes; el motor devuelve la transcripción cifrada con K y la abre cada participante
+  en su navegador. El dato autenticado ata cada cifrado a su propósito, caso y recurso.
+- **Por qué un route handler para el audio:** 30 s de WAV pasan del tope de 1 MB de las Server
+  Actions. El endpoint solo acepta `application/x-protobuf` del mismo origen (otro sitio no puede
+  mandar ese tipo sin una consulta CORS que nunca se autoriza).
+- **En vivo:** cada pedido de eventos dura ~50 s (la pasarela gRPC-Web de Render corta a los 60 s);
+  el navegador vuelve a pedir desde el último evento recibido, sin perder ninguno.
+- **Permisos:** `Permissions-Policy` permite el micrófono **solo** en la sala. Como la política es
+  del documento, el enlace a la sala hace una carga completa; si aun así se llega sin recargar, la
+  sala lo detecta y pide recargar.
+- **Roles:** el conciliador inicia y termina; conciliador y asistentes graban, piden la extracción
+  y revisan (confirmar, corregir o descartar cada entidad, con control de "alguien guardó antes");
+  las partes ven todo en vivo.
+- En modo simulado, `audienciasSimuladas.ts` incluye un **motor simulado** que abre los sobres de
+  verdad con su propia clave privada: lo único de mentira es el texto de la transcripción.
 
 ## Diseño: "expediente vivo"
 
