@@ -1,4 +1,4 @@
-import { CalendarClock, History, Users } from 'lucide-react'
+import { CalendarClock, History, Mic, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -71,11 +71,17 @@ export default async function Expediente({ params }: { params: Promise<{ id: str
                 </span>
               </div>
             </div>
-            {yo.rol === CaseRole.CONCILIATOR ? (
-              <div className="entrada" style={{ '--i': 3 }}>
-                <AccionesEstado casoId={caso.id} estado={caso.estado} />
-              </div>
-            ) : null}
+            <div className="entrada grid justify-items-start gap-3" style={{ '--i': 3 }}>
+              {/* Enlace normal (no <Link>) a proposito: carga la sala como documento nuevo, con la
+                  Permissions-Policy que habilita el microfono (una navegacion de Next conserva la de aqui). */}
+              <a
+                href={`/expedientes/${caso.id}/audiencia`}
+                className="inline-flex items-center gap-2 rounded-lg border border-institucional px-4 py-2 text-sm font-semibold text-institucional transition hover:bg-institucional-suave"
+              >
+                <Mic aria-hidden className="size-4" /> Sala de audiencia
+              </a>
+              {yo.rol === CaseRole.CONCILIATOR ? <AccionesEstado casoId={caso.id} estado={caso.estado} /> : null}
+            </div>
           </header>
 
           <div className="mt-10 grid items-start gap-8 lg:grid-cols-[1.25fr_1fr]">
