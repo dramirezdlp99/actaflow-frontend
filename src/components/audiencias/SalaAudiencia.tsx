@@ -1,7 +1,7 @@
 'use client'
 
 import { toBinary } from '@bufbuild/protobuf'
-import { Mic, MicOff, Radio, ScanText, Square } from 'lucide-react'
+import { FileSignature, Mic, MicOff, Radio, ScanText, Square } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   claveMotor,
@@ -609,6 +609,14 @@ export function SalaAudiencia(props: Props) {
                       : ''}
                   </span>
                 </div>
+              ) : null}
+              {extraccion && extraccion.revision > 0n ? (
+                <a
+                  href={`/expedientes/${casoId}/acta`}
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-institucional hover:underline"
+                >
+                  <FileSignature aria-hidden className="size-4" /> Preparar el acta con lo revisado →
+                </a>
               ) : null}
             </>
           ) : null}
