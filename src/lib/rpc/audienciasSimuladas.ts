@@ -90,6 +90,16 @@ function estado(): Estado {
   return globalThis.__actaflowAudienciasSimuladas
 }
 
+/** La clave del motor simulado (la usa tambien el legal-case simulado de actas). */
+export function motorSimulado(): Estado['motor'] {
+  return estado().motor
+}
+
+/** Retraso del motor simulado. */
+export function demoraMotorSimulado(): number {
+  return estado().demoraMs
+}
+
 export function reiniciarAudienciasSimuladas(demoraMs = 400): void {
   globalThis.__actaflowAudienciasSimuladas = { ...vacio(), demoraMs }
 }
