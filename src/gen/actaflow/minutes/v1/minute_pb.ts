@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file actaflow/minutes/v1/minute.proto.
  */
 export const file_actaflow_minutes_v1_minute: GenFile = /*@__PURE__*/
-  fileDesc("CiBhY3RhZmxvdy9taW51dGVzL3YxL21pbnV0ZS5wcm90bxITYWN0YWZsb3cubWludXRlcy52MSL5AQoGTWludXRlEgoKAmlkGAEgASgJEg8KB2Nhc2VfaWQYAiABKAkSEwoLdGVtcGxhdGVfaWQYAyABKAkSGAoQdGVtcGxhdGVfdmVyc2lvbhgEIAEoBRIvCgVzdGF0ZRgFIAEoDjIgLmFjdGFmbG93Lm1pbnV0ZXMudjEuTWludXRlU3RhdGUSEwoLZmlsbF9qb2JfaWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLQoJY2xvc2VkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKVAQoTQ3JlYXRlTWludXRlUmVxdWVzdBIZCgdjYXNlX2lkGAEgASgJQgi6SAVyA7ABARIdCgt0ZW1wbGF0ZV9pZBgCIAEoCUIIukgFcgOwAQESIQoQdGVtcGxhdGVfdmVyc2lvbhgDIAEoBUIHukgEGgIoARIhCg9pZGVtcG90ZW5jeV9rZXkYBCABKAlCCLpIBXIDsAEBIkMKFENyZWF0ZU1pbnV0ZVJlc3BvbnNlEisKBm1pbnV0ZRgBIAEoCzIbLmFjdGFmbG93Lm1pbnV0ZXMudjEuTWludXRlIi8KEEdldE1pbnV0ZVJlcXVlc3QSGwoJbWludXRlX2lkGAEgASgJQgi6SAVyA7ABASJAChFHZXRNaW51dGVSZXNwb25zZRIrCgZtaW51dGUYASABKAsyGy5hY3RhZmxvdy5taW51dGVzLnYxLk1pbnV0ZSIvChJMaXN0TWludXRlc1JlcXVlc3QSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQEiQwoTTGlzdE1pbnV0ZXNSZXNwb25zZRIsCgdtaW51dGVzGAEgAygLMhsuYWN0YWZsb3cubWludXRlcy52MS5NaW51dGUiqQEKCUZpbGxJbnB1dBIkChFyZXZpZXdlZF9lbnRpdGllcxgBIAEoDEIJukgGegQYwIQ9EkMKC2Nhc2VfZmllbGRzGAIgAygLMi4uYWN0YWZsb3cubWludXRlcy52MS5GaWxsSW5wdXQuQ2FzZUZpZWxkc0VudHJ5GjEKD0Nhc2VGaWVsZHNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAk6AjgBImsKEUZpbGxNaW51dGVSZXF1ZXN0EhsKCW1pbnV0ZV9pZBgBIAEoCUIIukgFcgOwAQESOQoFaW5wdXQYAiABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBASIkChJGaWxsTWludXRlUmVzcG9uc2USDgoGam9iX2lkGAEgASgJIjYKC0ZpbGxlZERyYWZ0EgwKBGh0bWwYASABKAkSGQoRbWlzc2luZ192YXJpYWJsZXMYAiADKAkilwEKEkNsb3NlTWludXRlUmVxdWVzdBIbCgltaW51dGVfaWQYASABKAlCCLpIBXIDsAEBEkEKDWZpbmFsX2NvbnRlbnQYAiABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBARIhCg9pZGVtcG90ZW5jeV9rZXkYAyABKAlCCLpIBXIDsAEBIlIKE0Nsb3NlTWludXRlUmVzcG9uc2USKwoGbWludXRlGAEgASgLMhsuYWN0YWZsb3cubWludXRlcy52MS5NaW51dGUSDgoGam9iX2lkGAIgASgJIqgBCgxEb2N1bWVudFNlYWwSEgoKc2hhMjU2X2hleBgBIAEoCRIVCg1jbXNfc2lnbmF0dXJlGAIgASgMEhYKDnNpZ25lcl9zdWJqZWN0GAMgASgJEiYKHmNlcnRpZmljYXRlX2ZpbmdlcnByaW50X3NoYTI1NhgEIAEoCRItCglzZWFsZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wImsKCkFjY2VwdGFuY2USFgoOcGFydGljaXBhbnRfaWQYASABKAkSFAoMZGlzcGxheV9uYW1lGAIgASgJEi8KC2FjY2VwdGVkX2F0GAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKnAgoNRmluYWxEb2N1bWVudBIKCgJpZBgBIAEoCRIRCgltaW51dGVfaWQYAiABKAkSLgoDcGRmGAMgASgLMiEuYWN0YWZsb3cuY3J5cHRvLnYxLkVuY3J5cHRlZEJsb2ISPwoUY29udGVudF9rZXlfZm9yX2Nhc2UYBCABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYhIvCgRzZWFsGAUgASgLMiEuYWN0YWZsb3cubWludXRlcy52MS5Eb2N1bWVudFNlYWwSNAoLYWNjZXB0YW5jZXMYBiADKAsyHy5hY3RhZmxvdy5taW51dGVzLnYxLkFjY2VwdGFuY2USHwoXcGVuZGluZ19wYXJ0aWNpcGFudF9pZHMYByADKAkiNgoXR2V0RmluYWxEb2N1bWVudFJlcXVlc3QSGwoJbWludXRlX2lkGAEgASgJQgi6SAVyA7ABASJQChhHZXRGaW5hbERvY3VtZW50UmVzcG9uc2USNAoIZG9jdW1lbnQYASABKAsyIi5hY3RhZmxvdy5taW51dGVzLnYxLkZpbmFsRG9jdW1lbnQijAEKGkFjY2VwdEZpbmFsRG9jdW1lbnRSZXF1ZXN0Eh0KC2RvY3VtZW50X2lkGAEgASgJQgi6SAVyA7ABARIpCgpzaGEyNTZfaGV4GAIgASgJQhW6SBJyEDIOXlswLTlhLWZdezY0fSQSJAoJdG90cF9jb2RlGAMgASgJQhG6SA5yDDIKXlswLTldezZ9JCJTChtBY2NlcHRGaW5hbERvY3VtZW50UmVzcG9uc2USNAoIZG9jdW1lbnQYASABKAsyIi5hY3RhZmxvdy5taW51dGVzLnYxLkZpbmFsRG9jdW1lbnQiQgoVVmVyaWZ5RG9jdW1lbnRSZXF1ZXN0EikKCnNoYTI1Nl9oZXgYASABKAlCFbpIEnIQMg5eWzAtOWEtZl17NjR9JCKmAQoWVmVyaWZ5RG9jdW1lbnRSZXNwb25zZRIRCglhdXRoZW50aWMYASABKAgSLwoEc2VhbBgCIAEoCzIhLmFjdGFmbG93Lm1pbnV0ZXMudjEuRG9jdW1lbnRTZWFsEhkKEW9yZ2FuaXphdGlvbl9uYW1lGAMgASgJEhMKC2Nhc2VfbnVtYmVyGAQgASgJEhgKEGFjY2VwdGFuY2VfY291bnQYBSABKAUqmwEKC01pbnV0ZVN0YXRlEhwKGE1JTlVURV9TVEFURV9VTlNQRUNJRklFRBAAEhYKEk1JTlVURV9TVEFURV9EUkFGVBABEhgKFE1JTlVURV9TVEFURV9TRUFMSU5HEAISJAogTUlOVVRFX1NUQVRFX0FXQUlUSU5HX0FDQ0VQVEFOQ0UQAxIWChJNSU5VVEVfU1RBVEVfRklOQUwQBDLJBgoNTWludXRlU2VydmljZRJjCgxDcmVhdGVNaW51dGUSKC5hY3RhZmxvdy5taW51dGVzLnYxLkNyZWF0ZU1pbnV0ZVJlcXVlc3QaKS5hY3RhZmxvdy5taW51dGVzLnYxLkNyZWF0ZU1pbnV0ZVJlc3BvbnNlEloKCUdldE1pbnV0ZRIlLmFjdGFmbG93Lm1pbnV0ZXMudjEuR2V0TWludXRlUmVxdWVzdBomLmFjdGFmbG93Lm1pbnV0ZXMudjEuR2V0TWludXRlUmVzcG9uc2USYAoLTGlzdE1pbnV0ZXMSJy5hY3RhZmxvdy5taW51dGVzLnYxLkxpc3RNaW51dGVzUmVxdWVzdBooLmFjdGFmbG93Lm1pbnV0ZXMudjEuTGlzdE1pbnV0ZXNSZXNwb25zZRJdCgpGaWxsTWludXRlEiYuYWN0YWZsb3cubWludXRlcy52MS5GaWxsTWludXRlUmVxdWVzdBonLmFjdGFmbG93Lm1pbnV0ZXMudjEuRmlsbE1pbnV0ZVJlc3BvbnNlEmAKC0Nsb3NlTWludXRlEicuYWN0YWZsb3cubWludXRlcy52MS5DbG9zZU1pbnV0ZVJlcXVlc3QaKC5hY3RhZmxvdy5taW51dGVzLnYxLkNsb3NlTWludXRlUmVzcG9uc2USbwoQR2V0RmluYWxEb2N1bWVudBIsLmFjdGFmbG93Lm1pbnV0ZXMudjEuR2V0RmluYWxEb2N1bWVudFJlcXVlc3QaLS5hY3RhZmxvdy5taW51dGVzLnYxLkdldEZpbmFsRG9jdW1lbnRSZXNwb25zZRJ4ChNBY2NlcHRGaW5hbERvY3VtZW50Ei8uYWN0YWZsb3cubWludXRlcy52MS5BY2NlcHRGaW5hbERvY3VtZW50UmVxdWVzdBowLmFjdGFmbG93Lm1pbnV0ZXMudjEuQWNjZXB0RmluYWxEb2N1bWVudFJlc3BvbnNlEmkKDlZlcmlmeURvY3VtZW50EiouYWN0YWZsb3cubWludXRlcy52MS5WZXJpZnlEb2N1bWVudFJlcXVlc3QaKy5hY3RhZmxvdy5taW51dGVzLnYxLlZlcmlmeURvY3VtZW50UmVzcG9uc2VCMgohY29tLmFjdGFmbG93LmNvbnRyYWN0cy5taW51dGVzLnYxQgtNaW51dGVQcm90b1ABYgZwcm90bzM", [file_actaflow_crypto_v1_crypto, file_buf_validate_validate, file_google_protobuf_timestamp]);
+  fileDesc("CiBhY3RhZmxvdy9taW51dGVzL3YxL21pbnV0ZS5wcm90bxITYWN0YWZsb3cubWludXRlcy52MSL5AQoGTWludXRlEgoKAmlkGAEgASgJEg8KB2Nhc2VfaWQYAiABKAkSEwoLdGVtcGxhdGVfaWQYAyABKAkSGAoQdGVtcGxhdGVfdmVyc2lvbhgEIAEoBRIvCgVzdGF0ZRgFIAEoDjIgLmFjdGFmbG93Lm1pbnV0ZXMudjEuTWludXRlU3RhdGUSEwoLZmlsbF9qb2JfaWQYBiABKAkSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLQoJY2xvc2VkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCKVAQoTQ3JlYXRlTWludXRlUmVxdWVzdBIZCgdjYXNlX2lkGAEgASgJQgi6SAVyA7ABARIdCgt0ZW1wbGF0ZV9pZBgCIAEoCUIIukgFcgOwAQESIQoQdGVtcGxhdGVfdmVyc2lvbhgDIAEoBUIHukgEGgIoARIhCg9pZGVtcG90ZW5jeV9rZXkYBCABKAlCCLpIBXIDsAEBIkMKFENyZWF0ZU1pbnV0ZVJlc3BvbnNlEisKBm1pbnV0ZRgBIAEoCzIbLmFjdGFmbG93Lm1pbnV0ZXMudjEuTWludXRlIi8KEEdldE1pbnV0ZVJlcXVlc3QSGwoJbWludXRlX2lkGAEgASgJQgi6SAVyA7ABASJAChFHZXRNaW51dGVSZXNwb25zZRIrCgZtaW51dGUYASABKAsyGy5hY3RhZmxvdy5taW51dGVzLnYxLk1pbnV0ZSIvChJMaXN0TWludXRlc1JlcXVlc3QSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQEiQwoTTGlzdE1pbnV0ZXNSZXNwb25zZRIsCgdtaW51dGVzGAEgAygLMhsuYWN0YWZsb3cubWludXRlcy52MS5NaW51dGUiqQEKCUZpbGxJbnB1dBIkChFyZXZpZXdlZF9lbnRpdGllcxgBIAEoDEIJukgGegQYwIQ9EkMKC2Nhc2VfZmllbGRzGAIgAygLMi4uYWN0YWZsb3cubWludXRlcy52MS5GaWxsSW5wdXQuQ2FzZUZpZWxkc0VudHJ5GjEKD0Nhc2VGaWVsZHNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAk6AjgBImsKEUZpbGxNaW51dGVSZXF1ZXN0EhsKCW1pbnV0ZV9pZBgBIAEoCUIIukgFcgOwAQESOQoFaW5wdXQYAiABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBASIkChJGaWxsTWludXRlUmVzcG9uc2USDgoGam9iX2lkGAEgASgJIjYKC0ZpbGxlZERyYWZ0EgwKBGh0bWwYASABKAkSGQoRbWlzc2luZ192YXJpYWJsZXMYAiADKAkilwEKEkNsb3NlTWludXRlUmVxdWVzdBIbCgltaW51dGVfaWQYASABKAlCCLpIBXIDsAEBEkEKDWZpbmFsX2NvbnRlbnQYAiABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBARIhCg9pZGVtcG90ZW5jeV9rZXkYAyABKAlCCLpIBXIDsAEBIlIKE0Nsb3NlTWludXRlUmVzcG9uc2USKwoGbWludXRlGAEgASgLMhsuYWN0YWZsb3cubWludXRlcy52MS5NaW51dGUSDgoGam9iX2lkGAIgASgJIkIKDEZpbmFsQ29udGVudBIXCgV0aXRsZRgBIAEoCUIIukgFcgMYyAESGQoEaHRtbBgCIAEoCUILukgIcgYQARigwh4iqAEKDERvY3VtZW50U2VhbBISCgpzaGEyNTZfaGV4GAEgASgJEhUKDWNtc19zaWduYXR1cmUYAiABKAwSFgoOc2lnbmVyX3N1YmplY3QYAyABKAkSJgoeY2VydGlmaWNhdGVfZmluZ2VycHJpbnRfc2hhMjU2GAQgASgJEi0KCXNlYWxlZF9hdBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiawoKQWNjZXB0YW5jZRIWCg5wYXJ0aWNpcGFudF9pZBgBIAEoCRIUCgxkaXNwbGF5X25hbWUYAiABKAkSLwoLYWNjZXB0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqcCCg1GaW5hbERvY3VtZW50EgoKAmlkGAEgASgJEhEKCW1pbnV0ZV9pZBgCIAEoCRIuCgNwZGYYAyABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYhI/ChRjb250ZW50X2tleV9mb3JfY2FzZRgEIAEoCzIhLmFjdGFmbG93LmNyeXB0by52MS5FbmNyeXB0ZWRCbG9iEi8KBHNlYWwYBSABKAsyIS5hY3RhZmxvdy5taW51dGVzLnYxLkRvY3VtZW50U2VhbBI0CgthY2NlcHRhbmNlcxgGIAMoCzIfLmFjdGFmbG93Lm1pbnV0ZXMudjEuQWNjZXB0YW5jZRIfChdwZW5kaW5nX3BhcnRpY2lwYW50X2lkcxgHIAMoCSI2ChdHZXRGaW5hbERvY3VtZW50UmVxdWVzdBIbCgltaW51dGVfaWQYASABKAlCCLpIBXIDsAEBIlAKGEdldEZpbmFsRG9jdW1lbnRSZXNwb25zZRI0Cghkb2N1bWVudBgBIAEoCzIiLmFjdGFmbG93Lm1pbnV0ZXMudjEuRmluYWxEb2N1bWVudCKwAQoaQWNjZXB0RmluYWxEb2N1bWVudFJlcXVlc3QSHQoLZG9jdW1lbnRfaWQYASABKAlCCLpIBXIDsAEBEikKCnNoYTI1Nl9oZXgYAiABKAlCFbpIEnIQMg5eWzAtOWEtZl17NjR9JBIkCgl0b3RwX2NvZGUYAyABKAlCEbpIDnIMMgpeWzAtOV17Nn0kEiIKDnByZXNlbmNlX3Rva2VuGAQgASgJQgq6SAdyBRABGIAQIlMKG0FjY2VwdEZpbmFsRG9jdW1lbnRSZXNwb25zZRI0Cghkb2N1bWVudBgBIAEoCzIiLmFjdGFmbG93Lm1pbnV0ZXMudjEuRmluYWxEb2N1bWVudCJCChVWZXJpZnlEb2N1bWVudFJlcXVlc3QSKQoKc2hhMjU2X2hleBgBIAEoCUIVukgSchAyDl5bMC05YS1mXXs2NH0kIqYBChZWZXJpZnlEb2N1bWVudFJlc3BvbnNlEhEKCWF1dGhlbnRpYxgBIAEoCBIvCgRzZWFsGAIgASgLMiEuYWN0YWZsb3cubWludXRlcy52MS5Eb2N1bWVudFNlYWwSGQoRb3JnYW5pemF0aW9uX25hbWUYAyABKAkSEwoLY2FzZV9udW1iZXIYBCABKAkSGAoQYWNjZXB0YW5jZV9jb3VudBgFIAEoBSqbAQoLTWludXRlU3RhdGUSHAoYTUlOVVRFX1NUQVRFX1VOU1BFQ0lGSUVEEAASFgoSTUlOVVRFX1NUQVRFX0RSQUZUEAESGAoUTUlOVVRFX1NUQVRFX1NFQUxJTkcQAhIkCiBNSU5VVEVfU1RBVEVfQVdBSVRJTkdfQUNDRVBUQU5DRRADEhYKEk1JTlVURV9TVEFURV9GSU5BTBAEMskGCg1NaW51dGVTZXJ2aWNlEmMKDENyZWF0ZU1pbnV0ZRIoLmFjdGFmbG93Lm1pbnV0ZXMudjEuQ3JlYXRlTWludXRlUmVxdWVzdBopLmFjdGFmbG93Lm1pbnV0ZXMudjEuQ3JlYXRlTWludXRlUmVzcG9uc2USWgoJR2V0TWludXRlEiUuYWN0YWZsb3cubWludXRlcy52MS5HZXRNaW51dGVSZXF1ZXN0GiYuYWN0YWZsb3cubWludXRlcy52MS5HZXRNaW51dGVSZXNwb25zZRJgCgtMaXN0TWludXRlcxInLmFjdGFmbG93Lm1pbnV0ZXMudjEuTGlzdE1pbnV0ZXNSZXF1ZXN0GiguYWN0YWZsb3cubWludXRlcy52MS5MaXN0TWludXRlc1Jlc3BvbnNlEl0KCkZpbGxNaW51dGUSJi5hY3RhZmxvdy5taW51dGVzLnYxLkZpbGxNaW51dGVSZXF1ZXN0GicuYWN0YWZsb3cubWludXRlcy52MS5GaWxsTWludXRlUmVzcG9uc2USYAoLQ2xvc2VNaW51dGUSJy5hY3RhZmxvdy5taW51dGVzLnYxLkNsb3NlTWludXRlUmVxdWVzdBooLmFjdGFmbG93Lm1pbnV0ZXMudjEuQ2xvc2VNaW51dGVSZXNwb25zZRJvChBHZXRGaW5hbERvY3VtZW50EiwuYWN0YWZsb3cubWludXRlcy52MS5HZXRGaW5hbERvY3VtZW50UmVxdWVzdBotLmFjdGFmbG93Lm1pbnV0ZXMudjEuR2V0RmluYWxEb2N1bWVudFJlc3BvbnNlEngKE0FjY2VwdEZpbmFsRG9jdW1lbnQSLy5hY3RhZmxvdy5taW51dGVzLnYxLkFjY2VwdEZpbmFsRG9jdW1lbnRSZXF1ZXN0GjAuYWN0YWZsb3cubWludXRlcy52MS5BY2NlcHRGaW5hbERvY3VtZW50UmVzcG9uc2USaQoOVmVyaWZ5RG9jdW1lbnQSKi5hY3RhZmxvdy5taW51dGVzLnYxLlZlcmlmeURvY3VtZW50UmVxdWVzdBorLmFjdGFmbG93Lm1pbnV0ZXMudjEuVmVyaWZ5RG9jdW1lbnRSZXNwb25zZUIyCiFjb20uYWN0YWZsb3cuY29udHJhY3RzLm1pbnV0ZXMudjFCC01pbnV0ZVByb3RvUAFiBnByb3RvMw", [file_actaflow_crypto_v1_crypto, file_buf_validate_validate, file_google_protobuf_timestamp]);
 
 /**
  * A minute.
@@ -405,6 +405,37 @@ export const CloseMinuteResponseSchema: GenMessage<CloseMinuteResponse> = /*@__P
   messageDesc(file_actaflow_minutes_v1_minute, 12);
 
 /**
+ * Plaintext sealed inside CloseMinuteRequest.final_content for the AI engine
+ * (plaintext_type = "actaflow.minutes.v1.FinalContent"; AAD purpose "minute-final", resource =
+ * minute id).
+ *
+ * @generated from message actaflow.minutes.v1.FinalContent
+ */
+export type FinalContent = Message<"actaflow.minutes.v1.FinalContent"> & {
+  /**
+   * Title printed in the header of every page.
+   *
+   * @generated from field: string title = 1;
+   */
+  title: string;
+
+  /**
+   * The final minute as restricted HTML: only h2, h3, p, br, strong and span, the same subset the
+   * template language produces.
+   *
+   * @generated from field: string html = 2;
+   */
+  html: string;
+};
+
+/**
+ * Describes the message actaflow.minutes.v1.FinalContent.
+ * Use `create(FinalContentSchema)` to create a new message.
+ */
+export const FinalContentSchema: GenMessage<FinalContent> = /*@__PURE__*/
+  messageDesc(file_actaflow_minutes_v1_minute, 13);
+
+/**
  * Public integrity seal of a final document.
  *
  * @generated from message actaflow.minutes.v1.DocumentSeal
@@ -451,7 +482,7 @@ export type DocumentSeal = Message<"actaflow.minutes.v1.DocumentSeal"> & {
  * Use `create(DocumentSealSchema)` to create a new message.
  */
 export const DocumentSealSchema: GenMessage<DocumentSeal> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 13);
+  messageDesc(file_actaflow_minutes_v1_minute, 14);
 
 /**
  * One party's acceptance.
@@ -486,7 +517,7 @@ export type Acceptance = Message<"actaflow.minutes.v1.Acceptance"> & {
  * Use `create(AcceptanceSchema)` to create a new message.
  */
 export const AcceptanceSchema: GenMessage<Acceptance> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 14);
+  messageDesc(file_actaflow_minutes_v1_minute, 15);
 
 /**
  * A sealed final document.
@@ -549,7 +580,7 @@ export type FinalDocument = Message<"actaflow.minutes.v1.FinalDocument"> & {
  * Use `create(FinalDocumentSchema)` to create a new message.
  */
 export const FinalDocumentSchema: GenMessage<FinalDocument> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 15);
+  messageDesc(file_actaflow_minutes_v1_minute, 16);
 
 /**
  * Request for GetFinalDocument.
@@ -570,7 +601,7 @@ export type GetFinalDocumentRequest = Message<"actaflow.minutes.v1.GetFinalDocum
  * Use `create(GetFinalDocumentRequestSchema)` to create a new message.
  */
 export const GetFinalDocumentRequestSchema: GenMessage<GetFinalDocumentRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 16);
+  messageDesc(file_actaflow_minutes_v1_minute, 17);
 
 /**
  * Response of GetFinalDocument.
@@ -591,7 +622,7 @@ export type GetFinalDocumentResponse = Message<"actaflow.minutes.v1.GetFinalDocu
  * Use `create(GetFinalDocumentResponseSchema)` to create a new message.
  */
 export const GetFinalDocumentResponseSchema: GenMessage<GetFinalDocumentResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 17);
+  messageDesc(file_actaflow_minutes_v1_minute, 18);
 
 /**
  * Request for AcceptFinalDocument. Parties only.
@@ -614,11 +645,20 @@ export type AcceptFinalDocumentRequest = Message<"actaflow.minutes.v1.AcceptFina
   sha256Hex: string;
 
   /**
-   * Current TOTP code of the party.
+   * Current TOTP code of the party. legal-case cannot check it (identity holds the TOTP secret):
+   * it is checked through presence_token.
    *
    * @generated from field: string totp_code = 3;
    */
   totpCode: string;
+
+  /**
+   * Proof from actaflow.identity.v1.AuthService.ConfirmPresence for that same code, with purpose
+   * "accept-minute:<document_id>:<sha256_hex>". Required since v0.4.0.
+   *
+   * @generated from field: string presence_token = 4;
+   */
+  presenceToken: string;
 };
 
 /**
@@ -626,7 +666,7 @@ export type AcceptFinalDocumentRequest = Message<"actaflow.minutes.v1.AcceptFina
  * Use `create(AcceptFinalDocumentRequestSchema)` to create a new message.
  */
 export const AcceptFinalDocumentRequestSchema: GenMessage<AcceptFinalDocumentRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 18);
+  messageDesc(file_actaflow_minutes_v1_minute, 19);
 
 /**
  * Response of AcceptFinalDocument.
@@ -647,7 +687,7 @@ export type AcceptFinalDocumentResponse = Message<"actaflow.minutes.v1.AcceptFin
  * Use `create(AcceptFinalDocumentResponseSchema)` to create a new message.
  */
 export const AcceptFinalDocumentResponseSchema: GenMessage<AcceptFinalDocumentResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 19);
+  messageDesc(file_actaflow_minutes_v1_minute, 20);
 
 /**
  * Request for VerifyDocument.
@@ -668,7 +708,7 @@ export type VerifyDocumentRequest = Message<"actaflow.minutes.v1.VerifyDocumentR
  * Use `create(VerifyDocumentRequestSchema)` to create a new message.
  */
 export const VerifyDocumentRequestSchema: GenMessage<VerifyDocumentRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 20);
+  messageDesc(file_actaflow_minutes_v1_minute, 21);
 
 /**
  * Response of VerifyDocument.
@@ -717,7 +757,7 @@ export type VerifyDocumentResponse = Message<"actaflow.minutes.v1.VerifyDocument
  * Use `create(VerifyDocumentResponseSchema)` to create a new message.
  */
 export const VerifyDocumentResponseSchema: GenMessage<VerifyDocumentResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_minutes_v1_minute, 21);
+  messageDesc(file_actaflow_minutes_v1_minute, 22);
 
 /**
  * Lifecycle of a minute.
@@ -771,11 +811,12 @@ export const MinuteStateSchema: GenEnum<MinuteState> = /*@__PURE__*/
  * Minutes (actas) and their final sealed documents. Implemented by legal-case-service.
  *
  * Step 4 of the case study: "the AI autocompletes the official minute by pouring the extracted
- * data onto the selected legal template". Because the minute is confidential, the template is
- * filled by the document worker as a sealed processor: the browser seals the confirmed
- * entities for it, the worker fills the template in memory and returns the draft encrypted
- * with the same content key. The draft then becomes the starting point of the collaborative
- * document (actaflow.collaboration.v1).
+ * data onto the selected legal template". Because the minute is confidential, no server fills it:
+ * since v0.4.0 the browser fills the published template with the reviewed entities itself (the
+ * template language is public and deterministic) and only the final content leaves it, sealed
+ * for the AI engine, which renders the PDF (actaflow.engine.v1.DocumentService). legal-case
+ * signs the PDF's SHA-256 without ever seeing the PDF. FillMinute is kept for compatibility but
+ * legal-case answers UNIMPLEMENTED.
  *
  * Legal note: the final document carries an INTEGRITY SEAL (SHA-256 + CMS signature with
  * ActaFlow's own certificate) plus each party's acceptance confirmed with their TOTP. It is
