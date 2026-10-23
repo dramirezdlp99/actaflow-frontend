@@ -66,6 +66,8 @@ type Estado = {
   refrescos: Map<string, { cuentaId: string; familia: string; vence: number; usado: boolean }>
   familiasRevocadas: Set<string>
   accesos: Map<string, { cuentaId: string; vence: number }>
+  /** Pruebas de presencia (ConfirmPresence): para que el legal-case simulado las verifique. */
+  presencias: Map<string, { cuentaId: string; proposito: string; vence: number }>
 }
 
 function estadoInicial(): Estado {
@@ -85,6 +87,7 @@ function estadoInicial(): Estado {
     refrescos: new Map(),
     familiasRevocadas: new Set(),
     accesos: new Map(),
+    presencias: new Map(),
   }
 }
 
@@ -348,6 +351,19 @@ export function registrarIdentidadSimulada(router: ConnectRouter): void {
       }
       return {}
     },
+    confirmPresence(peticion, contexto) {
+      const cuenta = principal(contexto)
+      if (!/^[a-z0-9:-]{1,200}$/.test(peticion.purpose)) {
+        throw new ConnectError('purpose no cumple el formato', Code.InvalidArgument)
+      }
+      if (!totpValido(cuenta, peticion.totpCode)) {
+        throw new ConnectError('Codigo incorrecto', Code.Unauthenticated)
+      }
+      const vence = Date.now() + 2 * MINUTO
+      const token = `presencia-simulada.${randomUUID()}`
+      estado().presencias.set(token, { cuentaId: cuenta.id, proposito: peticion.purpose, vence })
+      return { presenceToken: token, expiresAt: marca(vence) }
+    },
   })
 
   router.service(AccountService, {
@@ -450,4 +466,10 @@ export function cuentaDeTokenSimulado(
     correo: cuenta.correo,
     nombre: cuenta.nombre,
   }
+}
+
+/** Para el legal-case simulado: de quien es y para que sirve una prueba de presencia vigente. */
+export function presenciaSimulada(token: string): { cuentaId: string; proposito: string } | null {
+  const prueba = estado().presencias.get(token)
+  return prueba && prueba.vence > Date.now() ? { cuentaId: prueba.cuentaId, proposito: prueba.proposito } : null
 }
