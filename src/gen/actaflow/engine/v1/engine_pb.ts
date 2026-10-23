@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file actaflow/engine/v1/engine.proto.
  */
 export const file_actaflow_engine_v1_engine: GenFile = /*@__PURE__*/
-  fileDesc("Ch9hY3RhZmxvdy9lbmdpbmUvdjEvZW5naW5lLnByb3RvEhJhY3RhZmxvdy5lbmdpbmUudjEiVQoQUmVjb2duaXRpb25IaW50cxIdCgVuYW1lcxgBIAMoCUIOukgLkgEIEB4iBHICGHgSIgoKdm9jYWJ1bGFyeRgCIAMoCUIOukgLkgEIEGQiBHICGDwi0AEKElNlYWxlZEF1ZGlvU2VnbWVudBIaCgVhdWRpbxgBIAEoDEILukgIegYQARjgxlsSPwoIZW5jb2RpbmcYAiABKA4yIS5hY3RhZmxvdy5lbmdpbmUudjEuQXVkaW9FbmNvZGluZ0IKukgHggEEEAEgABIoChZzcGVha2VyX3BhcnRpY2lwYW50X2lkGAMgASgJQgi6SAVyA7ABARIzCgVoaW50cxgEIAEoCzIkLmFjdGFmbG93LmVuZ2luZS52MS5SZWNvZ25pdGlvbkhpbnRzIrIBChhUcmFuc2NyaWJlU2VnbWVudFJlcXVlc3QSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQESHAoKc2VnbWVudF9pZBgCIAEoCUIIukgFcgOwAQESOQoFYXVkaW8YAyABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBARIiCghsYW5ndWFnZRgEIAEoCUIQukgNcgtSAmVzUgVlcy1DTyJSChlUcmFuc2NyaWJlU2VnbWVudFJlc3BvbnNlEjUKCnRyYW5zY3JpcHQYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYiKhAQoaU3RyZWFtVHJhbnNjcmlwdGlvblJlcXVlc3QSPQoFc3RhcnQYASABKAsyLC5hY3RhZmxvdy5lbmdpbmUudjEuU3RyZWFtVHJhbnNjcmlwdGlvblN0YXJ0SAASMgoFY2h1bmsYAiABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYkgAQhAKB3BheWxvYWQSBbpIAggBItEBChhTdHJlYW1UcmFuc2NyaXB0aW9uU3RhcnQSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQESHAoKc2Vzc2lvbl9pZBgCIAEoCUIIukgFcgOwAQESOwoLY29udGVudF9rZXkYAyABKAsyHi5hY3RhZmxvdy5jcnlwdG8udjEuV3JhcHBlZEtleUIGukgDyAEBEj8KCGVuY29kaW5nGAQgASgOMiEuYWN0YWZsb3cuZW5naW5lLnYxLkF1ZGlvRW5jb2RpbmdCCrpIB4IBBBABIAAiYAobU3RyZWFtVHJhbnNjcmlwdGlvblJlc3BvbnNlEjIKB3BhcnRpYWwYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYhINCgVmaW5hbBgCIAEoCCK0AQoPRXh0cmFjdGlvbklucHV0EhkKBHRleHQYASABKAlCC7pICHIGEAEYwJoMEkAKDnJlZmVyZW5jZV9kYXRlGAIgASgLMiAuYWN0YWZsb3cuY29tbW9uLnYxLkNhbGVuZGFyRGF0ZUIGukgDyAEBEkQKDHBhcnRpY2lwYW50cxgDIAMoCzIkLmFjdGFmbG93LmVuZ2luZS52MS5Lbm93blBhcnRpY2lwYW50Qgi6SAWSAQIQHiJTChBLbm93blBhcnRpY2lwYW50EiAKDnBhcnRpY2lwYW50X2lkGAEgASgJQgi6SAVyA7ABARIdCgxkaXNwbGF5X25hbWUYAiABKAlCB7pIBHICGHgijwEKFkV4dHJhY3RFbnRpdGllc1JlcXVlc3QSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQESHwoNZXh0cmFjdGlvbl9pZBgCIAEoCUIIukgFcgOwAQESOQoFaW5wdXQYAyABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBASJOChdFeHRyYWN0RW50aXRpZXNSZXNwb25zZRIzCghlbnRpdGllcxgBIAEoCzIhLmFjdGFmbG93LmNyeXB0by52MS5FbmNyeXB0ZWRCbG9iInAKE1J1bkJlbmNobWFya1JlcXVlc3QSRAoGbW9kZWxzGAEgAygOMh0uYWN0YWZsb3cuZW5naW5lLnYxLk1vZGVsU2l6ZUIVukgSkgEPCAEQAxgBIgeCAQQQASAAEhMKC2luY2x1ZGVfbmxwGAIgASgIIlwKD0NvbnRhaW5lckxpbWl0cxIaChJtZW1vcnlfbGltaXRfYnl0ZXMYASABKAMSFwoPY3B1X3F1b3RhX2NvcmVzGAIgASgBEhQKDHZpc2libGVfY3B1cxgDIAEoBSKtAgoOTW9kZWxCZW5jaG1hcmsSLAoFbW9kZWwYASABKA4yHS5hY3RhZmxvdy5lbmdpbmUudjEuTW9kZWxTaXplEjUKB291dGNvbWUYAiABKA4yJC5hY3RhZmxvdy5lbmdpbmUudjEuQmVuY2htYXJrT3V0Y29tZRIOCgZkZXRhaWwYAyABKAkSFAoMbG9hZF9zZWNvbmRzGAQgASgBEh0KFXRyYW5zY3JpcHRpb25fc2Vjb25kcxgFIAEoARIVCg1hdWRpb19zZWNvbmRzGAYgASgBEhgKEHJlYWxfdGltZV9mYWN0b3IYByABKAESGQoRcGVha19tZW1vcnlfYnl0ZXMYCCABKAMSFwoPd29yZF9lcnJvcl9yYXRlGAkgASgBEgwKBHRleHQYCiABKAkigAEKFFJ1bkJlbmNobWFya1Jlc3BvbnNlEjMKBmxpbWl0cxgBIAEoCzIjLmFjdGFmbG93LmVuZ2luZS52MS5Db250YWluZXJMaW1pdHMSMwoHcmVzdWx0cxgCIAMoCzIiLmFjdGFmbG93LmVuZ2luZS52MS5Nb2RlbEJlbmNobWFyaypqCg1BdWRpb0VuY29kaW5nEh4KGkFVRElPX0VOQ09ESU5HX1VOU1BFQ0lGSUVEEAASGwoXQVVESU9fRU5DT0RJTkdfT0dHX09QVVMQARIcChhBVURJT19FTkNPRElOR19XQVZfUENNMTYQAipnCglNb2RlbFNpemUSGgoWTU9ERUxfU0laRV9VTlNQRUNJRklFRBAAEhMKD01PREVMX1NJWkVfVElOWRABEhMKD01PREVMX1NJWkVfQkFTRRACEhQKEE1PREVMX1NJWkVfU01BTEwQAyrVAQoQQmVuY2htYXJrT3V0Y29tZRIhCh1CRU5DSE1BUktfT1VUQ09NRV9VTlNQRUNJRklFRBAAEhgKFEJFTkNITUFSS19PVVRDT01FX09LEAESIwofQkVOQ0hNQVJLX09VVENPTUVfT1VUX09GX01FTU9SWRACEh0KGUJFTkNITUFSS19PVVRDT01FX1RJTUVPVVQQAxIbChdCRU5DSE1BUktfT1VUQ09NRV9FUlJPUhAEEiMKH0JFTkNITUFSS19PVVRDT01FX05PVF9JTlNUQUxMRUQQBTKEAgoUVHJhbnNjcmlwdGlvblNlcnZpY2UScAoRVHJhbnNjcmliZVNlZ21lbnQSLC5hY3RhZmxvdy5lbmdpbmUudjEuVHJhbnNjcmliZVNlZ21lbnRSZXF1ZXN0Gi0uYWN0YWZsb3cuZW5naW5lLnYxLlRyYW5zY3JpYmVTZWdtZW50UmVzcG9uc2USegoTU3RyZWFtVHJhbnNjcmlwdGlvbhIuLmFjdGFmbG93LmVuZ2luZS52MS5TdHJlYW1UcmFuc2NyaXB0aW9uUmVxdWVzdBovLmFjdGFmbG93LmVuZ2luZS52MS5TdHJlYW1UcmFuc2NyaXB0aW9uUmVzcG9uc2UoATABMn8KEUV4dHJhY3Rpb25TZXJ2aWNlEmoKD0V4dHJhY3RFbnRpdGllcxIqLmFjdGFmbG93LmVuZ2luZS52MS5FeHRyYWN0RW50aXRpZXNSZXF1ZXN0GisuYWN0YWZsb3cuZW5naW5lLnYxLkV4dHJhY3RFbnRpdGllc1Jlc3BvbnNlMn0KGEVuZ2luZURpYWdub3N0aWNzU2VydmljZRJhCgxSdW5CZW5jaG1hcmsSJy5hY3RhZmxvdy5lbmdpbmUudjEuUnVuQmVuY2htYXJrUmVxdWVzdBooLmFjdGFmbG93LmVuZ2luZS52MS5SdW5CZW5jaG1hcmtSZXNwb25zZUIxCiBjb20uYWN0YWZsb3cuY29udHJhY3RzLmVuZ2luZS52MUILRW5naW5lUHJvdG9QAWIGcHJvdG8z", [file_actaflow_common_v1_values, file_actaflow_crypto_v1_crypto, file_buf_validate_validate]);
+  fileDesc("Ch9hY3RhZmxvdy9lbmdpbmUvdjEvZW5naW5lLnByb3RvEhJhY3RhZmxvdy5lbmdpbmUudjEiVQoQUmVjb2duaXRpb25IaW50cxIdCgVuYW1lcxgBIAMoCUIOukgLkgEIEB4iBHICGHgSIgoKdm9jYWJ1bGFyeRgCIAMoCUIOukgLkgEIEGQiBHICGDwi0AEKElNlYWxlZEF1ZGlvU2VnbWVudBIaCgVhdWRpbxgBIAEoDEILukgIegYQARjgxlsSPwoIZW5jb2RpbmcYAiABKA4yIS5hY3RhZmxvdy5lbmdpbmUudjEuQXVkaW9FbmNvZGluZ0IKukgHggEEEAEgABIoChZzcGVha2VyX3BhcnRpY2lwYW50X2lkGAMgASgJQgi6SAVyA7ABARIzCgVoaW50cxgEIAEoCzIkLmFjdGFmbG93LmVuZ2luZS52MS5SZWNvZ25pdGlvbkhpbnRzIrIBChhUcmFuc2NyaWJlU2VnbWVudFJlcXVlc3QSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQESHAoKc2VnbWVudF9pZBgCIAEoCUIIukgFcgOwAQESOQoFYXVkaW8YAyABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBARIiCghsYW5ndWFnZRgEIAEoCUIQukgNcgtSAmVzUgVlcy1DTyJSChlUcmFuc2NyaWJlU2VnbWVudFJlc3BvbnNlEjUKCnRyYW5zY3JpcHQYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYiKhAQoaU3RyZWFtVHJhbnNjcmlwdGlvblJlcXVlc3QSPQoFc3RhcnQYASABKAsyLC5hY3RhZmxvdy5lbmdpbmUudjEuU3RyZWFtVHJhbnNjcmlwdGlvblN0YXJ0SAASMgoFY2h1bmsYAiABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYkgAQhAKB3BheWxvYWQSBbpIAggBItEBChhTdHJlYW1UcmFuc2NyaXB0aW9uU3RhcnQSGQoHY2FzZV9pZBgBIAEoCUIIukgFcgOwAQESHAoKc2Vzc2lvbl9pZBgCIAEoCUIIukgFcgOwAQESOwoLY29udGVudF9rZXkYAyABKAsyHi5hY3RhZmxvdy5jcnlwdG8udjEuV3JhcHBlZEtleUIGukgDyAEBEj8KCGVuY29kaW5nGAQgASgOMiEuYWN0YWZsb3cuZW5naW5lLnYxLkF1ZGlvRW5jb2RpbmdCCrpIB4IBBBABIAAiYAobU3RyZWFtVHJhbnNjcmlwdGlvblJlc3BvbnNlEjIKB3BhcnRpYWwYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYhINCgVmaW5hbBgCIAEoCCKTAQoWUmVuZGVyTWludXRlUGRmUmVxdWVzdBIZCgdjYXNlX2lkGAEgASgJQgi6SAVyA7ABARIbCgltaW51dGVfaWQYAiABKAlCCLpIBXIDsAEBEkEKDWZpbmFsX2NvbnRlbnQYAyABKAsyIi5hY3RhZmxvdy5jcnlwdG8udjEuU2VhbGVkRW52ZWxvcGVCBrpIA8gBASJxChdSZW5kZXJNaW51dGVQZGZSZXNwb25zZRIuCgNwZGYYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYhISCgpzaGEyNTZfaGV4GAIgASgJEhIKCnBhZ2VfY291bnQYAyABKAUitAEKD0V4dHJhY3Rpb25JbnB1dBIZCgR0ZXh0GAEgASgJQgu6SAhyBhABGMCaDBJACg5yZWZlcmVuY2VfZGF0ZRgCIAEoCzIgLmFjdGFmbG93LmNvbW1vbi52MS5DYWxlbmRhckRhdGVCBrpIA8gBARJECgxwYXJ0aWNpcGFudHMYAyADKAsyJC5hY3RhZmxvdy5lbmdpbmUudjEuS25vd25QYXJ0aWNpcGFudEIIukgFkgECEB4iUwoQS25vd25QYXJ0aWNpcGFudBIgCg5wYXJ0aWNpcGFudF9pZBgBIAEoCUIIukgFcgOwAQESHQoMZGlzcGxheV9uYW1lGAIgASgJQge6SARyAhh4Io8BChZFeHRyYWN0RW50aXRpZXNSZXF1ZXN0EhkKB2Nhc2VfaWQYASABKAlCCLpIBXIDsAEBEh8KDWV4dHJhY3Rpb25faWQYAiABKAlCCLpIBXIDsAEBEjkKBWlucHV0GAMgASgLMiIuYWN0YWZsb3cuY3J5cHRvLnYxLlNlYWxlZEVudmVsb3BlQga6SAPIAQEiTgoXRXh0cmFjdEVudGl0aWVzUmVzcG9uc2USMwoIZW50aXRpZXMYASABKAsyIS5hY3RhZmxvdy5jcnlwdG8udjEuRW5jcnlwdGVkQmxvYiJwChNSdW5CZW5jaG1hcmtSZXF1ZXN0EkQKBm1vZGVscxgBIAMoDjIdLmFjdGFmbG93LmVuZ2luZS52MS5Nb2RlbFNpemVCFbpIEpIBDwgBEAMYASIHggEEEAEgABITCgtpbmNsdWRlX25scBgCIAEoCCJcCg9Db250YWluZXJMaW1pdHMSGgoSbWVtb3J5X2xpbWl0X2J5dGVzGAEgASgDEhcKD2NwdV9xdW90YV9jb3JlcxgCIAEoARIUCgx2aXNpYmxlX2NwdXMYAyABKAUirQIKDk1vZGVsQmVuY2htYXJrEiwKBW1vZGVsGAEgASgOMh0uYWN0YWZsb3cuZW5naW5lLnYxLk1vZGVsU2l6ZRI1CgdvdXRjb21lGAIgASgOMiQuYWN0YWZsb3cuZW5naW5lLnYxLkJlbmNobWFya091dGNvbWUSDgoGZGV0YWlsGAMgASgJEhQKDGxvYWRfc2Vjb25kcxgEIAEoARIdChV0cmFuc2NyaXB0aW9uX3NlY29uZHMYBSABKAESFQoNYXVkaW9fc2Vjb25kcxgGIAEoARIYChByZWFsX3RpbWVfZmFjdG9yGAcgASgBEhkKEXBlYWtfbWVtb3J5X2J5dGVzGAggASgDEhcKD3dvcmRfZXJyb3JfcmF0ZRgJIAEoARIMCgR0ZXh0GAogASgJIoABChRSdW5CZW5jaG1hcmtSZXNwb25zZRIzCgZsaW1pdHMYASABKAsyIy5hY3RhZmxvdy5lbmdpbmUudjEuQ29udGFpbmVyTGltaXRzEjMKB3Jlc3VsdHMYAiADKAsyIi5hY3RhZmxvdy5lbmdpbmUudjEuTW9kZWxCZW5jaG1hcmsqagoNQXVkaW9FbmNvZGluZxIeChpBVURJT19FTkNPRElOR19VTlNQRUNJRklFRBAAEhsKF0FVRElPX0VOQ09ESU5HX09HR19PUFVTEAESHAoYQVVESU9fRU5DT0RJTkdfV0FWX1BDTTE2EAIqZwoJTW9kZWxTaXplEhoKFk1PREVMX1NJWkVfVU5TUEVDSUZJRUQQABITCg9NT0RFTF9TSVpFX1RJTlkQARITCg9NT0RFTF9TSVpFX0JBU0UQAhIUChBNT0RFTF9TSVpFX1NNQUxMEAMq1QEKEEJlbmNobWFya091dGNvbWUSIQodQkVOQ0hNQVJLX09VVENPTUVfVU5TUEVDSUZJRUQQABIYChRCRU5DSE1BUktfT1VUQ09NRV9PSxABEiMKH0JFTkNITUFSS19PVVRDT01FX09VVF9PRl9NRU1PUlkQAhIdChlCRU5DSE1BUktfT1VUQ09NRV9USU1FT1VUEAMSGwoXQkVOQ0hNQVJLX09VVENPTUVfRVJST1IQBBIjCh9CRU5DSE1BUktfT1VUQ09NRV9OT1RfSU5TVEFMTEVEEAUyhAIKFFRyYW5zY3JpcHRpb25TZXJ2aWNlEnAKEVRyYW5zY3JpYmVTZWdtZW50EiwuYWN0YWZsb3cuZW5naW5lLnYxLlRyYW5zY3JpYmVTZWdtZW50UmVxdWVzdBotLmFjdGFmbG93LmVuZ2luZS52MS5UcmFuc2NyaWJlU2VnbWVudFJlc3BvbnNlEnoKE1N0cmVhbVRyYW5zY3JpcHRpb24SLi5hY3RhZmxvdy5lbmdpbmUudjEuU3RyZWFtVHJhbnNjcmlwdGlvblJlcXVlc3QaLy5hY3RhZmxvdy5lbmdpbmUudjEuU3RyZWFtVHJhbnNjcmlwdGlvblJlc3BvbnNlKAEwATJ9Cg9Eb2N1bWVudFNlcnZpY2USagoPUmVuZGVyTWludXRlUGRmEiouYWN0YWZsb3cuZW5naW5lLnYxLlJlbmRlck1pbnV0ZVBkZlJlcXVlc3QaKy5hY3RhZmxvdy5lbmdpbmUudjEuUmVuZGVyTWludXRlUGRmUmVzcG9uc2UyfwoRRXh0cmFjdGlvblNlcnZpY2USagoPRXh0cmFjdEVudGl0aWVzEiouYWN0YWZsb3cuZW5naW5lLnYxLkV4dHJhY3RFbnRpdGllc1JlcXVlc3QaKy5hY3RhZmxvdy5lbmdpbmUudjEuRXh0cmFjdEVudGl0aWVzUmVzcG9uc2UyfQoYRW5naW5lRGlhZ25vc3RpY3NTZXJ2aWNlEmEKDFJ1bkJlbmNobWFyaxInLmFjdGFmbG93LmVuZ2luZS52MS5SdW5CZW5jaG1hcmtSZXF1ZXN0GiguYWN0YWZsb3cuZW5naW5lLnYxLlJ1bkJlbmNobWFya1Jlc3BvbnNlQjEKIGNvbS5hY3RhZmxvdy5jb250cmFjdHMuZW5naW5lLnYxQgtFbmdpbmVQcm90b1ABYgZwcm90bzM", [file_actaflow_common_v1_values, file_actaflow_crypto_v1_crypto, file_buf_validate_validate]);
 
 /**
  * Hints that improve recognition of proper names and legal vocabulary.
@@ -260,6 +260,76 @@ export const StreamTranscriptionResponseSchema: GenMessage<StreamTranscriptionRe
   messageDesc(file_actaflow_engine_v1_engine, 6);
 
 /**
+ * Request for RenderMinutePdf.
+ *
+ * @generated from message actaflow.engine.v1.RenderMinutePdfRequest
+ */
+export type RenderMinutePdfRequest = Message<"actaflow.engine.v1.RenderMinutePdfRequest"> & {
+  /**
+   * Case identifier (part of the AAD).
+   *
+   * @generated from field: string case_id = 1;
+   */
+  caseId: string;
+
+  /**
+   * Minute identifier (part of the AAD).
+   *
+   * @generated from field: string minute_id = 2;
+   */
+  minuteId: string;
+
+  /**
+   * actaflow.minutes.v1.FinalContent sealed for the engine.
+   *
+   * @generated from field: actaflow.crypto.v1.SealedEnvelope final_content = 3;
+   */
+  finalContent?: SealedEnvelope | undefined;
+};
+
+/**
+ * Describes the message actaflow.engine.v1.RenderMinutePdfRequest.
+ * Use `create(RenderMinutePdfRequestSchema)` to create a new message.
+ */
+export const RenderMinutePdfRequestSchema: GenMessage<RenderMinutePdfRequest> = /*@__PURE__*/
+  messageDesc(file_actaflow_engine_v1_engine, 7);
+
+/**
+ * Response of RenderMinutePdf.
+ *
+ * @generated from message actaflow.engine.v1.RenderMinutePdfResponse
+ */
+export type RenderMinutePdfResponse = Message<"actaflow.engine.v1.RenderMinutePdfResponse"> & {
+  /**
+   * The PDF encrypted with the content key (plaintext_type = "application/pdf").
+   *
+   * @generated from field: actaflow.crypto.v1.EncryptedBlob pdf = 1;
+   */
+  pdf?: EncryptedBlob | undefined;
+
+  /**
+   * SHA-256 of the plaintext PDF, hex.
+   *
+   * @generated from field: string sha256_hex = 2;
+   */
+  sha256Hex: string;
+
+  /**
+   * Number of pages.
+   *
+   * @generated from field: int32 page_count = 3;
+   */
+  pageCount: number;
+};
+
+/**
+ * Describes the message actaflow.engine.v1.RenderMinutePdfResponse.
+ * Use `create(RenderMinutePdfResponseSchema)` to create a new message.
+ */
+export const RenderMinutePdfResponseSchema: GenMessage<RenderMinutePdfResponse> = /*@__PURE__*/
+  messageDesc(file_actaflow_engine_v1_engine, 8);
+
+/**
  * Plaintext sealed inside ExtractEntitiesRequest.input
  * (plaintext_type = "actaflow.engine.v1.ExtractionInput").
  *
@@ -293,7 +363,7 @@ export type ExtractionInput = Message<"actaflow.engine.v1.ExtractionInput"> & {
  * Use `create(ExtractionInputSchema)` to create a new message.
  */
 export const ExtractionInputSchema: GenMessage<ExtractionInput> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 7);
+  messageDesc(file_actaflow_engine_v1_engine, 9);
 
 /**
  * A participant the engine may match names against.
@@ -321,7 +391,7 @@ export type KnownParticipant = Message<"actaflow.engine.v1.KnownParticipant"> & 
  * Use `create(KnownParticipantSchema)` to create a new message.
  */
 export const KnownParticipantSchema: GenMessage<KnownParticipant> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 8);
+  messageDesc(file_actaflow_engine_v1_engine, 10);
 
 /**
  * Request for ExtractEntities.
@@ -356,7 +426,7 @@ export type ExtractEntitiesRequest = Message<"actaflow.engine.v1.ExtractEntities
  * Use `create(ExtractEntitiesRequestSchema)` to create a new message.
  */
 export const ExtractEntitiesRequestSchema: GenMessage<ExtractEntitiesRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 9);
+  messageDesc(file_actaflow_engine_v1_engine, 11);
 
 /**
  * Response of ExtractEntities.
@@ -377,7 +447,7 @@ export type ExtractEntitiesResponse = Message<"actaflow.engine.v1.ExtractEntitie
  * Use `create(ExtractEntitiesResponseSchema)` to create a new message.
  */
 export const ExtractEntitiesResponseSchema: GenMessage<ExtractEntitiesResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 10);
+  messageDesc(file_actaflow_engine_v1_engine, 12);
 
 /**
  * Request for RunBenchmark.
@@ -405,7 +475,7 @@ export type RunBenchmarkRequest = Message<"actaflow.engine.v1.RunBenchmarkReques
  * Use `create(RunBenchmarkRequestSchema)` to create a new message.
  */
 export const RunBenchmarkRequestSchema: GenMessage<RunBenchmarkRequest> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 11);
+  messageDesc(file_actaflow_engine_v1_engine, 13);
 
 /**
  * Limits of the container the engine runs in, read from cgroup v2.
@@ -440,7 +510,7 @@ export type ContainerLimits = Message<"actaflow.engine.v1.ContainerLimits"> & {
  * Use `create(ContainerLimitsSchema)` to create a new message.
  */
 export const ContainerLimitsSchema: GenMessage<ContainerLimits> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 12);
+  messageDesc(file_actaflow_engine_v1_engine, 14);
 
 /**
  * Measurement of one model.
@@ -524,7 +594,7 @@ export type ModelBenchmark = Message<"actaflow.engine.v1.ModelBenchmark"> & {
  * Use `create(ModelBenchmarkSchema)` to create a new message.
  */
 export const ModelBenchmarkSchema: GenMessage<ModelBenchmark> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 13);
+  messageDesc(file_actaflow_engine_v1_engine, 15);
 
 /**
  * Response of RunBenchmark.
@@ -552,7 +622,7 @@ export type RunBenchmarkResponse = Message<"actaflow.engine.v1.RunBenchmarkRespo
  * Use `create(RunBenchmarkResponseSchema)` to create a new message.
  */
 export const RunBenchmarkResponseSchema: GenMessage<RunBenchmarkResponse> = /*@__PURE__*/
-  messageDesc(file_actaflow_engine_v1_engine, 14);
+  messageDesc(file_actaflow_engine_v1_engine, 16);
 
 /**
  * Audio container and codec.
@@ -728,6 +798,28 @@ export const TranscriptionService: GenService<{
   serviceDesc(file_actaflow_engine_v1_engine, 0);
 
 /**
+ * PDF rendering of final minutes, as a sealed processor (the "document worker" of
+ * actaflow.minutes.v1). The engine opens the final content in memory, renders the PDF and returns
+ * it encrypted with the same content key (AAD purpose "minute-pdf", resource = minute id), plus
+ * its SHA-256 so legal-case can seal it without seeing it.
+ *
+ * @generated from service actaflow.engine.v1.DocumentService
+ */
+export const DocumentService: GenService<{
+  /**
+   * Renders one final minute.
+   *
+   * @generated from rpc actaflow.engine.v1.DocumentService.RenderMinutePdf
+   */
+  renderMinutePdf: {
+    methodKind: "unary";
+    input: typeof RenderMinutePdfRequestSchema;
+    output: typeof RenderMinutePdfResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_actaflow_engine_v1_engine, 1);
+
+/**
  * Legal entity extraction from a transcript.
  *
  * @generated from service actaflow.engine.v1.ExtractionService
@@ -744,7 +836,7 @@ export const ExtractionService: GenService<{
     output: typeof ExtractEntitiesResponseSchema;
   },
 }> = /*@__PURE__*/
-  serviceDesc(file_actaflow_engine_v1_engine, 1);
+  serviceDesc(file_actaflow_engine_v1_engine, 2);
 
 /**
  * Measurements of the engine in its real environment (used to choose the model).
@@ -765,5 +857,5 @@ export const EngineDiagnosticsService: GenService<{
     output: typeof RunBenchmarkResponseSchema;
   },
 }> = /*@__PURE__*/
-  serviceDesc(file_actaflow_engine_v1_engine, 2);
+  serviceDesc(file_actaflow_engine_v1_engine, 3);
 
