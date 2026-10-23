@@ -31,6 +31,8 @@ export const PROPOSITO = {
   entidades: 'extraction-result',
   claveContenido: 'content-key',
   revision: 'reviewed-entities',
+  actaFinal: 'minute-final',
+  actaPdf: 'minute-pdf',
 } as const
 
 export const TIPO = {
@@ -39,6 +41,8 @@ export const TIPO = {
   entrada: 'actaflow.engine.v1.ExtractionInput',
   entidades: 'actaflow.legal.v1.EntityExtractionResult',
   claveContenido: 'actaflow.crypto.v1.ContentKey',
+  actaFinal: 'actaflow.minutes.v1.FinalContent',
+  actaPdf: 'application/pdf',
 } as const
 
 export type Proposito = (typeof PROPOSITO)[keyof typeof PROPOSITO]
@@ -94,7 +98,7 @@ export type Sellar = {
   /** Id de la clave del caso (el de los detalles cifrados); solo informativo. */
   idClaveCaso: string
   motor: ClaveMotor
-  proposito: typeof PROPOSITO.audio | typeof PROPOSITO.entrada
+  proposito: typeof PROPOSITO.audio | typeof PROPOSITO.entrada | typeof PROPOSITO.actaFinal
   casoId: string
   recursoId: string
   datos: Uint8Array
@@ -163,6 +167,16 @@ export async function abrirResultado(
   return descifrar(contenido, blob, tipo, aad(proposito, casoId, recursoId))
 }
 
+/** El PDF del acta que genero el motor, cifrado con la clave de contenido del acta. */
+export async function abrirPdf(
+  contenido: CryptoKey,
+  blob: EncryptedBlob,
+  casoId: string,
+  actaId: string,
+): Promise<Uint8Array> {
+  return descifrar(contenido, blob, TIPO.actaPdf, aad(PROPOSITO.actaPdf, casoId, actaId))
+}
+
 /** La revision humana de las entidades va cifrada directamente con la clave del caso. */
 export async function cifrarRevision(
   claveCaso: CryptoKey,
@@ -190,7 +204,10 @@ export async function descifrarRevision(
 export async function procesarComoMotor(
   privadaMotor: CryptoKey,
   sobre: SealedEnvelope,
-  entrada: { proposito: typeof PROPOSITO.audio | typeof PROPOSITO.entrada; tipo: string },
+  entrada: {
+    proposito: typeof PROPOSITO.audio | typeof PROPOSITO.entrada | typeof PROPOSITO.actaFinal
+    tipo: string
+  },
   casoId: string,
   recursoId: string,
   procesar: (datos: Uint8Array) => Uint8Array,
@@ -207,7 +224,13 @@ export async function procesarComoMotor(
     envuelta: envoltura.wrappedKey,
   })
   const datos = await descifrar(contenido, payload, entrada.tipo, aad(entrada.proposito, casoId, recursoId))
-  const salida = entrada.proposito === PROPOSITO.audio ? PROPOSITO.transcripcion : PROPOSITO.entidades
-  const tipo = salida === PROPOSITO.transcripcion ? TIPO.transcripcion : TIPO.entidades
+  const salida =
+    entrada.proposito === PROPOSITO.audio
+      ? PROPOSITO.transcripcion
+      : entrada.proposito === PROPOSITO.actaFinal
+        ? PROPOSITO.actaPdf
+        : PROPOSITO.entidades
+  const tipo =
+    salida === PROPOSITO.transcripcion ? TIPO.transcripcion : salida === PROPOSITO.actaPdf ? TIPO.actaPdf : TIPO.entidades
   return cifrar(contenido, payload.keyId, procesar(datos), tipo, aad(salida, casoId, recursoId))
 }
