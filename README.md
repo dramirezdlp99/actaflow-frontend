@@ -70,6 +70,8 @@ algo no esté operativo.
 | **Streaming SSR** | `/expedientes/[id]` | La cabecera del caso sale de inmediato; participantes y línea de tiempo llegan después, cada uno en su `Suspense` | `ƒ /expedientes/[id]` (Dynamic) |
 | **ISR** | `/plantillas`, `/plantillas/[slug]` | La biblioteca es pública e igual para todos: se genera en el build, se regenera cada 10 minutos y **al instante** cuando un administrador publica (`revalidatePath` en la Server Action) | `○ /plantillas` y `● /plantillas/[slug]` con `Revalidate 10m` |
 | **CSR** | `/expedientes/[id]/audiencia` | El servidor solo entrega metadatos y bytes cifrados; todo lo demás pasa en el navegador: micrófono, sellado del audio, eventos en vivo y descifrado de la transcripción | `ƒ` (la carcasa); el contenido lo arma el cliente |
+| **CSR** | `/expedientes/[id]/acta` | La plantilla se llena, se sella para el motor y el PDF se descifra y se compara con el sello en el navegador | `ƒ` (la carcasa); el contenido lo arma el cliente |
+| **SSG + Server Action pública** | `/verificar` | Página igual para todos; la huella SHA-256 se calcula en el navegador y solo ella viaja | `○ /verificar` |
 
 El mapa completo de los cinco patrones del proyecto:
 
@@ -79,7 +81,7 @@ El mapa completo de los cinco patrones del proyecto:
 | ISR | `/plantillas`, `/plantillas/[slug]` (por tiempo y al publicar) | 5 (hecho) |
 | SSR | `/expedientes` | 4 (hecho) |
 | Streaming SSR | `/expedientes/[id]` | 4 (hecho) |
-| CSR | `/expedientes/[id]/audiencia` (hecho), `/sin-conexion` | 6 (hecho) y 7 |
+| CSR | `/expedientes/[id]/audiencia`, `/expedientes/[id]/acta` | 6 y 7 (hechos) |
 
 ## Cuentas (bloque FE-3)
 
@@ -186,6 +188,28 @@ reglas.
   las partes ven todo en vivo.
 - En modo simulado, `audienciasSimuladas.ts` incluye un **motor simulado** que abre los sobres de
   verdad con su propia clave privada: lo único de mentira es el texto de la transcripción.
+
+## Acta (bloque FE-7)
+
+| Ruta | Qué hace |
+|---|---|
+| `/expedientes/[id]/acta` | Crear el acta con una plantilla publicada, llenarla, cerrarla y sellarla; descargar el PDF y aceptarlo |
+| `/verificar` | Pública: comprueba si un PDF es un acta sellada por ActaFlow |
+
+- **El acta se llena en el navegador** (ADR 0004 de los contratos): `lib/rpc/lenguajeSimulado.ts`
+  (el mismo lenguaje de plantillas) corre en la pestaña con los datos del expediente y **solo** las
+  entidades que una persona confirmó o corrigió (`lib/actas/valores.ts`). Lo que no se deduce queda
+  en un formulario; lo que falte se resalta y bloquea el cierre.
+- **Cerrar** sella el contenido final para el motor (`minute-final`), igual que el audio. El motor
+  arma el PDF (fpdf2), lo cifra con la misma clave de contenido y legal-case firma **solo** su
+  SHA-256 (firma CMS desacoplada). El navegador descifra el PDF, recalcula la huella y muestra si
+  coincide con el sello antes de dejar aceptar.
+- **Aceptar** pide un código TOTP nuevo: identity emite una prueba de presencia de 2 minutos atada
+  a `accept-minute:<documento>:<sha256>`; no sirve como token de acceso. Cuando aceptan todas las
+  partes, el acta queda **FINAL**.
+- `/verificar` no sube el archivo: el navegador calcula la huella y la Server Action pública
+  consulta `VerifyDocument`.
+- En modo simulado, `actasSimuladas.ts` hace de legal-case y del motor (PDF mínimo y sello falso).
 
 ## Diseño: "expediente vivo"
 
