@@ -154,13 +154,21 @@ function miembro(quien: Usuario, casoId: string): { caso: Caso; yo: Persona } {
 
 /** Para el legal-case simulado de audiencias: quien llama, su rol y los participantes del caso. */
 export function miembroSimulado(contexto: HandlerContext, casoId: string) {
-  const { caso, yo } = miembro(usuario(contexto), casoId)
+  const quien = usuario(contexto)
+  const { caso, yo } = miembro(quien, casoId)
   return {
-    yo: { id: yo.id, rol: yo.rol },
+    yo: { id: yo.id, rol: yo.rol, nombre: yo.nombre, cuentaId: quien.id },
+    organizacion: quien.organizacion,
     estado: caso.estado,
-    participantes: caso.personas.map((p) => ({ id: p.id, nombre: p.nombre })),
+    radicado: caso.radicado,
+    participantes: caso.personas.map((p) => ({ id: p.id, nombre: p.nombre, rol: p.rol })),
     registrar: (tipo: CaseEventKind) => evento(caso, tipo, yo),
   }
+}
+
+/** Radicado de un caso, sin sesion (para la verificacion publica del sello simulado). */
+export function radicadoSimulado(casoId: string): string {
+  return estado().casos.get(casoId)?.radicado ?? ''
 }
 
 function exigirConciliador(yo: Persona): void {
