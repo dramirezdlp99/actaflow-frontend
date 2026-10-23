@@ -1,4 +1,4 @@
-import { CalendarClock, History, Mic, Users } from 'lucide-react'
+import { CalendarClock, FileSignature, History, Mic, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -80,6 +80,13 @@ export default async function Expediente({ params }: { params: Promise<{ id: str
               >
                 <Mic aria-hidden className="size-4" /> Sala de audiencia
               </a>
+              <Link
+                href={`/expedientes/${caso.id}/acta`}
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded-lg border border-linea px-4 py-2 text-sm font-semibold transition hover:border-institucional"
+              >
+                <FileSignature aria-hidden className="size-4" /> Acta
+              </Link>
               {yo.rol === CaseRole.CONCILIATOR ? <AccionesEstado casoId={caso.id} estado={caso.estado} /> : null}
             </div>
           </header>
