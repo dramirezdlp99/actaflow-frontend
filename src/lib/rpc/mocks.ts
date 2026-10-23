@@ -10,6 +10,7 @@ import {
   ServiceStatusService,
   Transport as TransporteContrato,
 } from '@/gen/actaflow/system/v1/service_status_pb'
+import { registrarActasSimuladas } from './actasSimuladas'
 import { registrarAudienciasSimuladas } from './audienciasSimuladas'
 import { registrarExpedientesSimulados } from './expedientesSimulados'
 import { registrarIdentidadSimulada } from './identidadSimulada'
@@ -57,6 +58,7 @@ export function transporteMockExpedientes(): Transport {
     registrarExpedientesSimulados(router)
     registrarPlantillasSimuladas(router)
     registrarAudienciasSimuladas(router)
+    registrarActasSimuladas(router)
     router.service(ServiceStatusService, {
       getServiceStatus: () => ({
         status: create(ServiceStatusSchema, {
