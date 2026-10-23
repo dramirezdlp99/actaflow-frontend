@@ -1,4 +1,3 @@
-import 'server-only'
 import { create } from '@bufbuild/protobuf'
 import {
   DiagnosticSeverity,
@@ -12,9 +11,10 @@ import {
 } from '@/gen/actaflow/templates/v1/template_pb'
 
 /**
- * Lenguaje de plantillas para el modo simulado (ACTAFLOW_RPC_MODE=mock): la misma sintaxis,
- * diagnosticos, deduccion de variables y HTML que `Lenguaje` y `Documento` de legal-case-service,
- * para que el editor se pueda desarrollar sin el backend. La fuente de verdad es el servicio Java.
+ * Lenguaje de plantillas en TypeScript: la misma sintaxis, diagnosticos, deduccion de variables y
+ * HTML que `Lenguaje` y `Documento` de legal-case-service. Lo usan el modo simulado
+ * (ACTAFLOW_RPC_MODE=mock) y, desde el bloque FE-7, el NAVEGADOR para llenar el acta sin que ningun
+ * servidor vea sus datos (ADR 0004). Puro y sin DOM: corre igual en el servidor y en el navegador.
  */
 
 const FORMATOS = [
