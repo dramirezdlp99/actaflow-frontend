@@ -106,12 +106,17 @@ export function reiniciarPlantillasSimuladas(): void {
 
 const fallo = (mensaje: string, codigo: Code) => new ConnectError(mensaje, codigo)
 
-function administrador(contexto: HandlerContext) {
+function conSesion(contexto: HandlerContext) {
   const cabecera = contexto.requestHeader.get('authorization') ?? ''
   const quien = cabecera.startsWith('Bearer ') ? cuentaDeTokenSimulado(cabecera.slice(7)) : null
   if (!quien) {
     throw fallo('Sesion vencida o no valida', Code.Unauthenticated)
   }
+  return quien
+}
+
+function administrador(contexto: HandlerContext) {
+  const quien = conSesion(contexto)
   if (quien.rol !== PlatformRole.ADMIN) {
     throw fallo('Solo los administradores gestionan plantillas', Code.PermissionDenied)
   }
@@ -259,10 +264,17 @@ export function registrarPlantillasSimuladas(router: ConnectRouter): void {
       }
     },
     getTemplateVersion(peticion, contexto) {
-      const plantilla = propia(contexto, peticion.templateId)
-      const version = plantilla.versiones.find((v) => v.numero === peticion.version)
-      if (!version) {
+      // Como legal-case: una version publicada (del sistema o propia) la lee cualquiera con sesion
+      // (el acta se llena en el navegador); un borrador, solo el administrador autor.
+      const quien = conSesion(contexto)
+      const plantilla = plantillas().get(peticion.templateId)
+      const version = plantilla?.versiones.find((v) => v.numero === peticion.version)
+      if (!plantilla || !version) {
         throw fallo('Esa versión no existe', Code.NotFound)
+      }
+      const alcance = plantilla.organizacion === null || plantilla.organizacion === quien.organizacion
+      if (version.estado === VersionState.DRAFT || !alcance) {
+        propia(contexto, peticion.templateId)
       }
       return { template: contrato(plantilla, version, true) }
     },
@@ -277,4 +289,16 @@ export function registrarPlantillasSimuladas(router: ConnectRouter): void {
       return { templates: pagina, pageInfo: { nextPageToken: siguiente } }
     },
   })
+}
+
+/** Para el legal-case simulado de actas: si existe esa version publicada y para quien es visible. */
+export function versionPublicadaSimulada(id: string, numero: number, organizacion: string): boolean {
+  const plantilla = plantillas().get(id)
+  const version = plantilla?.versiones.find((v) => v.numero === numero)
+  return Boolean(
+    plantilla &&
+      version &&
+      version.estado !== VersionState.DRAFT &&
+      (plantilla.organizacion === null || plantilla.organizacion === organizacion),
+  )
 }
