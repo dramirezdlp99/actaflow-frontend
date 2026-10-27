@@ -53,23 +53,32 @@ type SinId<T> = T extends { id: number } ? Omit<T, 'id'> : never
  */
 export class ClientePlantillas {
   private siguiente = 1
-  private readonly esperando = new Map<number, (r: RespuestaPlantilla) => void>()
+  private readonly esperando = new Map<number, { pedido: PedidoPlantilla; resolver: (r: RespuestaPlantilla) => void }>()
   private readonly local = new ProcesadorPlantillas()
   private hilo: Worker | null = null
+  /** Si el Worker no carga (por ejemplo, sin red y sin su script guardado), se atiende aqui. */
+  private roto = false
 
   /** `crear` arma el Worker la primera vez que hace falta (y otra vez despues de `cerrar`). */
   constructor(private readonly crear: (() => Worker) | null) {}
 
   get enOtroHilo(): boolean {
-    return this.crear !== null
+    return this.crear !== null && !this.roto
   }
 
   private worker(): Worker | null {
-    if (!this.hilo && this.crear) {
+    if (!this.hilo && this.crear && !this.roto) {
       const hilo = this.crear()
       hilo.onmessage = (e: MessageEvent<RespuestaPlantilla>) => {
-        this.esperando.get(e.data.id)?.(e.data)
+        this.esperando.get(e.data.id)?.resolver(e.data)
         this.esperando.delete(e.data.id)
+      }
+      hilo.onerror = () => {
+        this.roto = true
+        hilo.terminate()
+        this.hilo = null
+        for (const { pedido, resolver } of this.esperando.values()) resolver(this.local.responder(pedido))
+        this.esperando.clear()
       }
       this.hilo = hilo
     }
@@ -83,7 +92,7 @@ export class ClientePlantillas {
       return Promise.resolve(this.local.responder(completo))
     }
     return new Promise((resolver) => {
-      this.esperando.set(completo.id, resolver)
+      this.esperando.set(completo.id, { pedido: completo, resolver })
       hilo.postMessage(completo)
     })
   }
