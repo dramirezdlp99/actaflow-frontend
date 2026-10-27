@@ -1,6 +1,6 @@
 'use client'
 
-import { toBinary } from '@bufbuild/protobuf'
+import { fromBinary, toBinary } from '@bufbuild/protobuf'
 import { FileSignature, Mic, MicOff, Radio, ScanText, Square } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
@@ -28,14 +28,12 @@ import {
   type Hearing,
   type WatchHearingEventsResponse,
 } from '@/gen/actaflow/hearings/v1/hearing_pb'
-import { codificarWav, type Intervencion } from '@/lib/audiencias/audio'
 import { aplicarRevision, contarEntidades, decisionesDe, type Decision } from '@/lib/audiencias/entidades'
 import {
   abrirEntidades,
   abrirTranscripcion,
   prepararExtraccion,
   prepararRevision,
-  prepararSegmento,
   textoTranscripcion,
   type Contexto,
   type EntidadesAbiertas,
@@ -46,7 +44,7 @@ import { buffer, desdeBase64Url } from '@/lib/cripto/bytes'
 import { RevisionEntidades } from './RevisionEntidades'
 import { Transcripcion, type Abierta } from './Transcripcion'
 import { useEventosAudiencia, type Conexion } from './useEventosAudiencia'
-import { useGrabadora, type EstadoGrabadora } from './useGrabadora'
+import { useGrabadora, type EstadoGrabadora, type SegmentoSellado } from './useGrabadora'
 
 export type PersonaSala = { id: string; nombre: string; rol: CaseRole }
 
@@ -208,21 +206,11 @@ export function SalaAudiencia(props: Props) {
     return motor.current
   }, [])
 
+  /** La peticion llega ya sellada desde el Web Worker; aqui solo se numera y se envia. */
   const enviar = useCallback(
-    async (intervencion: Intervencion, hablanteId: string, audienciaId: string) => {
-      if (!contexto) {
-        return
-      }
-      const peticion = await prepararSegmento({
-        ...contexto,
-        motor: await obtenerMotor(),
-        audienciaId,
-        secuencia: siguiente.current,
-        hablanteId,
-        wav: codificarWav(intervencion.muestras),
-        duracionMs: intervencion.duracionMs,
-        nombres: personas.map((p) => p.nombre),
-      })
+    async (sellada: Uint8Array) => {
+      const peticion = fromBinary(SubmitAudioSegmentRequestSchema, sellada)
+      peticion.sequence = siguiente.current
       siguiente.current += 1
       for (let intento = 1; intento <= 6; intento += 1) {
         let respuesta: Response
@@ -257,35 +245,48 @@ export function SalaAudiencia(props: Props) {
       }
       throw new Error('No se pudo enviar una intervención. Revisa tu conexión.')
     },
-    [contexto, obtenerMotor, personas, casoId],
+    [casoId],
   )
 
-  const hablanteActual = useRef(hablante)
-  useEffect(() => {
-    hablanteActual.current = hablante
-  }, [hablante])
-
-  const alCortar = useCallback(
-    (intervencion: Intervencion) => {
-      const audienciaId = audiencia?.id
-      if (!audienciaId) {
-        return
-      }
-      const quien = hablanteActual.current
+  const alSellar = useCallback(
+    (segmento: SegmentoSellado) => {
       setPendientes((n) => n + 1)
       // En fila: las intervenciones llegan a legal-case en el orden en que se dijeron.
       cola.current = cola.current
-        .then(() => enviar(intervencion, quien, audienciaId))
+        .then(() => enviar(segmento.peticion))
         .catch((e: unknown) => setError(e instanceof Error ? e.message : 'No se pudo enviar una intervención.'))
         .finally(() => setPendientes((n) => n - 1))
     },
-    [audiencia?.id, enviar],
+    [enviar],
   )
-  const grabadora = useGrabadora(alCortar)
+  const alFallar = useCallback((mensaje: string) => setError(mensaje), [])
+  const grabadora = useGrabadora(alSellar, alFallar)
+  const { cambiarHablante } = grabadora
+  useEffect(() => {
+    cambiarHablante(hablante)
+  }, [hablante, cambiarHablante])
+
+  async function encenderMicrofono() {
+    if (!contexto || !audiencia) {
+      return
+    }
+    setError(null)
+    try {
+      await grabadora.iniciar({
+        contexto,
+        motor: await obtenerMotor(),
+        audienciaId: audiencia.id,
+        nombres: personas.map((p) => p.nombre),
+        hablante,
+      })
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo encender el micrófono.')
+    }
+  }
 
   useEffect(() => {
     if (!enCurso && grabadora.estado === 'grabando') {
-      grabadora.detener()
+      void grabadora.detener()
     }
   }, [enCurso, grabadora])
 
@@ -313,10 +314,9 @@ export function SalaAudiencia(props: Props) {
     if (!audiencia) {
       return
     }
-    if (grabadora.estado === 'grabando') {
-      grabadora.detener()
-    }
     setOcupado('terminar')
+    // Espera a que el Worker selle lo ultimo que se dijo y a que se envie.
+    await grabadora.detener()
     await cola.current
     const r = await terminarAudiencia({ audienciaId: audiencia.id })
     setOcupado(null)
@@ -514,7 +514,7 @@ export function SalaAudiencia(props: Props) {
           </fieldset>
           <div className="mt-5 flex flex-wrap items-center gap-4">
             {grabadora.estado === 'grabando' ? (
-              <button type="button" className={SECUNDARIO} onClick={grabadora.detener}>
+              <button type="button" className={SECUNDARIO} onClick={() => void grabadora.detener()}>
                 <MicOff aria-hidden className="size-4" /> Pausar micrófono
               </button>
             ) : (
@@ -522,7 +522,7 @@ export function SalaAudiencia(props: Props) {
                 type="button"
                 className={PRIMARIO}
                 disabled={grabadora.estado === 'pidiendo'}
-                onClick={() => void grabadora.iniciar()}
+                onClick={() => void encenderMicrofono()}
               >
                 <Mic aria-hidden className="size-4" />
                 {grabadora.estado === 'pidiendo' ? 'Pidiendo permiso…' : 'Encender micrófono'}
@@ -540,6 +540,13 @@ export function SalaAudiencia(props: Props) {
                     style={{ width: `${Math.round(grabadora.nivel * 100)}%` }}
                   />
                 </span>
+                {grabadora.camino ? (
+                  <span className="text-xs text-tinta-suave" data-camino={grabadora.camino}>
+                    {grabadora.camino === 'anillo'
+                      ? 'Audio en otro hilo · memoria compartida'
+                      : 'Audio en otro hilo · mensajes'}
+                  </span>
+                ) : null}
               </div>
             ) : null}
           </div>
