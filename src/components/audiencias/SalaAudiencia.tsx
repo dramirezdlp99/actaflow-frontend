@@ -145,7 +145,7 @@ export function SalaAudiencia(props: Props) {
         break
     }
   }, [])
-  const conexion = useEventosAudiencia(casoId, audiencia && enCurso ? audiencia.id : null, alEvento)
+  const { conexion, pestanas } = useEventosAudiencia(casoId, audiencia && enCurso ? audiencia.id : null, alEvento)
 
   // ---------------------------------------------------------------- descifrado
   const abriendo = useRef(new Set<string>())
@@ -444,6 +444,11 @@ export function SalaAudiencia(props: Props) {
             <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-tinta-suave">
               <Radio aria-hidden className={`size-3.5 ${conexion === 'en-vivo' ? 'text-exito' : 'text-alerta'}`} />
               {CONEXION[conexion]}
+              {pestanas > 1 ? (
+                <span className="text-tinta-suave" data-pestanas={pestanas}>
+                  · {pestanas} pestañas, 1 conexión
+                </span>
+              ) : null}
             </p>
           ) : null}
         </div>
