@@ -5,6 +5,7 @@ import { CaseService } from '@/gen/actaflow/cases/v1/case_pb'
 import { ParticipantService } from '@/gen/actaflow/cases/v1/participant_pb'
 import { ProcessorKeyService } from '@/gen/actaflow/crypto/v1/crypto_pb'
 import { HearingService } from '@/gen/actaflow/hearings/v1/hearing_pb'
+import { CollaborationService } from '@/gen/actaflow/collaboration/v1/collaboration_pb'
 import { MinuteService } from '@/gen/actaflow/minutes/v1/minute_pb'
 import { AccountService, KeyDirectoryService } from '@/gen/actaflow/identity/v1/account_pb'
 import { AuthService } from '@/gen/actaflow/identity/v1/auth_pb'
@@ -36,6 +37,7 @@ export type ClientesRpc = {
     /** Clave publica del motor de IA (legal-case la pide al motor; el BFF no habla con el motor). */
     clavesMotor: Client<typeof ProcessorKeyService>
     actas: Client<typeof MinuteService>
+    colaboracion: Client<typeof CollaborationService>
   }
 }
 
@@ -77,6 +79,7 @@ export function crearClientes(config: ConfiguracionBff): ClientesRpc {
       audiencias: createClient(HearingService, expedientes),
       clavesMotor: createClient(ProcessorKeyService, expedientes),
       actas: createClient(MinuteService, expedientes),
+      colaboracion: createClient(CollaborationService, expedientes),
     },
   }
 }
