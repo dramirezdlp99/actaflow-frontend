@@ -4,9 +4,13 @@ import { LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { cerrarSesion } from '@/app/acciones/identidad'
+import { borrarDatosSinConexion } from '@/lib/actas/bandejaIndexada'
 import { borrarClaves } from '@/lib/cripto/almacen'
 
-/** Cierra la sesion en el servidor y borra las claves abiertas de este navegador. */
+/**
+ * Cierra la sesion en el servidor y borra de este navegador las claves abiertas, las paginas que
+ * guardo el Service Worker y los borradores sin conexion.
+ */
 export function BotonSalir() {
   const router = useRouter()
   const [saliendo, setSaliendo] = useState(false)
@@ -17,6 +21,7 @@ export function BotonSalir() {
       onClick={async () => {
         setSaliendo(true)
         await borrarClaves()
+        await borrarDatosSinConexion()
         try {
           await cerrarSesion()
         } finally {
