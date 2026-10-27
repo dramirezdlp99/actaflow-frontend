@@ -102,8 +102,8 @@ export function MinutaViva() {
 
         <div className="sello absolute bottom-6 right-6 flex size-[5.5rem] items-center justify-center rounded-full border-[3px] border-double border-lacre text-center text-lacre">
           <span className="folio leading-tight tracking-[0.12em]">
-            Revisada
-            <br />y firmada
+            Sellada
+            <br />y aceptada
           </span>
         </div>
       </div>
