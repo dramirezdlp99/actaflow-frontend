@@ -2,11 +2,13 @@
 
 import { BadgeCheck, Download, FileSignature, LoaderCircle, ShieldAlert, Stamp } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { aceptarActa, cerrarActa, crearActa, documentoFinal, obtenerActa } from '@/app/acciones/actas'
 import { claveMotor } from '@/app/acciones/audiencias'
 import { AvisoError } from '@/components/cuenta/Campo'
 import { AvisoClave, useClaveCaso } from '@/components/expedientes/ClaveCaso'
+import { EstadoSincronia } from './EstadoSincronia'
+import { useBorrador } from './useBorrador'
 import { CaseRole } from '@/gen/actaflow/cases/v1/case_pb'
 import { EntityExtractionSchema } from '@/gen/actaflow/hearings/v1/hearing_pb'
 import type { EntityExtractionResult } from '@/gen/actaflow/legal/v1/entities_pb'
@@ -94,6 +96,8 @@ export function SalaActa(props: Props) {
   const router = useRouter()
   const clave = useClaveCaso()
   const concilia = yo.rol === CaseRole.CONCILIATOR
+  /** El borrador lo editan el conciliador y los asistentes; las partes lo ven en vivo. */
+  const redacta = concilia || yo.rol === CaseRole.ASSISTANT
   const lista = clave.tipo === 'lista' ? clave.clave : null
   const contexto: Contexto | null = useMemo(
     () => (lista ? { claveCaso: lista, idClaveCaso, casoId } : null),
@@ -105,13 +109,38 @@ export function SalaActa(props: Props) {
     props.documento ? desdeTexto(FinalDocumentSchema, props.documento) : null,
   )
   const [entidades, setEntidades] = useState<EntityExtractionResult | null>(null)
-  const [manual, setManual] = useState<Record<string, string>>({})
   const [plantilla, setPlantilla] = useState(props.plantillas[0]?.id ?? '')
   const [pdf, setPdf] = useState<PdfAbierto | null>(null)
   const [codigo, setCodigo] = useState('')
   const [ocupado, setOcupado] = useState<'crear' | 'cerrar' | 'aceptar' | null>(null)
   const [confirmar, setConfirmar] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // ------------------------------------------------------------------ borrador colaborativo (sin conexion)
+  const contextoBorrador = useMemo(
+    () => (contexto && acta ? { ...contexto, actaId: acta.id, autor: yo.participanteId } : null),
+    [contexto, acta?.id, yo.participanteId], // eslint-disable-line react-hooks/exhaustive-deps -- basta el id del acta
+  )
+  const borradorVivo = useBorrador(contextoBorrador, acta?.state === MinuteState.DRAFT)
+  const manual = borradorVivo.valores
+  // Lo que se esta escribiendo se guarda al dejar de teclear (medio segundo), no en cada letra.
+  const [tecleo, setTecleo] = useState<Record<string, string>>({})
+  const temporizadores = useRef(new Map<string, ReturnType<typeof setTimeout>>())
+  const { cambiar: cambiarBorrador } = borradorVivo
+  const escribir = useCallback(
+    (campo: string, valor: string) => {
+      setTecleo((t) => ({ ...t, [campo]: valor }))
+      clearTimeout(temporizadores.current.get(campo))
+      temporizadores.current.set(
+        campo,
+        setTimeout(() => {
+          cambiarBorrador(campo, valor)
+          setTecleo(({ [campo]: _, ...resto }) => resto)
+        }, 500),
+      )
+    },
+    [cambiarBorrador],
+  )
 
   // ------------------------------------------------------------------ entidades revisadas (cifradas)
   useEffect(() => {
@@ -165,14 +194,14 @@ export function SalaActa(props: Props) {
   const valores = useMemo(() => {
     const v: Record<string, TemplateValue> = { ...automaticos }
     for (const campo of campos) {
-      const crudo = manual[campo.path]
+      const crudo = tecleo[campo.path] ?? manual[campo.path]
       if (crudo === undefined) continue
       const valor = valorManual(CAMPO[campo.type] ?? 'texto', crudo)
       if (valor) v[campo.path] = valor
       else delete v[campo.path]
     }
     return v
-  }, [automaticos, campos, manual])
+  }, [automaticos, campos, manual, tecleo])
   const [vista, setVista] = useState<{ html: string; faltan: number; fallo: string | null; de: unknown }>({
     html: '',
     faltan: 0,
@@ -266,7 +295,8 @@ export function SalaActa(props: Props) {
   }
 
   async function cerrar() {
-    if (!contexto || !acta || armando || vista.faltan > 0) return
+    if (!contexto || !acta || armando || vista.faltan > 0 || borradorVivo.pendientes > 0 || Object.keys(tecleo).length > 0)
+      return
     setOcupado('cerrar')
     setError(null)
     try {
@@ -364,20 +394,21 @@ export function SalaActa(props: Props) {
 
       {acta && borrador && contexto ? (
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_1.3fr]">
-          {concilia ? (
+          {redacta ? (
             <section aria-labelledby="titulo-datos" className={CAJA}>
               <h2 id="titulo-datos" className="titular text-2xl">
                 Datos del acta
               </h2>
               <p className="mt-2 text-sm text-tinta-suave">
                 Lo que se pudo deducir ya está lleno. Completa o corrige el resto; las listas (cuotas, compromisos,
-                participantes) salen de lo revisado.
+                participantes) salen de lo revisado. Quien tenga el acta abierta ve los cambios en vivo.
               </p>
+              <EstadoSincronia estado={borradorVivo} />
               <div className="mt-4 grid gap-3">
                 {campos.map((c) => {
                   const tipo = CAMPO[c.type] ?? 'texto'
-                  const valor = manual[c.path] ?? aCrudo(automaticos[c.path])
-                  const cambiar = (v: string) => setManual((m) => ({ ...m, [c.path]: v }))
+                  const valor = tecleo[c.path] ?? manual[c.path] ?? aCrudo(automaticos[c.path])
+                  const cambiar = (v: string) => escribir(c.path, v)
                   return (
                     <label key={c.path} className="grid gap-1 text-sm">
                       <span className="font-medium">
@@ -411,7 +442,7 @@ export function SalaActa(props: Props) {
             </section>
           ) : null}
 
-          <section aria-labelledby="titulo-vista" className={concilia ? '' : 'lg:col-span-2'}>
+          <section aria-labelledby="titulo-vista" className={redacta ? '' : 'lg:col-span-2'}>
             <h2 id="titulo-vista" className="sr-only">
               Vista del acta
             </h2>
@@ -422,7 +453,11 @@ export function SalaActa(props: Props) {
             </div>
             {concilia ? (
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                {vista.faltan > 0 ? (
+                {borradorVivo.conexion === 'sin-conexion' || borradorVivo.pendientes > 0 ? (
+                  <p className="text-sm text-tinta-suave">
+                    Para cerrar y sellar se necesita conexión y que el borrador esté guardado en el servidor.
+                  </p>
+                ) : vista.faltan > 0 ? (
                   <p className="text-sm text-alerta">
                     Faltan {vista.faltan} {vista.faltan === 1 ? 'dato' : 'datos'} (resaltados): complétalos antes de cerrar.
                   </p>
@@ -443,7 +478,12 @@ export function SalaActa(props: Props) {
                 )}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-tinta-suave">El conciliador está preparando el acta.</p>
+              <div className="mt-4">
+                <p className="text-sm text-tinta-suave">
+                  {redacta ? 'Solo el conciliador cierra el acta.' : 'El conciliador está preparando el acta: ves sus cambios en vivo.'}
+                </p>
+                {redacta ? null : <EstadoSincronia estado={borradorVivo} />}
+              </div>
             )}
           </section>
         </div>
