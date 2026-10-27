@@ -40,7 +40,7 @@ export default function Privacidad() {
     <DocumentoLegal
       rotulo="Privacidad"
       titulo="Cómo cuidamos la información"
-      vigencia="Versión académica, vigente mientras el proyecto esté en construcción."
+      vigencia="Versión académica del proyecto."
       clausulas={CLAUSULAS}
     />
   )
