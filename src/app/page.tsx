@@ -1,4 +1,4 @@
-import { ArrowRight, Boxes, Lock, Sparkles, Users, WifiOff, Zap, type LucideIcon } from 'lucide-react'
+import { ArrowRight, Boxes, Lock, Radio, Sparkles, Stamp, Users, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { DespertarServicios } from '@/components/inicio/DespertarServicios'
 import { LineaDeTiempo } from '@/components/inicio/LineaDeTiempo'
@@ -15,32 +15,32 @@ type Pilar = { icono: LucideIcon; titulo: string; texto: string; tecnica: string
 
 const PILARES: Pilar[] = [
   {
-    icono: Zap,
-    titulo: 'Edición sin congelamientos',
-    texto:
-      'El audio y el cifrado se procesan en segundo plano dentro del navegador, para que navegar por las cláusulas y editar el borrador nunca se detenga.',
-    tecnica: 'Web Workers · AudioWorklet',
-  },
-  {
     icono: Lock,
     titulo: 'Cifrado en el navegador',
     texto:
-      'Borradores, anexos y audio se cifran en tu equipo antes de viajar a la nube, para proteger el secreto profesional.',
-    tecnica: 'WebCrypto · AES-GCM',
+      'Expedientes, audio, transcripciones y actas se cifran en tu equipo antes de viajar. Los servidores guardan y reenvían bytes que no pueden leer.',
+    tecnica: 'WebCrypto · AES-GCM · ECDH P-256',
   },
   {
-    icono: WifiOff,
-    titulo: 'Funciona sin conexión',
+    icono: Radio,
+    titulo: 'En vivo para todos',
     texto:
-      'Consulta expedientes, carga plantillas y redacta en salas con mala señal. Todo se sincroniza solo al volver la red.',
-    tecnica: 'Service Worker · IndexedDB',
+      'El conciliador, el asistente y las partes ven la transcripción y la revisión de la IA al mismo tiempo, cada uno descifrándola en su navegador.',
+    tecnica: 'gRPC server streaming · NDJSON',
+  },
+  {
+    icono: Stamp,
+    titulo: 'Acta sellada y verificable',
+    texto:
+      'El PDF final lleva un sello de integridad. Cualquiera puede comprobar en /verificar que no se cambió ni una letra, sin subir el archivo.',
+    tecnica: 'SHA-256 · firma CMS (RFC 5652)',
   },
   {
     icono: Users,
-    titulo: 'Revisión colaborativa',
+    titulo: 'Aceptación de las partes',
     texto:
-      'El conciliador, las partes y el asistente ven la misma minuta en tiempo real, sin peticiones duplicadas.',
-    tecnica: 'CRDT · WebSocket',
+      'Cada parte acepta exactamente el PDF que leyó, confirmando con un código nuevo de su app autenticadora. Con todas, el acta queda final.',
+    tecnica: 'TOTP (RFC 6238) · prueba de presencia',
   },
 ]
 
@@ -59,8 +59,8 @@ export default function Inicio() {
         >
           <div>
             <p className="entrada inline-flex items-center gap-2 rounded-full border border-linea bg-superficie/80 px-3 py-1 text-sm text-tinta-suave">
-              <span className="en-vivo size-2 rounded-full bg-alerta" aria-hidden="true" />
-              En construcción
+              <span className="size-2 rounded-full bg-exito" aria-hidden="true" />
+              Funcionando de punta a punta
             </p>
             <h1 id="titulo-portada" className="titular entrada mt-6 text-[2.6rem] sm:text-6xl" style={{ '--i': 1 }}>
               La minuta se escribe <em className="font-serif italic text-lacre">mientras</em> la audiencia ocurre.
@@ -110,7 +110,7 @@ export default function Inicio() {
         <section aria-labelledby="titulo-pilares" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <p className="folio text-lacre">El navegador trabaja</p>
           <h2 id="titulo-pilares" className="titular mt-3 text-4xl">
-            Lo que estamos construyendo
+            Lo que ya hace
           </h2>
           <ul className="mt-10 grid gap-5 sm:grid-cols-2">
             {PILARES.map(({ icono: Icono, titulo, texto, tecnica }) => (
@@ -142,9 +142,9 @@ export default function Inicio() {
               La IA propone; el abogado confirma
             </h3>
             <p className="mt-3 max-w-3xl leading-relaxed text-tinta-suave">
-              Transcribe la audiencia, distingue las intervenciones de cada hablante y extrae la identificación de las
-              partes, los montos acordados, las fechas límite de pago, los compromisos de entrega y las cláusulas
-              penales. Con eso autocompleta la plantilla legal elegida. El color violeta se reserva solo para lo que
+              Transcribe cada intervención con modelos locales y gratuitos, y extrae la identificación de las partes,
+              los montos acordados, las fechas límite de pago, los compromisos y las cláusulas penales. Una persona
+              confirma o corrige cada dato, y solo lo revisado autocompleta la plantilla legal elegida. El color violeta se reserva solo para lo que
               produce la IA, para que siempre sepas qué revisar.
             </p>
           </article>
