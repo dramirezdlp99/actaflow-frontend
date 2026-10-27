@@ -7,7 +7,11 @@ const cabecerasSeguridad = [
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  // COOP + COEP dejan la pagina en "crossOriginIsolated": sin eso el navegador no permite
+  // SharedArrayBuffer (la sala de audiencia y /rendimiento lo usan). Todo se sirve desde este sitio.
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+  { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+  { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
 ]
 
