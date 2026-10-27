@@ -33,6 +33,8 @@ export const PROPOSITO = {
   revision: 'reviewed-entities',
   actaFinal: 'minute-final',
   actaPdf: 'minute-pdf',
+  borrador: 'minute-draft',
+  borradorFoto: 'minute-draft-snapshot',
 } as const
 
 export const TIPO = {
@@ -43,6 +45,7 @@ export const TIPO = {
   claveContenido: 'actaflow.crypto.v1.ContentKey',
   actaFinal: 'actaflow.minutes.v1.FinalContent',
   actaPdf: 'application/pdf',
+  borrador: 'application/vnd.actaflow.minute-draft+json',
 } as const
 
 export type Proposito = (typeof PROPOSITO)[keyof typeof PROPOSITO]
@@ -233,4 +236,26 @@ export async function procesarComoMotor(
   const tipo =
     salida === PROPOSITO.transcripcion ? TIPO.transcripcion : salida === PROPOSITO.actaPdf ? TIPO.actaPdf : TIPO.entidades
   return cifrar(contenido, payload.keyId, procesar(datos), tipo, aad(salida, casoId, recursoId))
+}
+
+/** El borrador colaborativo del acta va cifrado con la clave del caso (el servidor solo lo ordena). */
+export async function cifrarBorrador(
+  claveCaso: CryptoKey,
+  idClaveCaso: string,
+  proposito: typeof PROPOSITO.borrador | typeof PROPOSITO.borradorFoto,
+  casoId: string,
+  recursoId: string,
+  datos: Uint8Array,
+): Promise<EncryptedBlob> {
+  return cifrar(claveCaso, idClaveCaso || 'caso', datos, TIPO.borrador, aad(proposito, casoId, recursoId))
+}
+
+export async function descifrarBorrador(
+  claveCaso: CryptoKey,
+  blob: EncryptedBlob,
+  proposito: typeof PROPOSITO.borrador | typeof PROPOSITO.borradorFoto,
+  casoId: string,
+  recursoId: string,
+): Promise<Uint8Array> {
+  return descifrar(claveCaso, blob, TIPO.borrador, aad(proposito, casoId, recursoId))
 }
