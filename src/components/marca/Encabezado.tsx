@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { BotonTema } from '@/components/tema/BotonTema'
 import { Logo } from './Logo'
 import { NavEnlace } from './NavEnlace'
@@ -17,6 +18,9 @@ export function Encabezado({ enSesion = false }: { enSesion?: boolean }) {
             <span className="hidden sm:contents">
               <NavEnlace href="/plantillas">Plantillas</NavEnlace>
             </span>
+            <span className="hidden md:contents">
+              <NavEnlace href="/verificar">Verificar</NavEnlace>
+            </span>
             {/* Con sesion, en telefonos manda lo de la cuenta; el estado sigue en el pie de pagina. */}
             <span className={enSesion ? 'hidden sm:contents' : 'contents'}>
               <NavEnlace href="/estado">
@@ -30,7 +34,12 @@ export function Encabezado({ enSesion = false }: { enSesion?: boolean }) {
                 <NavEnlace href="/panel">Mi panel</NavEnlace>
               </>
             ) : (
-              <NavEnlace href="/ingresar">Ingresar</NavEnlace>
+              <Link
+                href="/ingresar"
+                className="ml-1 rounded-full bg-institucional px-4 py-1.5 text-sm font-semibold text-sobre-institucional shadow-suave transition hover:brightness-110"
+              >
+                Ingresar
+              </Link>
             )}
           </nav>
           <BotonTema />
