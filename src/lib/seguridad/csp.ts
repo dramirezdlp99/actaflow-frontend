@@ -25,6 +25,8 @@ export function politicaSeguridad({
     `script-src 'self' 'nonce-${nonce}' 'sha256-${hashTema}' 'strict-dynamic'${desarrollo ? " 'unsafe-eval'" : ''}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob:",
+    // Web Workers y Service Worker propios (los chunks de Next salen de este mismo origen).
+    "worker-src 'self'",
     "font-src 'self'",
     `connect-src 'self'${desarrollo ? ' ws: wss:' : ''}`,
     "object-src 'none'",
