@@ -10,11 +10,11 @@ describe('portada (SSG)', () => {
     expect(dynamic).toBe('force-static')
   })
 
-  it('presenta el proyecto en construccion y enlaza al estado del sistema', () => {
+  it('presenta el proyecto funcionando y enlaza al estado del sistema', () => {
     render(<Inicio />)
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('La minuta se escribe mientras la audiencia ocurre')
-    expect(screen.getByText('En construcción')).toBeInTheDocument()
+    expect(screen.getByText(/Funcionando de punta a punta/)).toBeInTheDocument()
     const enlaces = screen.getAllByRole('link', { name: /estado del sistema/i })
     expect(enlaces.length).toBeGreaterThan(0)
     expect(enlaces.every((e) => e.getAttribute('href') === '/estado')).toBe(true)
@@ -24,13 +24,13 @@ describe('portada (SSG)', () => {
     render(<Inicio />)
 
     for (const titulo of [
-      'Edición sin congelamientos',
       'Cifrado en el navegador',
-      'Funciona sin conexión',
-      'Revisión colaborativa',
+      'En vivo para todos',
+      'Acta sellada y verificable',
+      'Aceptación de las partes',
       'La IA propone; el abogado confirma',
       'La IA extrae lo que importa',
-      'El abogado revisa y sella',
+      'Se sella y las partes aceptan',
     ]) {
       expect(screen.getByRole('heading', { name: titulo })).toBeInTheDocument()
     }
