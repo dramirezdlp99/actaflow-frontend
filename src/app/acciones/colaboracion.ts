@@ -2,16 +2,13 @@
 
 import { Code, ConnectError } from '@connectrpc/connect'
 import { z } from 'zod'
-import {
-  GetDocumentStateResponseSchema,
-  PushUpdatesRequestSchema,
-} from '@/gen/actaflow/collaboration/v1/collaboration_pb'
+import { PushUpdatesRequestSchema } from '@/gen/actaflow/collaboration/v1/collaboration_pb'
 import { falloActa } from '@/lib/actas/errores'
-import { aTexto, desdeTexto, UUID } from '@/lib/audiencias/protocolo'
+import { desdeTexto } from '@/lib/audiencias/protocolo'
 import { clientes, comoPersona, sesionActual } from '@/lib/sesion/sesion'
 
 /**
- * Server Actions del borrador colaborativo. Los cambios llegan ya cifrados con la clave del caso: el
+ * Server Action del borrador colaborativo (la lectura va por el route handler acta/borrador). Los cambios llegan ya cifrados con la clave del caso: el
  * BFF solo valida la forma (Zod y el esquema protobuf) y los reenvia a legal-case.
  */
 
@@ -34,21 +31,6 @@ async function conSesion<T>(trabajo: (como: ReturnType<typeof comoPersona>) => P
     const definitivo = error instanceof ConnectError && DEFINITIVOS.has(error.code)
     return { ...falloActa(error), definitivo } satisfies Fallo
   }
-}
-
-export async function traerBorrador(datos: { actaId: string; despues: number }) {
-  const entrada = z
-    .object({ actaId: z.string().regex(UUID), despues: z.number().int().min(0) })
-    .safeParse(datos)
-  if (!entrada.success) return malFormado
-  const { actaId, despues } = entrada.data
-  return conSesion<{ respuesta: string }>(async (como) => {
-    const r = await clientes().expedientes.colaboracion.getDocumentState(
-      { minuteId: actaId, afterSequence: BigInt(despues) },
-      como,
-    )
-    return { ok: true, respuesta: aTexto(GetDocumentStateResponseSchema, r) }
-  })
 }
 
 export async function enviarBorrador(datos: { peticion: string }) {
