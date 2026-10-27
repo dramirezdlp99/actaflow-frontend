@@ -29,3 +29,23 @@ describe('llenado del acta en un hilo aparte', () => {
     expect(r.tipo === 'armar' && r.faltan).toBe(2)
   })
 })
+
+describe('respaldo si el Worker no carga', () => {
+  it('lo pendiente y lo siguiente se atienden en el hilo principal', async () => {
+    let falla: (() => void) | null = null
+    const falso = {
+      onmessage: null,
+      set onerror(f: () => void) {
+        falla = f
+      },
+      postMessage() {},
+      terminate() {},
+    }
+    const c = new ClientePlantillas(() => falso as unknown as Worker)
+    const pendiente = c.pedir({ tipo: 'armar', fuente: FUENTE, valores: {} })
+    falla!()
+    expect((await pendiente).tipo).toBe('armar')
+    expect(c.enOtroHilo).toBe(false)
+    expect((await c.pedir({ tipo: 'analizar', fuente: FUENTE })).tipo).toBe('analizar')
+  })
+})
