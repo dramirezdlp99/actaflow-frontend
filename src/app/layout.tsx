@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import '@fontsource-variable/inter/opsz.css'
 import '@fontsource-variable/source-serif-4/opsz.css'
 import '@fontsource-variable/source-serif-4/opsz-italic.css'
+import { ServiceWorker } from '@/components/sinConexion/ServiceWorker'
 import { SCRIPT_TEMA_INICIAL } from '@/lib/tema/tema'
 import './globals.css'
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Saltar al contenido
         </a>
         {children}
+        <ServiceWorker />
       </body>
     </html>
   )
