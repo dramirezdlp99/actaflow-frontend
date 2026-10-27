@@ -25,8 +25,7 @@ import { valoresAutomaticos, valorManual, type PersonaActa } from '@/lib/actas/v
 import { abrirEntidades, type Contexto } from '@/lib/audiencias/navegador'
 import { aTexto, desdeTexto } from '@/lib/audiencias/protocolo'
 import { buffer, desdeBase64Url } from '@/lib/cripto/bytes'
-import { sanearHtml } from '@/lib/plantillas/saneo'
-import { analizar, html } from '@/lib/rpc/lenguajeSimulado'
+import { ClientePlantillas } from '@/lib/hilos/hiloPlantillas'
 
 type Props = {
   casoId: string
@@ -128,8 +127,31 @@ export function SalaActa(props: Props) {
     }
   }, [contexto, props.extraccion])
 
-  // ------------------------------------------------------------------ llenado (en el navegador)
-  const analisis = useMemo(() => (props.fuente ? analizar(props.fuente) : null), [props.fuente])
+  // ------------------------------------------------------------------ llenado (en un Web Worker)
+  // El analisis de la plantilla y el armado del acta corren en otro hilo: escribir en el formulario
+  // nunca espera a que el acta se vuelva a armar.
+  const [hilo] = useState(
+    () =>
+      new ClientePlantillas(
+        typeof Worker === 'undefined'
+          ? null
+          : () => new Worker(new URL('../../workers/plantillas.worker.ts', import.meta.url), { type: 'module' }),
+      ),
+  )
+  useEffect(() => () => hilo.cerrar(), [hilo])
+  const [campos, setCampos] = useState<TemplateVariable[]>([])
+  useEffect(() => {
+    if (!props.fuente) return
+    let vigente = true
+    void hilo.pedir({ tipo: 'analizar', fuente: props.fuente }).then((r) => {
+      if (!vigente) return
+      if (r.tipo === 'analizar') setCampos(r.variables.filter((v) => CAMPO[v.type] !== undefined))
+      else if (r.tipo === 'fallo') setError(r.mensaje)
+    })
+    return () => {
+      vigente = false
+    }
+  }, [hilo, props.fuente])
   const automaticos = useMemo(
     () =>
       valoresAutomaticos({
@@ -139,10 +161,6 @@ export function SalaActa(props: Props) {
         entidades,
       }),
     [props.radicado, personas, props.audienciaInicio, entidades],
-  )
-  const campos: TemplateVariable[] = useMemo(
-    () => (analisis?.variables ?? []).filter((v) => CAMPO[v.type] !== undefined),
-    [analisis],
   )
   const valores = useMemo(() => {
     const v: Record<string, TemplateValue> = { ...automaticos }
@@ -155,15 +173,26 @@ export function SalaActa(props: Props) {
     }
     return v
   }, [automaticos, campos, manual])
-  const vista = useMemo((): { html: string; faltan: number; fallo: string | null } => {
-    if (!analisis) return { html: '', faltan: 0, fallo: null }
-    try {
-      const salida = sanearHtml(html(analisis.nodos, valores))
-      return { html: salida, faltan: (salida.match(/class="falta"/g) ?? []).length, fallo: null }
-    } catch (e) {
-      return { html: '', faltan: 0, fallo: e instanceof Error ? e.message : 'No se pudo armar el acta.' }
+  const [vista, setVista] = useState<{ html: string; faltan: number; fallo: string | null; de: unknown }>({
+    html: '',
+    faltan: 0,
+    fallo: null,
+    de: null,
+  })
+  useEffect(() => {
+    if (!props.fuente) return
+    let vigente = true
+    void hilo.pedir({ tipo: 'armar', fuente: props.fuente, valores }).then((r) => {
+      if (!vigente) return
+      if (r.tipo === 'armar') setVista({ html: r.html, faltan: r.faltan, fallo: null, de: valores })
+      else if (r.tipo === 'fallo') setVista({ html: '', faltan: 0, fallo: r.mensaje, de: valores })
+    })
+    return () => {
+      vigente = false
     }
-  }, [analisis, valores])
+  }, [hilo, props.fuente, valores])
+  /** Mientras el Worker arma la version nueva, no se deja cerrar con la anterior. */
+  const armando = vista.de !== valores
 
   // ------------------------------------------------------------------ documento final
   useEffect(() => {
@@ -237,7 +266,7 @@ export function SalaActa(props: Props) {
   }
 
   async function cerrar() {
-    if (!contexto || !acta) return
+    if (!contexto || !acta || armando || vista.faltan > 0) return
     setOcupado('cerrar')
     setError(null)
     try {
@@ -399,7 +428,7 @@ export function SalaActa(props: Props) {
                   </p>
                 ) : confirmar ? (
                   <>
-                    <button type="button" className={PRIMARIO} disabled={ocupado !== null} onClick={cerrar}>
+                    <button type="button" className={PRIMARIO} disabled={ocupado !== null || armando} onClick={cerrar}>
                       {ocupado === 'cerrar' ? 'Sellando…' : 'Sí, cerrar y sellar'}
                     </button>
                     <button type="button" className={SECUNDARIO} onClick={() => setConfirmar(false)}>
