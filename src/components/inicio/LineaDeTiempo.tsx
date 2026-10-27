@@ -7,12 +7,12 @@ const PASOS: Paso[] = [
     icono: Mic,
     titulo: 'La audiencia se graba en el navegador',
     texto:
-      'El audio se captura y se prepara en segundo plano (AudioWorklet y Web Workers), cifrado en el equipo antes de salir.',
+      'El micrófono se procesa en la pestaña: cada intervención se corta en las pausas y se cifra en el equipo antes de salir.',
   },
   {
     icono: AudioLines,
     titulo: 'Se transcribe mientras se habla',
-    texto: 'El motor de IA recibe el audio por streaming gRPC y devuelve el texto, distinguiendo a cada hablante.',
+    texto: 'El motor de IA transcribe cada intervención por gRPC y todos la ven en vivo, con el nombre de quien habló.',
     ia: true,
   },
   {
@@ -24,12 +24,12 @@ const PASOS: Paso[] = [
   {
     icono: FileText,
     titulo: 'La plantilla se autocompleta',
-    texto: 'Lo extraído llena la plantilla legal elegida y la minuta se maqueta sola, lista para leer en la sala.',
+    texto: 'Lo revisado llena la plantilla legal elegida en el navegador y el motor genera el PDF del acta.',
   },
   {
     icono: FileCheck2,
-    titulo: 'El abogado revisa y sella',
-    texto: 'Nada se firma sin una persona: todo lo propuesto por la IA queda marcado en violeta hasta confirmarlo.',
+    titulo: 'Se sella y las partes aceptan',
+    texto: 'El PDF queda sellado y cada parte lo acepta con su código. Nada de la IA entra sin que una persona lo confirme.',
   },
 ]
 
