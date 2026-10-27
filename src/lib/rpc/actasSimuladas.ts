@@ -68,6 +68,11 @@ export async function esperarActasSimuladas(): Promise<void> {
 
 const fallo = (mensaje: string, codigo: Code) => new ConnectError(mensaje, codigo)
 
+/** El acta y quien pregunta (para el borrador colaborativo simulado). */
+export function actaSimulada(contexto: HandlerContext, id: string) {
+  return actaDe(contexto, id)
+}
+
 function actaDe(contexto: HandlerContext, id: string) {
   const acta = estado().actas.get(id)
   if (!acta) {
