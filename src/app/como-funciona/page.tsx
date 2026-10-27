@@ -26,13 +26,13 @@ const SERVICIOS: Nodo[] = [
     icono: KeyRound,
     nombre: 'identity-service',
     tecnologia: 'Java 21 · Spring Boot · gRPC',
-    detalle: 'Cuentas, sesiones, organizaciones y llaves públicas. Esquema identity.',
+    detalle: 'Cuentas, sesiones con TOTP, organizaciones, llaves públicas y pruebas de presencia. Esquema identity.',
   },
   {
     icono: Server,
     nombre: 'legal-case-service',
     tecnologia: 'Java 21 · Spring Boot · gRPC',
-    detalle: 'Casos, audiencias, plantillas, actas y la cola de trabajos. Esquema legal_case.',
+    detalle: 'Casos, audiencias, plantillas, actas, el sello del PDF y la cola de trabajos. Esquema legal_case.',
   },
 ]
 
@@ -68,12 +68,12 @@ const CADENA_TIPOS = [
 ]
 
 const PATRONES = [
-  { patron: 'SSG', rutas: '/, /como-funciona, /terminos, /privacidad', estado: 'Hecho' },
+  { patron: 'SSG', rutas: '/, /como-funciona, /verificar, /terminos, /privacidad', estado: 'Hecho' },
   { patron: 'SSR + streaming', rutas: '/estado', estado: 'Hecho' },
-  { patron: 'ISR', rutas: '/plantillas', estado: 'Próximamente' },
-  { patron: 'SSR', rutas: '/expedientes', estado: 'Próximamente' },
-  { patron: 'Streaming SSR', rutas: '/expedientes/[id]', estado: 'Próximamente' },
-  { patron: 'CSR', rutas: '/expedientes/[id]/audiencia, /sin-conexion', estado: 'Próximamente' },
+  { patron: 'ISR', rutas: '/plantillas, /plantillas/[slug]', estado: 'Hecho' },
+  { patron: 'SSR', rutas: '/expedientes, /panel', estado: 'Hecho' },
+  { patron: 'Streaming SSR', rutas: '/expedientes/[id]', estado: 'Hecho' },
+  { patron: 'CSR', rutas: '/expedientes/[id]/audiencia, /expedientes/[id]/acta', estado: 'Hecho' },
 ]
 
 function Caja({ icono: Icono, nombre, tecnologia, detalle, ia }: Nodo) {
@@ -171,7 +171,7 @@ export default function ComoFunciona() {
                 icono={Brain}
                 nombre="ai-engine"
                 tecnologia="Python 3.12 · FastAPI · grpcio"
-                detalle="Transcripción por streaming y extracción de entidades, con modelos locales y gratuitos."
+                detalle="Transcripción, extracción de entidades y PDF del acta, con modelos locales y gratuitos."
                 ia
               />
               <Caja
