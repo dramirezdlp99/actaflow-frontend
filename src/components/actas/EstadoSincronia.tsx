@@ -2,8 +2,12 @@ import { CloudCheck, CloudOff, RefreshCw, TriangleAlert } from 'lucide-react'
 import type { EstadoBorrador } from '@/lib/actas/borrador'
 
 /** Si el borrador esta guardado en el servidor, esperando la red o con un aviso. */
-export function EstadoSincronia({ estado }: { estado: Pick<EstadoBorrador, 'conexion' | 'pendientes' | 'aviso'> }) {
-  const { conexion, pendientes, aviso } = estado
+export function EstadoSincronia({
+  estado,
+}: {
+  estado: Pick<EstadoBorrador, 'conexion' | 'pendientes' | 'aviso'> & { pestanas?: number }
+}) {
+  const { conexion, pendientes, aviso, pestanas = 1 } = estado
   return (
     <div className="mt-3 grid gap-1 text-xs" aria-live="polite" data-sincronia={conexion}>
       {conexion === 'sin-conexion' ? (
@@ -19,6 +23,11 @@ export function EstadoSincronia({ estado }: { estado: Pick<EstadoBorrador, 'cone
       ) : (
         <p className="flex items-center gap-1.5 text-exito">
           <CloudCheck aria-hidden className="size-3.5" /> Borrador guardado y al día con los demás.
+          {pestanas > 1 ? (
+            <span className="text-tinta-suave" data-pestanas={pestanas}>
+              · {pestanas} pestañas, 1 consulta
+            </span>
+          ) : null}
         </p>
       )}
       {aviso ? (
