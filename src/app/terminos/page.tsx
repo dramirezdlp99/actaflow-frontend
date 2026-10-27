@@ -10,7 +10,7 @@ const CLAUSULAS: Clausula[] = [
   {
     titulo: 'Naturaleza del proyecto',
     parrafos: [
-      'ActaFlow es un proyecto académico de Ingeniería de Software en construcción. No es un servicio comercial ni ofrece asesoría jurídica.',
+      'ActaFlow es un proyecto académico de Ingeniería de Software. No es un servicio comercial ni ofrece asesoría jurídica.',
     ],
   },
   {
@@ -42,7 +42,7 @@ export default function Terminos() {
     <DocumentoLegal
       rotulo="Términos de uso"
       titulo="Condiciones para usar ActaFlow"
-      vigencia="Versión académica, vigente mientras el proyecto esté en construcción."
+      vigencia="Versión académica del proyecto."
       clausulas={CLAUSULAS}
     />
   )
