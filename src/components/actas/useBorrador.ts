@@ -1,7 +1,8 @@
 'use client'
 
+import { fromBinary } from '@bufbuild/protobuf'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { enviarBorrador, traerBorrador } from '@/app/acciones/colaboracion'
+import { enviarBorrador } from '@/app/acciones/colaboracion'
 import { GetDocumentStateResponseSchema } from '@/gen/actaflow/collaboration/v1/collaboration_pb'
 import { BandejaIndexada } from '@/lib/actas/bandejaIndexada'
 import {
@@ -14,21 +15,25 @@ import {
   type Transporte,
 } from '@/lib/actas/borrador'
 import { pedirSincronizacion } from '@/components/sinConexion/ServiceWorker'
-import { desdeTexto } from '@/lib/audiencias/protocolo'
 import { aBase64Url } from '@/lib/cripto/bytes'
+import { esErrorTraido, tiempoReal } from '@/lib/hilos/clienteTiempoReal'
 
-/** Cada cuanto se traen los cambios de los demas mientras la pestana esta a la vista. */
-export const INTERVALO_BORRADOR_MS = 3_000
-
-/** Las Server Actions como transporte: sin red lanzan SinConexion; un rechazo definitivo, Rechazado. */
-const transporte: Transporte = {
+/**
+ * Leer pasa por la central de tiempo real (Shared Worker): una consulta por navegador, compartida por
+ * todas las pestanas. Enviar va por Server Action. Sin red se lanza SinConexion; un rechazo
+ * definitivo, Rechazado.
+ */
+const transporte = (casoId: string): Transporte => ({
   async traer(actaId, despues) {
     if (!navigator.onLine) throw new SinConexion()
-    const r = await traerBorrador({ actaId, despues }).catch(() => {
-      throw new SinConexion()
-    })
-    if (!r.ok) throw r.definitivo ? new Rechazado(r.mensaje) : new Error(r.mensaje)
-    return desdeTexto(GetDocumentStateResponseSchema, r.respuesta)
+    try {
+      const bytes = await tiempoReal().traerBorrador(casoId, actaId, despues)
+      return fromBinary(GetDocumentStateResponseSchema, bytes)
+    } catch (e) {
+      if (!esErrorTraido(e)) throw e
+      if (e.sinConexion) throw new SinConexion()
+      throw e.definitivo ? new Rechazado(e.mensaje) : new Error(e.mensaje)
+    }
   },
   async enviar(peticion) {
     if (!navigator.onLine) throw new SinConexion()
@@ -38,7 +43,7 @@ const transporte: Transporte = {
     if (!r.ok) throw r.definitivo ? new Rechazado(r.mensaje) : new Error(r.mensaje)
     return r.secuencias
   },
-}
+})
 
 const VACIO: EstadoBorrador = { valores: {}, pendientes: 0, conexion: 'en-linea', aviso: null }
 
@@ -48,18 +53,23 @@ const VACIO: EstadoBorrador = { valores: {}, pendientes: 0, conexion: 'en-linea'
  */
 export function useBorrador(contexto: ContextoBorrador | null, activo: boolean) {
   const [estado, setEstado] = useState<EstadoBorrador>(VACIO)
+  const [pestanas, setPestanas] = useState(1)
   const sincronizador = useRef<SincronizadorBorrador | null>(null)
 
   useEffect(() => {
     if (!contexto || !activo) return
     const bandeja = typeof indexedDB === 'undefined' ? new BandejaEnMemoria() : new BandejaIndexada()
-    const s = new SincronizadorBorrador(contexto, transporte, bandeja, setEstado)
+    const s = new SincronizadorBorrador(contexto, transporte(contexto.casoId), bandeja, setEstado)
     sincronizador.current = s
     void s.iniciar()
     const ponerseAlDia = () => {
       if (document.visibilityState === 'visible') void s.sincronizar()
     }
-    const temporizador = setInterval(ponerseAlDia, INTERVALO_BORRADOR_MS)
+    // La central consulta cada 3 s (una vez por navegador) y avisa cuando hay cambios de otros.
+    const dejar = tiempoReal().seguirBorrador(contexto.casoId, contexto.actaId, (pestanas) => {
+      setPestanas(pestanas)
+      void s.sincronizar()
+    })
     // Al volver la red (o cuando el Service Worker avisa), la bandeja de salida se envia sola.
     const alVolver = () => void s.sincronizar()
     const delServiceWorker = (e: MessageEvent) => {
@@ -69,7 +79,7 @@ export function useBorrador(contexto: ContextoBorrador | null, activo: boolean) 
     document.addEventListener('visibilitychange', ponerseAlDia)
     navigator.serviceWorker?.addEventListener('message', delServiceWorker)
     return () => {
-      clearInterval(temporizador)
+      dejar()
       window.removeEventListener('online', alVolver)
       document.removeEventListener('visibilitychange', ponerseAlDia)
       navigator.serviceWorker?.removeEventListener('message', delServiceWorker)
@@ -83,5 +93,5 @@ export function useBorrador(contexto: ContextoBorrador | null, activo: boolean) 
     if (!navigator.onLine) pedirSincronizacion()
   }, [])
 
-  return { ...estado, cambiar }
+  return { ...estado, cambiar, pestanas }
 }
