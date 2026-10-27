@@ -8,6 +8,7 @@ const GRUPOS = [
       { href: '/como-funciona', texto: 'Cómo funciona' },
       { href: '/plantillas', texto: 'Plantillas' },
       { href: '/verificar', texto: 'Verificar un acta' },
+      { href: '/rendimiento', texto: 'Rendimiento: Event Loop e INP' },
       { href: '/estado', texto: 'Estado del sistema' },
     ],
   },
