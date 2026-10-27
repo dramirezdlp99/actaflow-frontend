@@ -1,13 +1,23 @@
 import Link from 'next/link'
 import { Isotipo } from './Logo'
 
-const ENLACES = [
-  { href: '/como-funciona', texto: 'Cómo funciona' },
-  { href: '/plantillas', texto: 'Plantillas' },
-  { href: '/verificar', texto: 'Verificar un acta' },
-  { href: '/estado', texto: 'Estado del sistema' },
-  { href: '/terminos', texto: 'Términos de uso' },
-  { href: '/privacidad', texto: 'Privacidad' },
+const GRUPOS = [
+  {
+    titulo: 'Explorar',
+    enlaces: [
+      { href: '/como-funciona', texto: 'Cómo funciona' },
+      { href: '/plantillas', texto: 'Plantillas' },
+      { href: '/verificar', texto: 'Verificar un acta' },
+      { href: '/estado', texto: 'Estado del sistema' },
+    ],
+  },
+  {
+    titulo: 'Legal',
+    enlaces: [
+      { href: '/terminos', texto: 'Términos de uso' },
+      { href: '/privacidad', texto: 'Privacidad' },
+    ],
+  },
 ]
 
 export function PiePagina() {
@@ -20,21 +30,25 @@ export function PiePagina() {
             <span className="font-serif text-lg font-semibold">ActaFlow</span>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-tinta-suave">
-            Minutas de audiencias de conciliación y mediación, redactadas mientras la audiencia ocurre. Proyecto
-            académico de Ingeniería de Software, en construcción.
+            Actas de audiencias de conciliación y mediación: de la audiencia grabada al PDF sellado y aceptado por las
+            partes. Proyecto académico de Ingeniería de Software.
           </p>
         </div>
-        <nav aria-label="Pie de página">
-          <p className="folio text-tinta-suave">Explorar</p>
-          <ul className="mt-4 grid gap-2.5 text-sm">
-            {ENLACES.map(({ href, texto }) => (
-              <li key={href}>
-                <Link href={href} className="text-tinta underline-offset-4 hover:text-institucional hover:underline">
-                  {texto}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <nav aria-label="Pie de página" className="grid grid-cols-2 gap-8">
+          {GRUPOS.map(({ titulo, enlaces }) => (
+            <div key={titulo}>
+              <p className="folio text-tinta-suave">{titulo}</p>
+              <ul className="mt-4 grid gap-2.5 text-sm">
+                {enlaces.map(({ href, texto }) => (
+                  <li key={href}>
+                    <Link href={href} className="text-tinta underline-offset-4 hover:text-institucional hover:underline">
+                      {texto}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </nav>
       </div>
       <div className="border-t border-linea/70">
