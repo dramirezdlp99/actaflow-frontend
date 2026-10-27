@@ -68,7 +68,7 @@ const CADENA_TIPOS = [
 ]
 
 const PATRONES = [
-  { patron: 'SSG', rutas: '/, /como-funciona, /verificar, /terminos, /privacidad', estado: 'Hecho' },
+  { patron: 'SSG', rutas: '/, /como-funciona, /verificar, /rendimiento, /sin-conexion, /terminos, /privacidad', estado: 'Hecho' },
   { patron: 'SSR + streaming', rutas: '/estado', estado: 'Hecho' },
   { patron: 'ISR', rutas: '/plantillas, /plantillas/[slug]', estado: 'Hecho' },
   { patron: 'SSR', rutas: '/expedientes, /panel', estado: 'Hecho' },
