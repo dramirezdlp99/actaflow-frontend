@@ -29,6 +29,59 @@ modo sin conexión y el acta sellada y verificable.
 
 ---
 
+<!-- cuentas-demo:inicio -->
+## 🧪 Cuentas de prueba (para el profesor)
+
+ActaFlow ya tiene **datos de demostración**: 11 personas ficticias y 12 expedientes en todos los estados, con
+audiencias grabadas y transcritas por el motor de IA, entidades revisadas y actas en borrador, esperando aceptación y
+finales. Todo se creó **usando la propia app** (nada se insertó a mano en la base de datos), así que está cifrado igual
+que lo estaría con personas reales. Ninguna contraseña está escrita en el código: estas dos cuentas existen solo en
+producción y se crearon con el registro normal.
+
+| | 👨‍⚖️ Conciliador | 🙋 Parte |
+|---|---|---|
+| **Correo** | `profesor@actaflow.test` | `parte@actaflow.test` |
+| **Contraseña** | `demo-UMX0-jAxl-kmVT-VA` | `demo-OlPq-yWIE-yPsi-8A` |
+| **Clave para la app autenticadora** | `UFHY JMUU RGSJ N3N6 APM4 G6FW DD55 J4JU` | `YCXJ TVMN 2RUB RMPW JVPH WEIR T3K7 U6PE` |
+| **QR para la app autenticadora** | <img src="docs/cuentas-demo/profesor-totp.png" width="160" alt="QR de la cuenta del conciliador"> | <img src="docs/cuentas-demo/parte-totp.png" width="160" alt="QR de la cuenta de la parte"> |
+| **Qué ve** | Los 12 expedientes como conciliador: crea, invita, graba, revisa, cierra y sella | Los 4 expedientes donde es parte: lee en vivo y acepta actas |
+
+### 📱 Cómo entrar (con el segundo factor)
+
+ActaFlow exige **siempre** un segundo factor: además de la contraseña, un código de 6 dígitos que cambia cada 30
+segundos. Se configura una sola vez por cuenta:
+
+1. Instala en el celular una app autenticadora gratuita: **Google Authenticator** o **Microsoft Authenticator**
+   (Android o iPhone).
+2. En la app toca **+** → **Escanear un código QR** y escanea el QR de la cuenta. Si prefieres escribirlo, elige
+   **Ingresar una clave de configuración**, pon de nombre *ActaFlow* y copia la clave de la tabla (los espacios no
+   importan; tipo: *basada en el tiempo*).
+3. Entra a [actaflow-frontend.vercel.app/ingresar](https://actaflow-frontend.vercel.app/ingresar), escribe el correo y
+   la contraseña y pulsa **Continuar**.
+4. Escribe el código que muestra la app en ese momento y pulsa **Entrar**.
+
+> **Si el código es rechazado:** cada código sirve **una sola vez** (así nadie puede reutilizar uno que vio). Espera a
+> que la app muestre el siguiente y vuelve a intentar. Revisa también que la hora del celular esté en automático.
+>
+> **Primera carga lenta:** los servicios corren en el plan gratuito de Render y se duermen sin uso. La primera
+> petición puede tardar hasta un minuto en despertarlos; después todo va rápido.
+
+### 🧭 Qué probar con estas cuentas
+
+| Expediente | Estado | Qué mostrar |
+|---|---|---|
+| **CC-2026-1001** · Canon atrasado del local comercial | Acuerdo · acta **final** | Sala con la audiencia transcrita, entidades revisadas, acta aceptada por las dos partes, descarga del PDF y comprobación en [/verificar](https://actaflow-frontend.vercel.app/verificar) |
+| **MD-2026-2001** · Filtración entre apartamentos | Acuerdo · acta **esperando aceptación** | Entra como **Parte** y acepta el acta con el código de tu app: el conciliador ve el cambio a *Final* sin recargar |
+| **CC-2026-1002** · Devolución del depósito | Sin acuerdo · constancia en **borrador** | Como **Conciliador**, abre el acta en dos pestañas y edita: el borrador colaborativo se sincroniza; luego ciérrala y séllala |
+| **CC-2026-1008** · Honorarios no pagados | Abierto | Una persona quedó **esperando la clave del caso**: entrégasela con *Entregar clave* (cifrado de punta a punta) |
+| **CC-2026-1005** · Servidumbre de paso | En audiencia | Entra a la *Sala de audiencia*: puedes grabar con tu micrófono y ver la transcripción en vivo |
+| Los demás | Abierto, sin acuerdo, archivado | Filtros de la lista de expedientes, historial y personas de cada caso |
+
+Las cuentas de prueba son de **demostración**: solo ven estos expedientes ficticios y no administran el centro.
+<!-- cuentas-demo:fin -->
+
+---
+
 ## 📑 Contenido
 
 1. [El caso de estudio y cómo se cumple](#-el-caso-de-estudio-y-cómo-se-cumple)
